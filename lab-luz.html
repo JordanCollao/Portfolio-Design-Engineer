@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Luz App · Jordan Collao</title>
+<meta name="description" content="A private utility-bill splitter that delivers breakdowns via WhatsApp." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0A0A0A;
+    --surface: #0F0F10;
+    --surface-2: #141417;
+    --surface-3: #1A1A1F;
+    --text: #F5F5F4;
+    --text-2: #B8B8B5;
+    --text-3: #888885;
+    --text-4: #555552;
+    --border: #1F1F22;
+    --border-mid: #28282C;
+    --border-strong: #34343A;
+    --border-stronger: #44444A;
+    --accent: #6EE787;
+    --accent-fg: #0A0A0A;
+    --accent-dim: rgba(110, 231, 135, 0.18);
+    --display: 'Geist', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+    --gutter: clamp(28px, 4vw, 40px);
+    --max-w: 1280px;
+    --max-w-narrow: 760px;
+    --radius: 8px;
+    --radius-sm: 4px;
+    --radius-pill: 999px;
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+    --dur-fast: 200ms;
+    --dur-base: 350ms;
+    --dur-slow: 600ms;
+  }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body { background: var(--bg); color: var(--text); font-family: var(--display); font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased; min-height: 100vh; overflow-x: hidden; }
+  a { color: inherit; text-decoration: none; cursor: pointer; }
+  ::selection { background: var(--accent); color: var(--accent-fg); }
+
+  .container { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--gutter); }
+  .container-narrow { max-width: var(--max-w-narrow); margin: 0 auto; padding: 0 var(--gutter); }
+
+  /* HEADER */
+  .header { position: sticky; top: 0; z-index: 100; background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .header-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .avatar { width: 40px; height: 40px; border-radius: 50%; overflow: hidden; background: var(--surface-2); border: 1px solid var(--border-mid); flex-shrink: 0; }
+  .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .brand-text { display: flex; flex-direction: column; gap: 2px; }
+  .brand-name { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--text); line-height: 1; }
+  .brand-role { font-family: var(--mono); font-size: 10px; color: var(--text-4); }
+  .nav { display: flex; gap: 28px; align-items: center; }
+  .nav-link { font-family: var(--mono); font-size: 12px; color: var(--text-2); transition: color var(--dur-fast) var(--ease-out); padding: 4px 0; }
+  .nav-link:hover { color: var(--text); }
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    background: var(--accent);
+    color: var(--accent-fg);
+    border-radius: var(--radius-pill);
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 500;
+    transition: opacity var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+  .nav-cta svg { width: 14px; height: 14px; flex-shrink: 0; }
+  .nav-cta-label { display: inline; }
+  @media (max-width: 640px) {
+    .nav { gap: 14px; }
+    .brand-role { display: none; }
+    .nav-link { display: none; }
+    .avatar { width: 34px; height: 34px; }
+    .nav-cta { padding: 7px 12px; font-size: 11px; gap: 6px; }
+    .nav-cta svg { width: 13px; height: 13px; }
+  }
+  @media (max-width: 420px) {
+    .nav-cta { padding: 6px 10px; font-size: 10.5px; gap: 5px; }
+    .nav-cta svg { width: 12px; height: 12px; }
+  }
+
+  /* BACK LINK */
+  .case-back {
+    padding: 32px 0 0;
+  }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-3);
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+  .back-link:hover { color: var(--accent); }
+  .back-link-arrow { transition: transform var(--dur-fast) var(--ease-out); }
+  .back-link:hover .back-link-arrow { transform: translateX(-3px); }
+
+  /* CASE HERO */
+  .case-hero {
+    padding: clamp(48px, 7vw, 88px) 0 clamp(32px, 5vw, 56px);
+  }
+  .case-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-3);
+  }
+  .case-meta-tag {
+    padding: 5px 11px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-pill);
+    color: var(--text-2);
+  }
+  .case-meta-active {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 11px;
+    border: 1px solid var(--accent);
+    border-radius: var(--radius-pill);
+    color: var(--accent);
+  }
+  .case-meta-active::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse-active 2s ease-in-out infinite;
+  }
+  @keyframes pulse-active {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+
+  .case-title {
+    font-size: clamp(40px, 7vw, 88px);
+    font-weight: 650;
+    line-height: 0.96;
+    letter-spacing: -0.04em;
+    margin-bottom: 24px;
+    max-width: 18ch;
+  }
+  .case-subtitle {
+    font-size: clamp(18px, 1.8vw, 22px);
+    line-height: 1.5;
+    color: var(--text-2);
+    max-width: 60ch;
+    margin-bottom: 40px;
+  }
+
+  /* CASE ACTIONS — live + github buttons (visibility controlled by data-has-* attrs) */
+  .case-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .btn-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 20px;
+    border-radius: var(--radius);
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    transition: all var(--dur-fast) var(--ease-out);
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .btn-live {
+    background: var(--accent);
+    color: var(--accent-fg);
+    border: 1px solid var(--accent);
+  }
+  .btn-live:hover { opacity: 0.88; transform: translateY(-1px); }
+  .btn-github {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border-stronger);
+  }
+  .btn-github:hover { border-color: var(--text-3); transform: translateY(-1px); }
+  .btn-action svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+  /* CONDITIONAL VISIBILITY based on data-has-* attributes */
+  body:not([data-has-live="true"]) .btn-live { display: none; }
+  body:not([data-has-github="true"]) .btn-github { display: none; }
+  /* If neither button is visible, hide entire actions row */
+  body:not([data-has-live="true"]):not([data-has-github="true"]) .case-actions { display: none; }
+
+  /* CASE BODY — narrow text columns */
+  .case-body {
+    padding: clamp(40px, 6vw, 80px) 0;
+  }
+  .case-section {
+    margin-bottom: clamp(48px, 6vw, 80px);
+  }
+  .case-section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-4);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 16px;
+  }
+  .case-section-title {
+    font-size: clamp(28px, 3.6vw, 44px);
+    font-weight: 650;
+    letter-spacing: -0.03em;
+    margin-bottom: 24px;
+  }
+  .case-section-title em {
+    color: var(--accent);
+    font-style: italic;
+    font-weight: 500;
+  }
+  .case-section p {
+    font-size: clamp(16px, 1.5vw, 18px);
+    line-height: 1.65;
+    color: var(--text);
+    margin-bottom: 18px;
+    max-width: 64ch;
+  }
+  .case-section p + p { margin-top: 0; }
+  .case-section strong { color: var(--text); font-weight: 600; }
+
+  /* META GRID — bottom of case (stack, role, etc.) */
+  .case-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 24px;
+    padding: 32px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin-top: 32px;
+  }
+  .case-meta-block {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .case-meta-key {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-4);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+  .case-meta-value {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text);
+  }
+
+  /* CASE NAV — prev / next + back to portfolio */
+  .case-nav {
+    padding: clamp(48px, 6vw, 80px) 0;
+    border-top: 1px solid var(--border);
+  }
+  .case-nav-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 24px;
+    align-items: center;
+  }
+  @media (max-width: 768px) {
+    .case-nav-grid { grid-template-columns: 1fr; }
+  }
+  .case-nav-link {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 16px 0;
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+  .case-nav-link:hover { color: var(--accent); }
+  .case-nav-key {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-4);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+  .case-nav-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-2);
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+  .case-nav-link:hover .case-nav-title { color: var(--text); }
+  .case-nav-link.next { text-align: right; align-items: flex-end; }
+  .case-nav-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 20px;
+    border: 1px solid var(--border-stronger);
+    border-radius: var(--radius);
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text);
+    justify-self: center;
+    transition: border-color var(--dur-fast) var(--ease-out);
+  }
+  .case-nav-back:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* GALLERY PLACEHOLDER */
+  .case-gallery {
+    margin: clamp(40px, 6vw, 80px) 0;
+  }
+  .gallery-placeholder {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: var(--surface-2);
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    background-size: 20px 20px;
+    border: 1px solid var(--border-mid);
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px; position: relative; overflow: hidden; }
+  /* Image overlay (when real image is set, hide placeholder content) */
+  .gallery-placeholder img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: inherit;
+    z-index: 2;
+  }
+  .gallery-placeholder.has-image {
+    background-image: none !important;
+  }
+  .gallery-placeholder.has-image > *:not(img) {
+    display: none;
+  }
+
+  .gallery-placeholder-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-4);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .gallery-caption {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-3);
+    text-align: center;
+  }
+
+
+  /* YOUTUBE EMBED RESPONSIVE 16:9 */
+  .video-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--surface-2);
+    border: 1px solid var(--border-mid);
+  }
+  .video-wrapper iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  /* WEBFLOW GALLERY LINK */
+  .gallery-webflow-link { display: block; transition: transform var(--dur-base) var(--ease-out); }
+  .gallery-webflow-link:hover { transform: translateY(-2px); }
+  .gallery-webflow-link:hover .gallery-placeholder { border-color: var(--accent); }
+  .gallery-webflow-link:hover .gallery-cta { color: var(--accent); }
+  .gallery-webflow-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(110, 231, 135, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .gallery-webflow-icon svg { width: 22px; height: 22px; }
+  .case-gallery .gallery-placeholder { flex-direction: column; gap: 8px; padding: 32px; transition: border-color var(--dur-base) var(--ease-out); }
+  .gallery-cta {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-2);
+    transition: color var(--dur-base) var(--ease-out);
+    margin-top: 8px;
+  }
+  /* FOOTER */
+  .footer { padding: clamp(48px, 6vw, 80px) 0 clamp(32px, 4vw, 48px); border-top: 1px solid var(--border); }
+  .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+  .footer-text { font-family: var(--mono); font-size: 11px; color: var(--text-4); }
+  .footer-links { display: flex; gap: 20px; }
+  .footer-link { font-family: var(--mono); font-size: 11px; color: var(--text-3); transition: color var(--dur-fast) var(--ease-out); }
+  .footer-link:hover { color: var(--accent); }
+
+  /* PAGE TRANSITION CURTAIN */
+  .curtain {
+    position: fixed;
+    inset: 0;
+    background: var(--accent);
+    z-index: 9998;
+    transform: translateY(100%);
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .curtain.active { pointer-events: auto; }
+  .curtain.entering { transform: translateY(0); transition: transform 600ms cubic-bezier(0.76, 0, 0.24, 1); }
+  .curtain.exiting { transform: translateY(-100%); transition: transform 600ms cubic-bezier(0.76, 0, 0.24, 1); }
+  /* Inner mark — single central dot */
+  .curtain-mark {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 200ms ease-out 200ms;
+  }
+  .curtain.entering .curtain-mark { opacity: 1; }
+  .curtain.exiting .curtain-mark { opacity: 0; transition: opacity 150ms ease-out; }
+  .curtain-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent-fg);
+    animation: curtain-dot-pulse 1.2s ease-in-out infinite;
+  }
+  @keyframes curtain-dot-pulse {
+    0%, 100% { opacity: 0.3; transform: scale(0.8); }
+    50%      { opacity: 1;   transform: scale(1.2); }
+  }
+  @keyframes curtain-drift-l { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes curtain-drift-r { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+  @media (prefers-reduced-motion: reduce) {
+    .curtain.entering, .curtain.exiting { transition: transform 200ms linear; }
+    }
+</style>
+</head>
+<body data-has-live="true" data-has-github="true" data-live-url="https://jordancollao.github.io/luz-app/" data-github-url="https://github.com/JordanCollao/luz-app">
+
+<header class="header">
+  <div class="container">
+    <div class="header-inner">
+      <a class="brand" href="./index.html" aria-label="Home">
+        <div class="avatar"><img src="./assets/jordan-avatar.jpg" alt="" /></div>
+        <div class="brand-text">
+          <span class="brand-name">jordan collao</span>
+          <span class="brand-role">design engineer · motion designer</span>
+        </div>
+      </a>
+      <nav class="nav" role="navigation" aria-label="Main">
+        <a class="nav-link" href="./index.html#portfolio">portfolio</a>
+        <a class="nav-link" href="./index.html#lab">lab</a>
+        <a class="nav-link" href="./index.html#about">about</a>
+        <a class="nav-link" href="./index.html#experience">experience</a>
+        <a class="nav-link" href="./index.html#contact">contact</a>
+        <a class="nav-cta" href="https://wa.me/51960280858" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" /></svg>
+          <span class="nav-cta-label">let's talk</span>
+        </a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <div class="case-back container">
+    <a class="back-link" href="./index.html#lab">
+      <span class="back-link-arrow">←</span> back to lab
+    </a>
+  </div>
+
+  <!-- HERO -->
+  <section class="case-hero">
+    <div class="container">
+      <div class="case-meta">
+        <span class="case-meta-tag" id="meta-year">v0.1</span>
+        <span class="case-meta-tag" id="meta-role">tool · private</span>
+        <span class="case-meta-tag" id="meta-country">lima, perú</span>
+        <!-- Active indicator: only shown if class is added by data attribute -->
+      </div>
+
+      <h1 class="case-title" id="case-title">Luz App</h1>
+      <p class="case-subtitle" id="case-subtitle">Splits utility bills by department consumption and sends each tenant their breakdown via WhatsApp. Private tool, built for family.</p>
+
+      <div class="case-actions">
+        <a class="btn-action btn-live" href="" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          try it live
+        </a>
+        <a class="btn-action btn-github" href="" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.4 3-.405 1.02.005 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          view github
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- BODY -->
+  <section class="case-body">
+    <div class="container-narrow">
+
+      <div class="case-section">
+        <span class="case-section-label">/what it does</span>
+        <h2 class="case-section-title">The problem</h2>
+        <p>Family-owned property in Lima with multiple tenants sharing a single utility meter. <strong>Every month someone had to manually calculate each tenant's share</strong>, write up the breakdown, and send it on WhatsApp. The math wasn't hard — splitting based on usage, common-area allocation — but the repetition was tedious and prone to errors.</p>
+      </div>
+
+      <div class="case-section">
+        <span class="case-section-label">/how it works</span>
+        <h2 class="case-section-title">How it works</h2>
+        <p>I built a small private app that takes the monthly meter reading and per-tenant consumption, calculates each share with the agreed allocation rules, generates a clear breakdown for each tenant, and <strong>sends each one their bill via WhatsApp directly</strong>.</p>
+        <p>The interface is intentionally minimal — three inputs, one button, done. The output is a formatted message ready to send. The tool runs locally; no tenant data leaves the family's machine.</p>
+      </div>
+
+      <div class="case-gallery">
+        <div class="gallery-placeholder">
+          <span class="gallery-placeholder-label">tool screenshot · interface preview</span>
+        </div>
+        <p class="gallery-caption">— screenshot to be added —</p>
+      </div>
+
+      <div class="case-section">
+        <span class="case-section-label">/status</span>
+        <h2 class="case-section-title">Where it is now</h2>
+        <p>The tool is in active use by family. Monthly bill day went from 30 minutes of math and copy-paste to under 2 minutes. Most importantly: zero errors since deployment.</p>
+      </div>
+
+      <div class="case-meta-grid">
+        <div class="case-meta-block">
+          <span class="case-meta-key">role</span>
+          <span class="case-meta-value" id="grid-role">Solo author</span>
+        </div>
+        <div class="case-meta-block">
+          <span class="case-meta-key">period</span>
+          <span class="case-meta-value" id="grid-period">2024</span>
+        </div>
+        <div class="case-meta-block">
+          <span class="case-meta-key">stack</span>
+          <span class="case-meta-value" id="grid-stack">HTML · JS · WhatsApp share API</span>
+        </div>
+        <div class="case-meta-block">
+          <span class="case-meta-key">team</span>
+          <span class="case-meta-value" id="grid-team">Family stakeholders</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CASE NAV (prev / portfolio / next) -->
+  <nav class="case-nav" aria-label="Case navigation">
+    <div class="container">
+      <div class="case-nav-grid">
+        <a class="case-nav-link prev" href="./lab-image-compressor.html" id="nav-prev">
+          <span class="case-nav-key">← previous</span>
+          <span class="case-nav-title">Image Compressor</span>
+        </a>
+        <a class="case-nav-back" href="./index.html#lab">
+          all experiments
+        </a>
+        <a class="case-nav-link next" href="./lab-audio-extractor.html" id="nav-next">
+          <span class="case-nav-key">next →</span>
+          <span class="case-nav-title">Audio Extractor</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <span class="footer-text">jordan collao · 2026</span>
+      <div class="footer-links">
+        <a class="footer-link" href="./index.html#portfolio">portfolio</a>
+        <a class="footer-link" href="./index.html#contact">contact</a>
+        <a class="footer-link" href="https://www.linkedin.com/in/jordancollao/" target="_blank" rel="noopener">linkedin</a>
+        <a class="footer-link" href="https://wa.me/51960280858" target="_blank" rel="noopener">whatsapp</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Curtain transition overlay -->
+<div class="curtain" id="curtain" aria-hidden="true">
+  <div class="curtain-mark">
+    <span class="curtain-dot"></span>
+  </div>
+</div>
+</div>
+
+<script>
+  // ============================================================
+  // BIND data-* attributes to button hrefs
+  // ============================================================
+  (function() {
+    const body = document.body;
+    const liveUrl = body.getAttribute('data-live-url');
+    const githubUrl = body.getAttribute('data-github-url');
+    const liveBtn = document.querySelector('.btn-live');
+    const githubBtn = document.querySelector('.btn-github');
+    if (liveBtn && liveUrl) liveBtn.setAttribute('href', liveUrl);
+    if (githubBtn && githubUrl) githubBtn.setAttribute('href', githubUrl);
+  })();
+
+  // ============================================================
+  // PAGE TRANSITION CURTAIN (matches index.html)
+  // ============================================================
+  (function() {
+    const curtain = document.getElementById('curtain');
+    if (!curtain) return;
+
+    // If we just came from a curtain transition (sessionStorage flag), play exit animation
+    if (sessionStorage.getItem('curtain-transition') === '1') {
+      sessionStorage.removeItem('curtain-transition');
+      curtain.classList.add('active', 'entering');
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            curtain.classList.remove('entering');
+            curtain.classList.add('exiting');
+            setTimeout(() => {
+              curtain.classList.remove('active', 'exiting');
+              curtain.style.transform = '';
+            }, 600);
+          }, 300);
+        });
+      });
+    }
+
+    // Intercept internal link clicks to play entry animation
+    document.addEventListener('click', (e) => {
+      const link = e.target.closest('a');
+      if (!link) return;
+      const href = link.getAttribute('href');
+      if (!href) return;
+      if (link.target === '_blank') return;
+      if (href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('https://wa.me/')) return;
+      if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+      // Only intercept same-origin internal links
+      if (!href.endsWith('.html') && !href.includes('.html#')) return;
+
+      e.preventDefault();
+      sessionStorage.setItem('curtain-transition', '1');
+      curtain.classList.add('active', 'entering');
+
+      setTimeout(() => {
+        window.location.href = href;
+      }, 600);
+    });
+  })();
+</script>
+
+</body>
+</html>

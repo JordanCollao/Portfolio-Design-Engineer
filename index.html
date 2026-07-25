@@ -1,0 +1,2688 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jordan Collao — Design Engineer &amp; Motion Designer</title>
+<meta name="description" content="Jordan Collao is a Design Engineer &amp; Motion Designer from Perú. Building interfaces that feel alive — motion systems, design systems, AI-first design and interaction.">
+<meta property="og:title" content="Jordan Collao — Design Engineer &amp; Motion Designer">
+<meta property="og:description" content="Building interfaces that feel alive. Motion systems, design systems, and AI-first design.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A0A0A;
+    --surface: #141414;
+    --surface-2: #1C1C1C;
+    --surface-3: #242424;
+    --border: rgba(255, 255, 255, 0.06);
+    --border-mid: rgba(255, 255, 255, 0.08);
+    --border-strong: rgba(255, 255, 255, 0.12);
+    --border-stronger: rgba(255, 255, 255, 0.18);
+    --text: #F5F5F5;
+    --text-2: #A8A8A8;
+    --text-3: #666666;
+    --text-4: #555555;
+    --accent: #6EE787;
+    --accent-soft: rgba(110, 231, 135, 0.1);
+    --accent-fg: #0A0A0A;
+    --radius-sm: 4px;
+    --radius: 6px;
+    --radius-lg: 8px;
+    --radius-pill: 100px;
+    --sans: 'Geist', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    --max-w: 1280px;
+    --gutter: clamp(28px, 4vw, 40px);
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+    --dur-fast: 150ms;
+    --dur-base: 250ms;
+    --dur-slow: 400ms;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 16px; line-height: 1.5; overflow-x: hidden; min-height: 100vh; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+  img, video { max-width: 100%; height: auto; display: block; }
+  ::selection { background: var(--accent); color: var(--accent-fg); }
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--surface-3); border-radius: 5px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--border-stronger); }
+
+  .skip-link { position: absolute; left: -9999px; top: 8px; background: var(--accent); color: var(--accent-fg); padding: 8px 12px; border-radius: var(--radius); font-family: var(--mono); font-size: 12px; z-index: 1000; }
+  .skip-link:focus { left: 8px; }
+
+  .mono { font-family: var(--mono); }
+  .container { max-width: var(--max-w); margin: 0 auto; padding-left: var(--gutter); padding-right: var(--gutter); width: 100%; }
+  .accent { color: var(--accent); }
+  .muted { color: var(--text-2); }
+  .dim { color: var(--text-3); }
+  .fade { color: var(--text-4); }
+
+  .section-label { font-family: var(--mono); font-size: 12px; color: var(--text-4); text-transform: uppercase; letter-spacing: 0.12em; }
+
+  /* HEADER */
+  .header { position: sticky; top: 0; z-index: 100; background: rgba(10, 10, 10, 0.85); backdrop-filter: saturate(180%) blur(12px); -webkit-backdrop-filter: saturate(180%) blur(12px); border-bottom: 1px solid var(--border); }
+  .header-inner { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .avatar { width: 40px; height: 40px; border-radius: 50%; background-image: url('./assets/jordan-avatar.jpg'); background-size: cover; background-position: center; border: 1px solid var(--border-stronger); flex-shrink: 0; overflow: hidden; position: relative; }
+  .brand-text { display: flex; flex-direction: column; gap: 2px; }
+  .brand-name { font-family: var(--mono); font-size: 13px; color: var(--text); font-weight: 500; letter-spacing: -0.01em; }
+  .brand-role { font-family: var(--mono); font-size: 10px; color: var(--text-4); letter-spacing: 0.02em; }
+  .nav { display: flex; gap: 28px; align-items: center; }
+  .nav-link { font-family: var(--mono); font-size: 12px; color: var(--text-2); transition: color var(--dur-fast) var(--ease-out); position: relative; padding: 4px 0; }
+  .nav-link:hover { color: var(--text); }
+  .nav-link::after { content: ''; position: absolute; left: 0; bottom: -2px; width: 0; height: 1px; background: var(--accent); transition: width var(--dur-base) var(--ease-out); }
+  .nav-link:hover::after { width: 100%; }
+  @media (max-width: 640px) {
+    .header-inner { padding: 14px 0; }
+    .nav { gap: 14px; }
+    .brand { gap: 10px; }
+    .brand-role { display: none; }
+    .nav-link { display: none; }
+    .avatar { width: 34px; height: 34px; }
+    .nav-cta { padding: 7px 12px; font-size: 11px; gap: 6px; }
+    .nav-cta svg { width: 13px; height: 13px; }
+  }
+  @media (max-width: 420px) {
+    .nav { gap: 12px; }
+    .brand-name { font-size: 12px; }
+    .nav-cta { padding: 6px 10px; font-size: 10.5px; gap: 5px; }
+    .nav-cta svg { width: 12px; height: 12px; }
+  }
+
+  /* HERO */
+  .hero { padding: clamp(80px, 11vw, 160px) 0 clamp(64px, 8vw, 96px); position: relative; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 32px; }
+  .pulse-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse-dot 2s ease-in-out infinite; }
+  /* PERFORMANCE: pause animations when element is offscreen */
+  .anim-paused,
+  .anim-paused *,
+  .anim-paused *::before,
+  .anim-paused *::after { animation-play-state: paused !important; }
+  @keyframes pulse-dot { 0%, 100% { opacity: 0.4; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); } }
+  .hero-title { font-size: clamp(56px, 9vw, 104px); font-weight: 600; line-height: 0.96; letter-spacing: -0.04em; margin-bottom: 32px; max-width: 16ch; }
+  .hero-title em { color: var(--accent); font-style: italic; font-weight: 500; }
+
+  /* Interactive "alive" word — scramble effect on hover (JS-driven) */
+  .hero-alive {
+    display: inline-block;
+    cursor: pointer;
+    color: var(--accent);
+    font-style: italic;
+    font-weight: 500;
+    position: relative;
+    transition: color 250ms var(--ease-out);
+  }
+  .hero-alive .letter {
+    display: inline-block;
+    font-feature-settings: 'tnum';
+    font-variant-numeric: tabular-nums;
+  }
+  .hero-alive.scrambling {
+    color: rgba(110, 231, 135, 0.65);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-alive { transition: none; }
+    .hero-alive.scrambling { color: var(--accent); }
+  }
+  .hero-desc { font-size: clamp(17px, 1.5vw, 19px); line-height: 1.55; color: var(--text-2); max-width: 56ch; margin-bottom: 44px; font-weight: 400; }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 64px; }
+  .hero-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag { font-family: var(--mono); font-size: 13px; padding: 8px 14px; border: 1px solid var(--border-strong); border-radius: var(--radius-pill); color: var(--text-2); transition: border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out); }
+  .tag:hover { color: var(--text); border-color: var(--text-3); }
+
+  /* BUTTONS */
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 20px; border: 1px solid var(--border-stronger); border-radius: var(--radius); font-family: var(--mono); font-size: 13px; color: var(--text); font-weight: 500; transition: all var(--dur-fast) var(--ease-out); cursor: pointer; background: transparent; line-height: 1; }
+  .btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(110, 231, 135, 0.04); }
+  .btn-primary { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
+  .btn-primary:hover { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); opacity: 0.88; transform: translateY(-1px); }
+  .btn-arrow { transition: transform var(--dur-fast) var(--ease-out); }
+  .btn:hover .btn-arrow { transform: translateX(2px); }
+
+  /* CURVED MARQUEE BANNER */
+  .marquee-banner {
+    position: relative;
+    width: 100vw;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    height: clamp(200px, 22vw, 280px);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    background: var(--bg);
+  }
+  .marquee-banner svg { width: 100%; height: 100%; display: block; overflow: visible; }
+  .marquee-text { font-family: var(--mono); font-size: clamp(28px, 4vw, 56px); font-weight: 500; fill: var(--accent); letter-spacing: 0.02em; text-transform: uppercase; }
+
+  /* SECTION HEADER */
+  .section-divider { border-top: 1px solid var(--border); }
+  .section-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 32px; gap: 24px; flex-wrap: wrap; }
+  .section-head-title { font-size: clamp(32px, 3.6vw, 48px); font-weight: 650; letter-spacing: -0.03em; margin-top: 8px; }
+  .section-head-link { font-family: var(--mono); font-size: 12px; color: var(--accent); transition: opacity var(--dur-fast) var(--ease-out); }
+  .section-head-link:hover { opacity: 0.75; }
+
+  /* WORK */
+  .work { padding: clamp(80px, 11vw, 140px) 0; }
+  .proj-list { margin: 0; }
+  .proj-row { display: block; padding: 28px 0; border-top: 1px solid var(--border-mid); transition: background var(--dur-base) var(--ease-out); position: relative; cursor: pointer; }
+  .proj-row:last-child { border-bottom: 1px solid var(--border-mid); }
+  .proj-row::before { content: ''; position: absolute; inset: 0; background: rgba(110, 231, 135, 0.025); opacity: 0; transition: opacity var(--dur-base) var(--ease-out); pointer-events: none; }
+  .proj-row:hover::before { opacity: 1; }
+  .proj-row > * { position: relative; z-index: 1; }
+
+  .proj-row-main { display: grid; grid-template-columns: 60px 220px 1fr 30px; gap: 24px; align-items: baseline; }
+  .proj-year { font-family: var(--mono); font-size: 12px; color: var(--text-2); }
+  .proj-tag { font-family: var(--mono); font-size: 11px; color: var(--accent); }
+  .proj-info-title { font-size: 22px; font-weight: 650; letter-spacing: -0.015em; margin-bottom: 6px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .proj-info-desc { font-size: 14px; color: var(--text-2); line-height: 1.55; }
+  .proj-arrow { font-family: var(--mono); font-size: 16px; color: var(--text-4); transition: transform var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out); text-align: right; }
+  .proj-row:hover .proj-arrow { transform: translateX(6px); color: var(--accent); }
+  .badge-active { font-family: var(--mono); font-size: 9px; padding: 2px 7px; background: var(--accent-soft); color: var(--accent); border-radius: var(--radius-pill); font-weight: 400; display: inline-flex; align-items: center; gap: 5px; }
+  .badge-active::before { content: ''; width: 4px; height: 4px; background: var(--accent); border-radius: 50%; animation: pulse-dot 2s ease-in-out infinite; }
+
+  /* Inline flag for project titles */
+  .proj-info-title .flag { width: 20px; height: 14px; }
+  .proj-flag-group { display: inline-flex; gap: 4px; align-items: center; }
+
+  .proj-preview { max-height: 0; overflow: hidden; opacity: 0; transition: max-height var(--dur-slow) var(--ease-out), margin var(--dur-slow) var(--ease-out), opacity var(--dur-base) var(--ease-out); }
+  .proj-row:hover .proj-preview { max-height: 280px; margin-top: 18px; opacity: 1; }
+  /* PERFORMANCE: pause all preview animations by default, run only on hover */
+  .proj-preview *,
+  .proj-preview *::before,
+  .proj-preview *::after { animation-play-state: paused !important; }
+  .proj-row:hover .proj-preview *,
+  .proj-row:hover .proj-preview *::before,
+  .proj-row:hover .proj-preview *::after { animation-play-state: running !important; }
+  .preview-stage { height: 240px; background: var(--surface); border: 1px solid var(--border-mid); border-radius: var(--radius); background-image: linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px); background-size: 24px 24px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 24px; }
+
+  /* Image placeholder for project previews */
+  .preview-image-placeholder { padding: 0; background: var(--surface-2); }
+  .preview-image-placeholder svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .preview-image-placeholder img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .preview-image-label {
+    position: relative;
+    z-index: 1;
+    background: rgba(20, 20, 23, 0.85);
+    border: 1px solid var(--border-mid);
+    border-radius: var(--radius-pill);
+    padding: 6px 14px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-3);
+    letter-spacing: 0.04em;
+    backdrop-filter: blur(4px);
+  }
+  /* When a real image is set, hide the SVG placeholder and label */
+  .preview-image-placeholder.has-image svg,
+  .preview-image-placeholder.has-image .preview-image-label { display: none; }
+
+  /* Image placeholder for lab cards */
+  .lab-card-media-placeholder svg { width: 100%; height: 100%; display: block; }
+  .lab-card-media-placeholder img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  /* Lab card image overlay */
+  .lab-card-media-placeholder.has-image svg {
+    display: none;
+  }
+
+  .preview-meta { position: absolute; bottom: 14px; left: 16px; font-family: var(--mono); font-size: 10px; color: var(--text-4); }
+  .preview-meta-right { position: absolute; bottom: 14px; right: 16px; font-family: var(--mono); font-size: 10px; color: var(--accent); display: inline-flex; align-items: center; gap: 5px; }
+  .preview-meta-right::before { content: ''; width: 5px; height: 5px; background: var(--accent); border-radius: 50%; animation: pulse-dot 2s ease-in-out infinite; }
+
+  @keyframes float-up { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  @keyframes scale-pulse { 0%, 100% { transform: scaleX(0.4); opacity: 0.4; } 50% { transform: scaleX(1); opacity: 1; } }
+  @keyframes rotate-loader { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  .vitamin-shapes { display: flex; gap: 28px; align-items: center; }
+  .vitamin-shape { width: 56px; height: 56px; background: var(--accent); animation: float-up 2.4s var(--ease-out) infinite; }
+  .vitamin-shape:nth-child(1) { border-radius: 8px; }
+  .vitamin-shape:nth-child(2) { border-radius: 50%; animation-delay: 0.3s; }
+  .vitamin-shape:nth-child(3) { border-radius: 12px; animation-delay: 0.6s; }
+
+  .tm-diagram { display: flex; align-items: center; gap: 18px; font-family: var(--mono); font-size: 12px; flex-wrap: wrap; justify-content: center; }
+  .tm-node { padding: 14px 18px; border: 1px solid var(--border-stronger); border-radius: var(--radius); color: var(--text-2); background: var(--surface-2); }
+  .tm-node-active { background: rgba(110, 231, 135, 0.08); border-color: var(--accent); color: var(--accent); }
+  .tm-arrow { color: var(--accent); font-size: 18px; }
+
+  .ticlea-phone { width: 130px; height: 220px; background: var(--bg); border: 2px solid var(--border-stronger); border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 8px; }
+  .ticlea-brand { font-family: var(--mono); font-size: 11px; color: var(--accent); font-weight: 500; }
+  .ticlea-bar { height: 4px; background: var(--accent); border-radius: 2px; transform-origin: left; animation: scale-pulse 2.4s var(--ease-out) infinite; }
+  .ticlea-bar:nth-child(2) { background: rgba(110, 231, 135, 0.4); animation-delay: 0.3s; }
+  .ticlea-bar:nth-child(3) { background: rgba(110, 231, 135, 0.4); animation-delay: 0.6s; }
+  .ticlea-loader { width: 24px; height: 24px; border: 2px solid var(--accent); border-top-color: transparent; border-radius: 50%; align-self: center; animation: rotate-loader 1.4s linear infinite; margin-top: auto; }
+
+  .cencosud-grid { display: grid; grid-template-columns: repeat(4, 64px); gap: 10px; }
+  .cencosud-cell { height: 32px; background: rgba(110, 231, 135, 0.25); border-radius: var(--radius-sm); }
+  .cencosud-cell.solid { background: var(--accent); }
+  .cencosud-cell.pill { border-radius: var(--radius-pill); }
+  .cencosud-cell.outline { background: rgba(110, 231, 135, 0.1); border: 1px solid rgba(110, 231, 135, 0.5); }
+
+  /* Cantera preview — construction blocks stacking */
+  @keyframes block-stack {
+    0% { transform: translateY(-60px); opacity: 0; }
+    20% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+  .cantera-stack { display: flex; flex-direction: column-reverse; gap: 4px; align-items: center; }
+  .cantera-block { background: var(--accent); border-radius: var(--radius-sm); animation: block-stack 2.4s var(--ease-out) infinite; }
+  .cantera-block:nth-child(1) { width: 110px; height: 22px; animation-delay: 0s; }
+  .cantera-block:nth-child(2) { width: 90px; height: 22px; background: rgba(110, 231, 135, 0.7); animation-delay: 0.3s; }
+  .cantera-block:nth-child(3) { width: 70px; height: 22px; background: rgba(110, 231, 135, 0.45); animation-delay: 0.6s; }
+  .cantera-block:nth-child(4) { width: 50px; height: 22px; background: rgba(110, 231, 135, 0.25); animation-delay: 0.9s; }
+
+  /* Progresol Plus preview — B2B handshake (two card columns connected) */
+  @keyframes prog-pulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+  .prog-grid { display: flex; align-items: center; gap: 14px; }
+  .prog-col { display: flex; flex-direction: column; gap: 6px; }
+  .prog-card { width: 78px; height: 18px; background: var(--accent); border-radius: var(--radius-sm); }
+  .prog-col:first-child .prog-card:nth-child(1) { background: var(--accent); }
+  .prog-col:first-child .prog-card:nth-child(2) { background: rgba(110, 231, 135, 0.6); }
+  .prog-col:first-child .prog-card:nth-child(3) { background: rgba(110, 231, 135, 0.3); }
+  .prog-col:last-child .prog-card:nth-child(1) { background: rgba(110, 231, 135, 0.3); }
+  .prog-col:last-child .prog-card:nth-child(2) { background: rgba(110, 231, 135, 0.6); }
+  .prog-col:last-child .prog-card:nth-child(3) { background: var(--accent); }
+  .prog-link { font-family: var(--mono); font-size: 18px; color: var(--accent); animation: prog-pulse 1.6s ease-in-out infinite; }
+
+  /* Auna Latam preview — 3 country regional unification */
+  @keyframes auna-merge {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+  .auna-flags { display: flex; align-items: center; gap: 16px; }
+  .auna-flag-card { width: 64px; height: 48px; background: var(--surface-2); border: 1px solid var(--border-stronger); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 11px; color: var(--text-2); animation: auna-merge 2.4s ease-in-out infinite; }
+  .auna-flag-card:nth-child(1) { animation-delay: 0s; }
+  .auna-flag-card:nth-child(3) { animation-delay: 0.3s; border-color: var(--accent); color: var(--accent); }
+  .auna-flag-card:nth-child(5) { animation-delay: 0.6s; }
+  .auna-arrow { font-family: var(--mono); color: var(--accent); font-size: 18px; }
+
+  /* Foodie App preview — food court ordering tile grid */
+  @keyframes tile-glow {
+    0%, 100% { background: rgba(110, 231, 135, 0.15); }
+    50% { background: var(--accent); }
+  }
+  .foodie-grid { display: grid; grid-template-columns: repeat(3, 56px); grid-template-rows: repeat(2, 56px); gap: 8px; }
+  .foodie-tile { background: rgba(110, 231, 135, 0.15); border-radius: var(--radius); }
+  .foodie-tile:nth-child(1) { animation: tile-glow 2.4s ease-in-out infinite; animation-delay: 0s; }
+  .foodie-tile:nth-child(3) { animation: tile-glow 2.4s ease-in-out infinite; animation-delay: 0.4s; }
+  .foodie-tile:nth-child(5) { animation: tile-glow 2.4s ease-in-out infinite; animation-delay: 0.8s; }
+
+  /* Cometa preview — video player frame */
+  @keyframes cometa-play-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+  }
+  .cometa-frame { width: 240px; height: 140px; background: var(--surface-2); border: 1px solid var(--border-stronger); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .cometa-frame::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(135deg, transparent 0%, rgba(110, 231, 135, 0.08) 100%);
+  }
+  .cometa-play { width: 48px; height: 48px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; animation: cometa-play-pulse 2s ease-in-out infinite; position: relative; z-index: 1; }
+  .cometa-play::after { content: ''; width: 0; height: 0; border-left: 14px solid var(--accent-fg); border-top: 9px solid transparent; border-bottom: 9px solid transparent; margin-left: 4px; }
+  .cometa-bar { position: absolute; bottom: 14px; left: 14px; right: 14px; height: 3px; background: rgba(255, 255, 255, 0.1); border-radius: 2px; z-index: 1; overflow: hidden; }
+  .cometa-bar::after { content: ''; position: absolute; top: 0; left: 0; height: 100%; width: 35%; background: var(--accent); border-radius: 2px; }
+
+  /* Gawq preview — news cards stack with subtle pulse */
+  @keyframes news-pulse {
+    0%, 100% { transform: translateY(0); opacity: 1; }
+    50% { transform: translateY(-4px); opacity: 0.85; }
+  }
+  .gawq-stack { display: flex; flex-direction: column; gap: 8px; width: 220px; }
+  .gawq-card { background: var(--surface-2); border: 1px solid var(--border-stronger); border-radius: var(--radius); padding: 10px 12px; display: flex; align-items: center; gap: 10px; animation: news-pulse 2.4s var(--ease-out) infinite; }
+  .gawq-card:nth-child(2) { animation-delay: 0.3s; }
+  .gawq-card:nth-child(3) { animation-delay: 0.6s; }
+  .gawq-card-thumb { width: 28px; height: 28px; background: var(--accent); border-radius: var(--radius-sm); flex-shrink: 0; }
+  .gawq-card:nth-child(2) .gawq-card-thumb { background: rgba(110, 231, 135, 0.4); }
+  .gawq-card:nth-child(3) .gawq-card-thumb { background: rgba(110, 231, 135, 0.25); }
+  .gawq-card-lines { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+  .gawq-card-line { height: 4px; background: var(--text-3); border-radius: 2px; opacity: 0.6; }
+  .gawq-card-line:nth-child(1) { width: 80%; }
+  .gawq-card-line:nth-child(2) { width: 50%; opacity: 0.4; }
+
+  @media (max-width: 768px) {
+    .proj-row-main { grid-template-columns: 1fr; gap: 8px; }
+    .proj-row { padding: 24px 0; }
+    .proj-year, .proj-tag { font-size: 12px; }
+    .proj-info-title { font-size: 22px; }
+    .proj-info-desc { font-size: 15px; }
+    .proj-arrow { display: none; }
+    .preview-stage { height: 200px; padding: 16px; }
+    .vitamin-shape { width: 44px; height: 44px; }
+    .vitamin-shapes { gap: 18px; }
+    .ticlea-phone { width: 110px; height: 180px; }
+    .cencosud-grid { grid-template-columns: repeat(4, 48px); gap: 8px; }
+    .tm-diagram { font-size: 10px; gap: 10px; }
+    .tm-node { padding: 10px 12px; }
+    .cantera-block:nth-child(1) { width: 88px; height: 18px; }
+    .cantera-block:nth-child(2) { width: 70px; height: 18px; }
+    .cantera-block:nth-child(3) { width: 54px; height: 18px; }
+    .cantera-block:nth-child(4) { width: 38px; height: 18px; }
+    .gawq-stack { width: 180px; }
+    .gawq-card { padding: 8px 10px; gap: 8px; }
+    .gawq-card-thumb { width: 24px; height: 24px; }
+  }
+
+  /* LAB */
+  .lab { padding: clamp(80px, 11vw, 140px) 0; background: rgba(110, 231, 135, 0.018); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+  /* LAB CAROUSEL — horizontal scroll with snap */
+  .lab-grid {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: var(--gutter);
+    /* Bleed to viewport edges so user senses there's more to the right */
+    margin-left: calc(var(--gutter) * -1);
+    margin-right: calc(var(--gutter) * -1);
+    padding: 8px var(--gutter) 24px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--surface-3) transparent;
+  }
+  .lab-grid::-webkit-scrollbar { height: 6px; }
+  .lab-grid::-webkit-scrollbar-track { background: transparent; }
+  .lab-grid::-webkit-scrollbar-thumb { background: var(--surface-3); border-radius: 3px; }
+  .lab-grid::-webkit-scrollbar-thumb:hover { background: var(--border-stronger); }
+
+  .lab-card {
+    flex: 0 0 calc((100% - 32px) / 3);
+    min-width: 280px;
+    scroll-snap-align: start;
+    padding: 0;
+    border: 1px solid var(--border-mid);
+    border-radius: var(--radius);
+    background: var(--surface);
+    transition: border-color var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  @media (max-width: 1024px) {
+    .lab-card { flex: 0 0 calc((100% - 16px) / 2); }
+  }
+  @media (max-width: 640px) {
+    .lab-card { flex: 0 0 80%; min-width: 260px; }
+  }
+  .lab-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .lab-card.empty { background: transparent; border: 1px dashed var(--border-strong); cursor: default; }
+  .lab-card.empty:hover { border-color: var(--border-strong); transform: none; }
+
+  /* Carousel control hint — small text below cards */
+  .lab-hint {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-4);
+  }
+  .lab-hint-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--text-3);
+  }
+
+  /* Image area at top of each lab card */
+  .lab-card-media {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    background: var(--surface-2);
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    background-size: 20px 20px;
+    border-bottom: 1px solid var(--border-mid);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .lab-card-media-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-4);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    z-index: 1;
+  }
+  /* Optional: holds the actual image when ready */
+  .lab-card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  /* Decoration: subtle accent pattern unique per card */
+  .lab-card-media-deco {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.6;
+  }
+  .lab-card:hover .lab-card-media { background-color: rgba(110, 231, 135, 0.025); }
+
+  .lab-card-content { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+  .lab-card-meta { font-family: var(--mono); font-size: 10px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; }
+  .lab-card.empty .lab-card-meta { color: var(--text-4); }
+  .lab-card-title { font-size: 19px; font-weight: 650; letter-spacing: -0.015em; margin-bottom: 8px; }
+  .lab-card.empty .lab-card-title { color: var(--text-4); }
+  .lab-card-desc { font-size: 12px; color: var(--text-2); line-height: 1.55; margin-bottom: 16px; flex: 1; }
+  .lab-card.empty .lab-card-desc { color: var(--text-4); }
+  .lab-card-cta { font-family: var(--mono); font-size: 11px; color: var(--accent); transition: transform var(--dur-fast) var(--ease-out); }
+  .lab-card:hover .lab-card-cta { transform: translateX(4px); }
+
+  /* ABOUT */
+  .about { padding: clamp(80px, 11vw, 140px) 0; }
+  .about-grid { display: grid; grid-template-columns: 220px 1fr; gap: clamp(32px, 6vw, 64px); align-items: start; }
+  @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; gap: 24px; } }
+  .about-photo { width: 180px; height: 180px; border-radius: var(--radius); background-image: url('./assets/jordan-portrait.jpg'); background-size: cover; background-position: center; border: 1px solid var(--border-stronger); overflow: hidden; position: relative; }
+  @media (max-width: 768px) { .about-photo { width: 140px; height: 140px; } }
+  .about-photo-caption { font-family: var(--mono); font-size: 10px; color: var(--text-4); margin-top: 12px; }
+  .about-content h2 { font-size: clamp(32px, 3.6vw, 48px); font-weight: 650; letter-spacing: -0.03em; margin-bottom: 12px; }
+  .about-content > p { font-size: 17px; line-height: 1.65; color: var(--text); margin-bottom: 18px; max-width: 62ch; }
+  .about-content > p.muted { color: var(--text-2); }
+  .about-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
+
+  /* FOOTER */
+  .footer { padding: 48px 0; border-top: 1px solid var(--border); }
+  .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .footer-copy { font-family: var(--mono); font-size: 11px; color: var(--text-4); }
+  .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+  @media (max-width: 640px) { .footer-links { gap: 14px; } }
+  .footer-link { font-family: var(--mono); font-size: 12px; color: var(--text-2); transition: color var(--dur-fast) var(--ease-out); }
+  .footer-link:hover { color: var(--accent); }
+
+  /* ============================================================
+     BACK TO TOP BUTTON
+     ============================================================ */
+  .back-to-top {
+    position: fixed;
+    bottom: clamp(20px, 3vw, 32px);
+    right: clamp(20px, 3vw, 32px);
+    width: 48px;
+    height: 48px;
+    background: var(--accent);
+    color: var(--accent-fg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 90;
+    border: none;
+    opacity: 0;
+    transform: translateY(12px) scale(0.9);
+    pointer-events: none;
+    transition:
+      opacity 250ms var(--ease-out),
+      transform 250ms var(--ease-out),
+      background 200ms var(--ease-out);
+    box-shadow: 0 4px 12px rgba(110, 231, 135, 0.15);
+  }
+  .back-to-top.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+  .back-to-top:hover {
+    background: var(--accent);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 16px rgba(110, 231, 135, 0.25);
+  }
+  .back-to-top svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+  }
+  @media (max-width: 640px) {
+    .back-to-top { width: 44px; height: 44px; bottom: 20px; right: 20px; }
+  }
+
+  /* ============================================================
+     HEADER WHATSAPP CTA
+     ============================================================ */
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    background: var(--accent);
+    color: var(--accent-fg);
+    border-radius: var(--radius-pill);
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 500;
+    transition: opacity var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+  .nav-cta svg { width: 14px; height: 14px; flex-shrink: 0; }
+  .nav-cta-label { display: inline; }
+
+  /* LOADING SCREEN */
+  .loader {
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    transition: opacity 500ms var(--ease-out), visibility 500ms;
+  }
+  .loader.done {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  /* Hide page content until loader finishes (prevents flash of unstyled content) */
+  body:not(.loaded) main,
+  body:not(.loaded) .header,
+  body:not(.loaded) .footer,
+  body:not(.loaded) .marquee-banner,
+  body:not(.loaded) .custom-cursor,
+  body:not(.loaded) .cursor-dot {
+    visibility: hidden;
+  }
+  .loader-mark {
+    width: 28px;
+    height: 28px;
+    background: var(--accent);
+    border-radius: 4px;
+  }
+  .loader-counter {
+    font-family: var(--mono);
+    font-size: clamp(48px, 8vw, 80px);
+    font-weight: 500;
+    color: var(--text);
+    letter-spacing: -0.025em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+  .loader-counter-num { min-width: 3ch; text-align: right; }
+  .loader-counter-sym { color: var(--accent); }
+  .loader-bar-wrap {
+    width: clamp(160px, 20vw, 240px);
+    height: 1px;
+    background: var(--border-strong);
+    overflow: hidden;
+  }
+  .loader-bar {
+    height: 100%;
+    background: var(--accent);
+    width: 0%;
+    transition: width 80ms linear;
+  }
+  .loader-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-4);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .loader { transition: opacity 100ms; }
+  }
+
+  /* ============================================================
+     REVEAL ANIMATIONS — entry stagger + scroll-driven reveal
+     Triggered once per session via sessionStorage flag.
+     ============================================================ */
+
+  /* Base hidden state for elements that will reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Entry stagger — applied via JS after loader finishes.
+     Each subsequent element waits an extra 80ms. */
+  .entry-reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .entry-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Reduced motion: instant, no transform */
+  @media (prefers-reduced-motion: reduce) {
+    .reveal, .entry-reveal {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
+
+  /* ============================================================
+     PAGE TRANSITION CURTAIN
+     Full-screen green curtain with mono pattern sweep.
+     Slides up to cover, navigates, slides down to reveal.
+     ============================================================ */
+  .curtain {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: var(--accent);
+    transform: translateY(100%);
+    pointer-events: none;
+    overflow: hidden;
+    will-change: transform;
+  }
+  .curtain.in {
+    transform: translateY(0);
+    transition: transform 600ms cubic-bezier(0.76, 0, 0.24, 1);
+  }
+  .curtain.out {
+    transform: translateY(-100%);
+    transition: transform 600ms cubic-bezier(0.76, 0, 0.24, 1);
+  }
+  /* Inner mark — single central dot for minimal feedback */
+  .curtain-mark {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 200ms ease-out 200ms;
+  }
+  .curtain.in .curtain-mark { opacity: 1; }
+  .curtain.out .curtain-mark { opacity: 0; transition: opacity 150ms ease-out; }
+  .curtain-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent-fg);
+    animation: curtain-dot-pulse 1.2s ease-in-out infinite;
+  }
+  @keyframes curtain-dot-pulse {
+    0%, 100% { opacity: 0.3; transform: scale(0.8); }
+    50%      { opacity: 1;   transform: scale(1.2); }
+  }
+
+  /* Reduced-motion: keep the curtain but no animations, faster transition */
+  @media (prefers-reduced-motion: reduce) {
+    .curtain.in, .curtain.out { transition-duration: 200ms; }
+    .curtain-dot { animation: none; }
+  }
+
+  /* ============================================================
+     CUSTOM CURSOR — dual system
+     - .cursor-dot: small green dot follower active site-wide
+     - .custom-cursor: big circle with arrow on project rows (keeps original)
+     ============================================================ */
+  .cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 10px;
+    height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 199;
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(1);
+    transition: opacity 200ms var(--ease-out), background 200ms var(--ease-out);
+    will-change: transform, opacity;
+    margin-left: -5px;
+    margin-top: -5px;
+    mix-blend-mode: normal;
+  }
+  .cursor-dot.visible { opacity: 1; }
+  /* Grow state: when hovering interactive elements (links, buttons) */
+  .cursor-dot.grow {
+    width: 32px;
+    height: 32px;
+    margin-left: -16px;
+    margin-top: -16px;
+    background: rgba(110, 231, 135, 0.18);
+    mix-blend-mode: normal;
+  }
+  /* Hide on touch devices */
+  @media (hover: none), (pointer: coarse) {
+    .cursor-dot { display: none !important; }
+  }
+  /* Reduced motion: hide custom cursor entirely (system cursor remains) */
+  @media (prefers-reduced-motion: reduce) {
+    .cursor-dot { display: none !important; }
+  }
+
+  /* CUSTOM CURSOR (project rows — big circle with arrow) */
+  .custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 64px;
+    height: 64px;
+    background: var(--accent);
+    color: var(--accent-fg);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 22px;
+    font-weight: 500;
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.4);
+    transition: opacity 200ms var(--ease-out);
+    will-change: transform, opacity;
+    margin-left: -32px;
+    margin-top: -32px;
+  }
+  .custom-cursor.visible { opacity: 1; }
+  .custom-cursor svg { width: 24px; height: 24px; display: block; }
+  @media (hover: none), (pointer: coarse) {
+    .custom-cursor { display: none !important; }
+  }
+  /* Hide system cursor over project rows when custom is active */
+  .proj-row.cursor-active,
+  .lab-card.cursor-active { cursor: none; }
+  .proj-row.cursor-active *,
+  .lab-card.cursor-active * { cursor: none; }
+  /* Hide system cursor everywhere when dot follower is active */
+  body.cursor-dot-active { cursor: none; }
+  body.cursor-dot-active a,
+  body.cursor-dot-active button,
+  body.cursor-dot-active input,
+  body.cursor-dot-active textarea { cursor: none; }
+
+  /* EXPERIENCE — Timeline lateral with flag indicators */
+  .experience { padding: clamp(80px, 11vw, 140px) 0; border-top: 1px solid var(--border); }
+  .exp-head { margin-bottom: 56px; }
+  .exp-head h2 { font-size: clamp(32px, 3.6vw, 48px); font-weight: 650; letter-spacing: -0.03em; margin-top: 8px; }
+
+  /* Timeline track — base line is dim, painted line scales with scroll */
+  .exp-track { position: relative; padding-left: 32px; }
+  .exp-track::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 8px;
+    bottom: 0;
+    width: 1px;
+    background: var(--border-strong);
+  }
+  /* Painted line — uses scaleY transform driven by scroll progress */
+  .exp-track-fill {
+    position: absolute;
+    left: 5px;
+    top: 8px;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(180deg, var(--accent) 0%, rgba(110, 231, 135, 0.4) 100%);
+    transform-origin: top;
+    transform: scaleY(0);
+    transition: transform 200ms linear;
+    pointer-events: none;
+  }
+
+  /* Common entry */
+  .exp-entry { position: relative; padding-bottom: 36px; }
+  .exp-entry::before {
+    content: '';
+    position: absolute;
+    left: -32px;
+    top: 6px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--border-stronger);
+    z-index: 1;
+    transition:
+      background 250ms cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 250ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 250ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 250ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  /* Hierarchy preserved when "ignited" via scroll: */
+  /* Active entries — pulse halo */
+  .exp-entry.active.ignited::before {
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(110, 231, 135, 0.15);
+    animation: exp-pulse 2.4s ease-in-out infinite;
+  }
+  /* Featured entries — solid semi-transparent green, no pulse */
+  .exp-entry.featured.ignited::before {
+    background: rgba(110, 231, 135, 0.6);
+    border-color: var(--accent);
+  }
+  /* Brief scale bounce on ignition */
+  .exp-entry.ignited::before {
+    transform: scale(1.15);
+  }
+  .exp-entry.ignited.settled::before {
+    transform: scale(1);
+  }
+  @keyframes exp-pulse {
+    0%, 100% { box-shadow: 0 0 0 4px rgba(110, 231, 135, 0.15); }
+    50% { box-shadow: 0 0 0 8px rgba(110, 231, 135, 0.05); }
+  }
+
+  /* Period header on each entry */
+  .exp-period-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+  }
+  .exp-period {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-2);
+  }
+  .exp-active-tag {
+    font-family: var(--mono);
+    font-size: 9px;
+    padding: 2px 7px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-radius: var(--radius-pill);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 400;
+  }
+  .exp-active-tag::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+
+  /* Featured info */
+  .exp-company {
+    font-size: 19px;
+    font-weight: 650;
+    letter-spacing: -0.015em;
+    margin-bottom: 4px;
+  }
+  .exp-role {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .exp-desc {
+    font-size: 14px;
+    color: var(--text-2);
+    line-height: 1.6;
+    max-width: 60ch;
+    margin-bottom: 8px;
+  }
+  .exp-location {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-4);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* Flag SVG wrapper */
+  .flag {
+    display: inline-block;
+    width: 18px;
+    height: 13px;
+    border-radius: 2px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    flex-shrink: 0;
+    vertical-align: middle;
+  }
+  .flag svg { display: block; width: 100%; height: 100%; }
+
+  /* All entries dim by default; ignition (via scroll) brings them to full opacity */
+  .exp-entry {
+    opacity: 0.20;
+    transition: opacity 350ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .exp-entry.ignited {
+    opacity: 1;
+  }
+
+  @media (max-width: 768px) {
+    .exp-track { padding-left: 24px; }
+    .exp-entry::before { left: -24px; }
+    .exp-company { font-size: 16px; }
+    .exp-desc { font-size: 13px; }
+  }
+
+  /* Reduced motion: timeline appears fully painted, dots pre-ignited, no dim state */
+  @media (prefers-reduced-motion: reduce) {
+    .exp-track-fill { transform: scaleY(1) !important; transition: none !important; }
+    .exp-entry { opacity: 1 !important; transition: none !important; }
+    .exp-entry.active::before {
+      background: var(--accent);
+      border-color: var(--accent);
+      animation: none !important;
+    }
+    .exp-entry.featured::before {
+      background: rgba(110, 231, 135, 0.6);
+      border-color: var(--accent);
+    }
+  }
+
+  /* CONTACT */
+  .contact { padding: clamp(80px, 11vw, 140px) 0; border-top: 1px solid var(--border); }
+  .contact-inner { max-width: 720px; }
+  .contact-title { font-size: clamp(48px, 7vw, 88px); font-weight: 650; line-height: 0.96; letter-spacing: -0.04em; margin: 12px 0 28px; }
+  .contact-title em { color: var(--accent); font-style: italic; font-weight: 500; }
+  .contact-desc { font-size: clamp(17px, 1.5vw, 19px); line-height: 1.55; color: var(--text-2); max-width: 56ch; margin-bottom: 44px; }
+
+  .contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 40px; }
+  @media (max-width: 880px) { .contact-grid { grid-template-columns: 1fr; gap: 12px; } }
+  .contact-card { display: flex; align-items: center; gap: 14px; padding: 20px 22px; border: 1px solid var(--border-mid); border-radius: var(--radius); background: var(--surface); transition: border-color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out); cursor: pointer; }
+  .contact-card:hover { border-color: var(--accent); background: rgba(110, 231, 135, 0.025); }
+  .contact-card.primary { border-color: var(--accent); background: rgba(110, 231, 135, 0.05); }
+  .contact-card.primary:hover { background: rgba(110, 231, 135, 0.09); }
+  .contact-card.primary .contact-card-icon { background: var(--accent); }
+  .contact-card.primary .contact-card-icon svg { color: var(--accent-fg); }
+  .contact-card-icon { width: 36px; height: 36px; border-radius: 50%; background: var(--surface-2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background var(--dur-fast) var(--ease-out); }
+  .contact-card:hover .contact-card-icon { background: var(--accent-soft); }
+  .contact-card.primary:hover .contact-card-icon { background: var(--accent); }
+  .contact-card-icon svg { width: 16px; height: 16px; color: var(--accent); }
+  .contact-card-meta { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .contact-card-label { font-family: var(--mono); font-size: 10px; color: var(--text-4); text-transform: uppercase; letter-spacing: 0.08em; }
+  .contact-card.primary .contact-card-label { color: var(--accent); }
+  .contact-card-value { font-family: var(--mono); font-size: 13px; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  .contact-status { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px; color: var(--text-2); padding: 8px 14px; background: var(--surface); border: 1px solid var(--border-mid); border-radius: var(--radius-pill); }
+  .contact-status::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse-dot 2s ease-in-out infinite; }
+
+  @media print { .header, .footer, .proj-preview, .marquee-banner { display: none; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+    .pulse-dot, .vitamin-shape, .ticlea-bar, .ticlea-loader, .badge-active::before, .preview-meta-right::before { animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+<!-- Loading screen — fades out on full load + min duration -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader-counter">
+    <span class="loader-counter-num" id="loader-num">0</span>
+    <span class="loader-counter-sym">%</span>
+  </div>
+  <div class="loader-bar-wrap"><div class="loader-bar" id="loader-bar"></div></div>
+  <span class="loader-label">jordan collao · loading</span>
+</div>
+
+<!-- Custom cursors: small dot follower (global) + big circle (project rows) -->
+<div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+<div class="custom-cursor" id="custom-cursor" aria-hidden="true">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M5 12h14"></path>
+    <path d="m13 5 7 7-7 7"></path>
+  </svg>
+</div>
+
+<!-- Page transition curtain -->
+<div class="curtain" id="curtain" aria-hidden="true">
+  <div class="curtain-mark">
+    <span class="curtain-dot"></span>
+  </div>
+</div>
+
+<header class="header" role="banner">
+  <div class="container header-inner">
+    <a href="/" class="brand" aria-label="Jordan Collao home">
+      <div class="avatar" aria-hidden="true"></div>
+      <div class="brand-text">
+        <span class="brand-name">jordan collao</span>
+        <span class="brand-role">design engineer &amp; motion designer</span>
+      </div>
+    </a>
+    <nav class="nav" role="navigation" aria-label="Main">
+      <a class="nav-link" href="#portfolio">portfolio</a>
+      <a class="nav-link" href="#lab">lab</a>
+      <a class="nav-link" href="#about">about</a>
+      <a class="nav-link" href="#experience">experience</a>
+      <a class="nav-link" href="#contact">contact</a>
+      <a class="nav-cta" href="https://wa.me/51960280858" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"></path></svg>
+        <span class="nav-cta-label">let's talk</span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="container">
+      <div class="hero-eyebrow entry-reveal" data-stagger="0">
+        <span class="pulse-dot" aria-hidden="true"></span>
+        open to work · perú · remote
+      </div>
+      <h1 class="hero-title entry-reveal" data-stagger="1" id="hero-title">
+        Building interfaces<br>that feel <span class="hero-alive" aria-label="alive"><span class="letter">a</span><span class="letter">l</span><span class="letter">i</span><span class="letter">v</span><span class="letter">e</span></span>.
+      </h1>
+      <p class="hero-desc entry-reveal" data-stagger="2">
+        I design product motion and interaction systems where animation supports clarity, accessibility and human-computer interaction. AI-first approach across research, ideation and motion specs.
+      </p>
+      <div class="hero-actions entry-reveal" data-stagger="3">
+        <a class="btn btn-primary" href="#contact">
+          contact me <span class="btn-arrow">→</span>
+        </a>
+        <a class="btn" href="#portfolio">see portfolio</a>
+      </div>
+      <div class="hero-tags entry-reveal" data-stagger="4" role="list" aria-label="Areas of focus">
+        <span class="tag" role="listitem">motion systems</span>
+        <span class="tag" role="listitem">design systems</span>
+        <span class="tag" role="listitem">ai-first design</span>
+        <span class="tag" role="listitem">interaction</span>
+        <span class="tag" role="listitem">lottie · rive · framer motion</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee-banner" aria-hidden="true">
+    <svg viewBox="0 0 1440 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <path id="curve-path" d="M -200 120 Q 360 90, 720 120 T 1640 120" fill="none"></path>
+      </defs>
+      <text class="marquee-text">
+        <textPath href="#curve-path" startOffset="0%" id="text-path">
+          DESIGN ENGINEER &nbsp;·&nbsp; MOTION DESIGNER &nbsp;·&nbsp; LOTTIE INTERACTION &nbsp;·&nbsp; DESIGN SYSTEMS &nbsp;·&nbsp; DESIGN ENGINEER &nbsp;·&nbsp; MOTION DESIGNER &nbsp;·&nbsp; LOTTIE INTERACTION &nbsp;·&nbsp; DESIGN SYSTEMS &nbsp;·&nbsp; DESIGN ENGINEER &nbsp;·&nbsp; MOTION DESIGNER &nbsp;·&nbsp; LOTTIE INTERACTION &nbsp;·&nbsp; DESIGN SYSTEMS &nbsp;·&nbsp;
+        </textPath>
+      </text>
+    </svg>
+  </div>
+
+  <section class="work" id="portfolio" aria-labelledby="portfolio-title">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="section-label">/portfolio · 2018→2026</span>
+          <h2 class="section-head-title" id="portfolio-title">Portfolio</h2>
+        </div>
+      </div>
+
+      <div class="proj-list">
+
+        <!-- 1 — TasteMakers / Anthropic (USA) -->
+        <a class="proj-row reveal" href="./case-tastemakers.html" aria-labelledby="proj-tastemakers-title">
+          <div class="proj-row-main">
+            <span class="proj-year">2026</span>
+            <span class="proj-tag">ai-first · prompt eng.</span>
+            <div class="proj-info">
+              <div class="proj-info-title" id="proj-tastemakers-title">
+                <span class="flag" aria-hidden="true">
+                  <svg viewBox="0 0 19 10" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="19" height="10" fill="#B22234"></rect>
+                    <rect y="0.77" width="19" height="0.77" fill="#FFFFFF"></rect>
+                    <rect y="2.31" width="19" height="0.77" fill="#FFFFFF"></rect>
+                    <rect y="3.85" width="19" height="0.77" fill="#FFFFFF"></rect>
+                    <rect y="5.38" width="19" height="0.77" fill="#FFFFFF"></rect>
+                    <rect y="6.92" width="19" height="0.77" fill="#FFFFFF"></rect>
+                    <rect y="8.46" width="19" height="0.77" fill="#FFFFFF"></rect>
+                    <rect width="7.6" height="5.38" fill="#3C3B6E"></rect>
+                  </svg>
+                </span>
+                Prompt Designer — TasteMakers/Anthropic
+                <span class="badge-active">active</span>
+              </div>
+              <div class="proj-info-desc">Design prompt engineering for Anthropic's TasteMakers — turning UI structures into structured prompts so AI models can reconstruct layouts accurately.</div>
+            </div>
+            <span class="proj-arrow" aria-hidden="true">→</span>
+          </div>
+          <div class="proj-preview" aria-hidden="true" data-preview-slug="tastemakers">
+            <div class="preview-stage preview-image-placeholder has-image"><img src="./assets/tastemakers/cover.png" alt="Prompt Designer — TasteMakers">
+              <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                  <pattern id="proj-grid-tastemakers" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1F1F22" stroke-width="0.5"></path>
+                  </pattern>
+                </defs>
+                <rect width="800" height="320" fill="#141417"></rect>
+                <rect width="800" height="320" fill="url(#proj-grid-tastemakers)"></rect>
+                <g transform="translate(400 160)" fill="none" stroke="#34343A" stroke-width="1.5">
+                  <rect x="-60" y="-40" width="120" height="80" rx="4"></rect>
+                  <circle cx="-25" cy="-15" r="8"></circle>
+                  <path d="M -55 25 L -25 0 L 5 15 L 55 -10 L 55 35 L -55 35 Z"></path>
+                </g>
+              </svg>
+              <span class="preview-image-label">Prompt Designer — TasteMakers preview</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- 2 — HidroRoots (Perú) -->
+        <a class="proj-row reveal" href="./case-hidroroots.html" aria-labelledby="proj-hidroroots-title">
+          <div class="proj-row-main">
+            <span class="proj-year">2025</span>
+            <span class="proj-tag">web · responsive · ux/ui</span>
+            <div class="proj-info">
+              <div class="proj-info-title" id="proj-hidroroots-title"><span class="flag" aria-hidden="true">
+                  <svg viewBox="0 0 3 2" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="1" height="2" fill="#D91023"></rect>
+                    <rect x="1" width="1" height="2" fill="#FFFFFF"></rect>
+                    <rect x="2" width="1" height="2" fill="#D91023"></rect>
+                  </svg>
+                </span> Web Responsive — HidroRoots</div>
+              <div class="proj-info-desc">Responsive website for a Peruvian hydroponics company — from benchmark and wireframes to a polished high-fidelity UI.</div>
+            </div>
+            <span class="proj-arrow" aria-hidden="true">→</span>
+          </div>
+          <div class="proj-preview" aria-hidden="true" data-preview-slug="hidroroots">
+            <div class="preview-stage preview-image-placeholder has-image"><img src="./assets/hidroroots/cover.png" alt="HidroRoots — Responsive website">
+              <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                  <pattern id="proj-grid-hidroroots" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1F1F22" stroke-width="0.5"></path>
+                  </pattern>
+                </defs>
+                <rect width="800" height="320" fill="#141417"></rect>
+                <rect width="800" height="320" fill="url(#proj-grid-hidroroots)"></rect>
+                <g transform="translate(400 160)" fill="none" stroke="#34343A" stroke-width="1.5">
+                  <rect x="-60" y="-40" width="120" height="80" rx="4"></rect>
+                  <circle cx="-25" cy="-15" r="8"></circle>
+                  <path d="M -55 25 L -25 0 L 5 15 L 55 -10 L 55 35 L -55 35 Z"></path>
+                </g>
+              </svg>
+              <span class="preview-image-label">HidroRoots preview</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- 3 — Progresol Plus (Perú) -->
+        <a class="proj-row reveal" href="./case-progresol.html" aria-labelledby="proj-progresol-title">
+          <div class="proj-row-main">
+            <span class="proj-year">2023</span>
+            <span class="proj-tag">b2b · mobile · app design</span>
+            <div class="proj-info">
+              <div class="proj-info-title" id="proj-progresol-title"><span class="flag" aria-hidden="true">
+                  <svg viewBox="0 0 3 2" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="1" height="2" fill="#D91023"></rect>
+                    <rect x="1" width="1" height="2" fill="#FFFFFF"></rect>
+                    <rect x="2" width="1" height="2" fill="#D91023"></rect>
+                  </svg>
+                </span> App Design — Progresol Plus</div>
+              <div class="proj-info-desc">B2B mobile app connecting hardware sellers with retailers across Perú — end-to-end UI for a Grupo UNACEM supply network.</div>
+            </div>
+            <span class="proj-arrow" aria-hidden="true">→</span>
+          </div>
+          <div class="proj-preview" aria-hidden="true" data-preview-slug="progresol">
+            <div class="preview-stage preview-image-placeholder has-image"><img src="./assets/progresol/cover.png" alt="App Design — Progresol Plus">
+              <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                  <pattern id="proj-grid-progresol" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1F1F22" stroke-width="0.5"></path>
+                  </pattern>
+                </defs>
+                <rect width="800" height="320" fill="#141417"></rect>
+                <rect width="800" height="320" fill="url(#proj-grid-progresol)"></rect>
+                <g transform="translate(400 160)" fill="none" stroke="#34343A" stroke-width="1.5">
+                  <rect x="-60" y="-40" width="120" height="80" rx="4"></rect>
+                  <circle cx="-25" cy="-15" r="8"></circle>
+                  <path d="M -55 25 L -25 0 L 5 15 L 55 -10 L 55 35 L -55 35 Z"></path>
+                </g>
+              </svg>
+              <span class="preview-image-label">Progresol Plus preview</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- 4 — Unacem 360 (Perú · Ecuador · Chile · USA) -->
+        <a class="proj-row reveal" href="./case-unacem360.html" aria-labelledby="proj-unacem360-title">
+          <div class="proj-row-main">
+            <span class="proj-year">2026</span>
+            <span class="proj-tag">web · responsive · landing</span>
+            <div class="proj-info">
+              <div class="proj-info-title" id="proj-unacem360-title">
+                <span class="proj-flag-group">
+                  <span class="flag" aria-hidden="true">
+                    <svg viewBox="0 0 3 2" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect width="1" height="2" fill="#D91023"></rect>
+                      <rect x="1" width="1" height="2" fill="#FFFFFF"></rect>
+                      <rect x="2" width="1" height="2" fill="#D91023"></rect>
+                    </svg>
+                  </span>
+                  <span class="flag" aria-hidden="true">
+                    <svg viewBox="0 0 3 2" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect width="3" height="1" fill="#FCD116"></rect>
+                      <rect y="1" width="3" height="0.5" fill="#003893"></rect>
+                      <rect y="1.5" width="3" height="0.5" fill="#CE1126"></rect>
+                    </svg>
+                  </span>
+                  <span class="flag" aria-hidden="true">
+                    <svg viewBox="0 0 3 2" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect width="3" height="1" fill="#FFFFFF"></rect>
+                      <rect y="1" width="3" height="1" fill="#D52B1E"></rect>
+                      <rect width="1" height="1" fill="#0039A6"></rect>
+                      <polygon points="0.5,0.121 0.594,0.410 0.881,0.410 0.643,0.590 0.738,0.879 0.5,0.7 0.262,0.879 0.357,0.590 0.119,0.410 0.406,0.410" fill="#FFFFFF"></polygon>
+                    </svg>
+                  </span>
+                  <span class="flag" aria-hidden="true">
+                    <svg viewBox="0 0 19 10" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect width="19" height="10" fill="#B22234"></rect>
+                      <rect y="0.77" width="19" height="0.77" fill="#FFFFFF"></rect>
+                      <rect y="2.31" width="19" height="0.77" fill="#FFFFFF"></rect>
+                      <rect y="3.85" width="19" height="0.77" fill="#FFFFFF"></rect>
+                      <rect y="5.38" width="19" height="0.77" fill="#FFFFFF"></rect>
+                      <rect y="6.92" width="19" height="0.77" fill="#FFFFFF"></rect>
+                      <rect y="8.46" width="19" height="0.77" fill="#FFFFFF"></rect>
+                      <rect width="7.6" height="5.38" fill="#3C3B6E"></rect>
+                    </svg>
+                  </span>
+                </span>
+                Web Responsive — Unacem 360
+              </div>
+              <div class="proj-info-desc">Responsive landing page for UNACEM's regional cement platform — clear hierarchy, intuitive navigation and strong calls to action.</div>
+            </div>
+            <span class="proj-arrow" aria-hidden="true">→</span>
+          </div>
+          <div class="proj-preview" aria-hidden="true" data-preview-slug="unacem360">
+            <div class="preview-stage preview-image-placeholder has-image"><img src="./assets/unacem360/cover.png" alt="Unacem 360 — Responsive landing page">
+              <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                  <pattern id="proj-grid-unacem360" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1F1F22" stroke-width="0.5"></path>
+                  </pattern>
+                </defs>
+                <rect width="800" height="320" fill="#141417"></rect>
+                <rect width="800" height="320" fill="url(#proj-grid-unacem360)"></rect>
+                <g transform="translate(400 160)" fill="none" stroke="#34343A" stroke-width="1.5">
+                  <rect x="-60" y="-40" width="120" height="80" rx="4"></rect>
+                  <circle cx="-25" cy="-15" r="8"></circle>
+                  <path d="M -55 25 L -25 0 L 5 15 L 55 -10 L 55 35 L -55 35 Z"></path>
+                </g>
+              </svg>
+              <span class="preview-image-label">Unacem 360 preview</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- 5 — Cantera (Perú) -->
+        <a class="proj-row reveal" href="./case-cantera.html" aria-labelledby="proj-cantera-title">
+          <div class="proj-row-main">
+            <span class="proj-year">2026</span>
+            <span class="proj-tag">web · lottie · motion</span>
+            <div class="proj-info">
+              <div class="proj-info-title" id="proj-cantera-title"><span class="flag" aria-hidden="true">
+                  <svg viewBox="0 0 3 2" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="1" height="2" fill="#D91023"></rect>
+                    <rect x="1" width="1" height="2" fill="#FFFFFF"></rect>
+                    <rect x="2" width="1" height="2" fill="#D91023"></rect>
+                  </svg>
+                </span> Web Responsive — Cantera</div>
+              <div class="proj-info-desc">Lottie motion system explaining core flows of a hardware-store platform — product selection, quotes and store contact.</div>
+            </div>
+            <span class="proj-arrow" aria-hidden="true">→</span>
+          </div>
+          <div class="proj-preview" aria-hidden="true" data-preview-slug="cantera">
+            <div class="preview-stage preview-image-placeholder has-image"><img src="./assets/cantera/cover.png" alt="Web Responsive — Cantera">
+              <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                  <pattern id="proj-grid-cantera" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1F1F22" stroke-width="0.5"></path>
+                  </pattern>
+                </defs>
+                <rect width="800" height="320" fill="#141417"></rect>
+                <rect width="800" height="320" fill="url(#proj-grid-cantera)"></rect>
+                <g transform="translate(400 160)" fill="none" stroke="#34343A" stroke-width="1.5">
+                  <rect x="-60" y="-40" width="120" height="80" rx="4"></rect>
+                  <circle cx="-25" cy="-15" r="8"></circle>
+                  <path d="M -55 25 L -25 0 L 5 15 L 55 -10 L 55 35 L -55 35 Z"></path>
+                </g>
+              </svg>
+              <span class="preview-image-label">Cantera preview</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- 6 — Vitamin Design System (Perú · Colombia · México) -->
+        <a class="proj-row reveal" href="./case-vitamin.html" aria-labelledby="proj-vitamin-title">
+          <div class="proj-row-main">
+            <span class="proj-year">2022</span>
+            <span class="proj-tag">design system · motion</span>
+            <div class="proj-info">
+              <div class="proj-info-title" id="proj-vitamin-title">
+                <span class="proj-flag-group">
+                  <span class="flag" aria-hidden="true">
+                    <svg viewBox="0 0 3 2" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect width="1" height="2" fill="#D91023"></rect>
+                      <rect x="1" width="1" height="2" fill="#FFFFFF"></rect>
+                      <rect x="2" width="1" height="2" fill="#D91023"></rect>
+                    </svg>
+                  </span>
+                  <span class="flag" aria-hidden="true">
+                    <svg viewBox="0 0 3 2" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect width="3" height="1" fill="#FCD116"></rect>
+                      <rect y="1" width="3" height="0.5" fill="#003893"></rect>
+                      <rect y="1.5" width="3" height="0.5" fill="#CE1126"></rect>
+                    </svg>
+                  </span>
+                  <span class="flag" aria-hidden="true">
+                    <svg viewBox="0 0 12 8" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect width="4" height="8" fill="#006847"></rect>
+                      <rect x="4" width="4" height="8" fill="#FFFFFF"></rect>
+                      <rect x="8" width="4" height="8" fill="#CE1126"></rect>
+                    </svg>
+                  </span>
+                </span>
+                Vitamin Design System — Auna
+              </div>
+              <div class="proj-info-desc">Motion tokens, components and icons for a healthcare design system, with accessibility built in from day one.</div>
+            </div>
+            <span class="proj-arrow" aria-hidden="true">→</span>
+          </div>
+          <div class="proj-preview" aria-hidden="true" data-preview-slug="vitamin">
+            <div class="preview-stage preview-image-placeholder has-image"><img src="./assets/vitamin/cover.png" alt="Vitamin Design System — Auna">
+              <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                  <pattern id="proj-grid-vitamin" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1F1F22" stroke-width="0.5"></path>
+                  </pattern>
+                </defs>
+                <rect width="800" height="320" fill="#141417"></rect>
+                <rect width="800" height="320" fill="url(#proj-grid-vitamin)"></rect>
+                <g transform="translate(400 160)" fill="none" stroke="#34343A" stroke-width="1.5">
+                  <rect x="-60" y="-40" width="120" height="80" rx="4"></rect>
+                  <circle cx="-25" cy="-15" r="8"></circle>
+                  <path d="M -55 25 L -25 0 L 5 15 L 55 -10 L 55 35 L -55 35 Z"></path>
+                </g>
+              </svg>
+              <span class="preview-image-label">Vitamin DS preview</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- 7 — Gawq App (USA) -->
+        <a class="proj-row reveal" href="./case-gawq.html" aria-labelledby="proj-gawq-title">
+          <div class="proj-row-main">
+            <span class="proj-year">2022</span>
+            <span class="proj-tag">interaction · motion · lottie</span>
+            <div class="proj-info">
+              <div class="proj-info-title" id="proj-gawq-title"><span class="flag" aria-hidden="true">
+                  <svg viewBox="0 0 19 10" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="19" height="10" fill="#B22234"></rect>
+                    <rect y="0.77" width="19" height="0.77" fill="#FFFFFF"></rect>
+                    <rect y="2.31" width="19" height="0.77" fill="#FFFFFF"></rect>
+                    <rect y="3.85" width="19" height="0.77" fill="#FFFFFF"></rect>
+                    <rect y="5.38" width="19" height="0.77" fill="#FFFFFF"></rect>
+                    <rect y="6.92" width="19" height="0.77" fill="#FFFFFF"></rect>
+                    <rect y="8.46" width="19" height="0.77" fill="#FFFFFF"></rect>
+                    <rect width="7.6" height="5.38" fill="#3C3B6E"></rect>
+                  </svg>
+                </span> Interaction Design — Gawq App</div>
+              <div class="proj-info-desc">Interaction and motion language for a US news app — pull-to-refresh, splash screen and web entry transitions.</div>
+            </div>
+            <span class="proj-arrow" aria-hidden="true">→</span>
+          </div>
+          <div class="proj-preview" aria-hidden="true" data-preview-slug="gawq">
+            <div class="preview-stage preview-image-placeholder has-image"><img src="./assets/gawq/cover.png" alt="Gawq App — Trending news app">
+              <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                  <pattern id="proj-grid-gawq" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1F1F22" stroke-width="0.5"></path>
+                  </pattern>
+                </defs>
+                <rect width="800" height="320" fill="#141417"></rect>
+                <rect width="800" height="320" fill="url(#proj-grid-gawq)"></rect>
+                <g transform="translate(400 160)" fill="none" stroke="#34343A" stroke-width="1.5">
+                  <rect x="-60" y="-40" width="120" height="80" rx="4"></rect>
+                  <circle cx="-25" cy="-15" r="8"></circle>
+                  <path d="M -55 25 L -25 0 L 5 15 L 55 -10 L 55 35 L -55 35 Z"></path>
+                </g>
+              </svg>
+              <span class="preview-image-label">Gawq App preview</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- 8 — Cometa (México) -->
+        <a class="proj-row reveal" href="./case-cometa.html" aria-labelledby="proj-cometa-title">
+          <div class="proj-row-main">
+            <span class="proj-year">2023</span>
+            <span class="proj-tag">motion · video · freelance</span>
+            <div class="proj-info">
+              <div class="proj-info-title" id="proj-cometa-title"><span class="flag" aria-hidden="true">
+                  <svg viewBox="0 0 12 8" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="4" height="8" fill="#006847"></rect>
+                    <rect x="4" width="4" height="8" fill="#FFFFFF"></rect>
+                    <rect x="8" width="4" height="8" fill="#CE1126"></rect>
+                  </svg>
+                </span> Motion Design — Cometa</div>
+              <div class="proj-info-desc">Motion design presentation video for a school↔parents communication platform.</div>
+            </div>
+            <span class="proj-arrow" aria-hidden="true">→</span>
+          </div>
+          <div class="proj-preview" aria-hidden="true" data-preview-slug="cometa">
+            <div class="preview-stage preview-image-placeholder has-image"><img src="./assets/cometa/cover.png" alt="Motion Design — Cometa">
+              <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                  <pattern id="proj-grid-cometa" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1F1F22" stroke-width="0.5"></path>
+                  </pattern>
+                </defs>
+                <rect width="800" height="320" fill="#141417"></rect>
+                <rect width="800" height="320" fill="url(#proj-grid-cometa)"></rect>
+                <g transform="translate(400 160)" fill="none" stroke="#34343A" stroke-width="1.5">
+                  <rect x="-60" y="-40" width="120" height="80" rx="4"></rect>
+                  <circle cx="-25" cy="-15" r="8"></circle>
+                  <path d="M -55 25 L -25 0 L 5 15 L 55 -10 L 55 35 L -55 35 Z"></path>
+                </g>
+              </svg>
+              <span class="preview-image-label">Cometa Mexico preview</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="lab" id="lab" aria-labelledby="lab-title">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="section-label">/lab · experiments + tools</span>
+          <h2 class="section-head-title" id="lab-title">Things I build to think</h2>
+        </div>
+      </div>
+      <div class="lab-grid">
+
+        <a class="lab-card reveal" href="./lab-motion-tokens.html" aria-labelledby="lab-motion-title">
+          <div class="lab-card-media" aria-hidden="true">
+            <div class="lab-card-media-deco lab-card-media-placeholder has-image" data-lab-slug="motion-tokens"><img src="./assets/home/lab-motion.png" alt="Motion Tokens Generator">
+              <svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                  <pattern id="lab-grid-motion-tokens" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1F1F22" stroke-width="0.5"></path>
+                  </pattern>
+                </defs>
+                <rect width="400" height="250" fill="#141417"></rect>
+                <rect width="400" height="250" fill="url(#lab-grid-motion-tokens)"></rect>
+                <g transform="translate(200 125)" fill="none" stroke="#34343A" stroke-width="1.5">
+                  <rect x="-40" y="-25" width="80" height="50" rx="3"></rect>
+                  <circle cx="-18" cy="-10" r="5"></circle>
+                  <path d="M -35 15 L -18 2 L 4 10 L 35 -8 L 35 22 L -35 22 Z"></path>
+                </g>
+              </svg>
+            </div>
+            <span class="lab-card-media-label">motion tokens</span>
+          </div>
+          <div class="lab-card-content">
+            <span class="lab-card-meta">tool · v0.2</span>
+            <h3 class="lab-card-title" id="lab-motion-title">Motion Tokens Generator</h3>
+            <p class="lab-card-desc">Define duration, easing, delay and properties as W3C Design Tokens. Export to Figma.</p>
+            <span class="lab-card-cta">try it →</span>
+          </div>
+        </a>
+
+        <a class="lab-card reveal" href="./lab-image-compressor.html" aria-labelledby="lab-image-title">
+          <div class="lab-card-media" aria-hidden="true">
+            <div class="lab-card-media-deco lab-card-media-placeholder has-image" data-lab-slug="image-compressor"><img src="./assets/home/lab-image.png" alt="Image Compressor">
+              <svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                  <pattern id="lab-grid-image-compressor" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1F1F22" stroke-width="0.5"></path>
+                  </pattern>
+                </defs>
+                <rect width="400" height="250" fill="#141417"></rect>
+                <rect width="400" height="250" fill="url(#lab-grid-image-compressor)"></rect>
+                <g transform="translate(200 125)" fill="none" stroke="#34343A" stroke-width="1.5">
+                  <rect x="-40" y="-25" width="80" height="50" rx="3"></rect>
+                  <circle cx="-18" cy="-10" r="5"></circle>
+                  <path d="M -35 15 L -18 2 L 4 10 L 35 -8 L 35 22 L -35 22 Z"></path>
+                </g>
+              </svg>
+            </div>
+            <span class="lab-card-media-label">image compressor</span>
+          </div>
+          <div class="lab-card-content">
+            <span class="lab-card-meta">tool · v0.1</span>
+            <h3 class="lab-card-title" id="lab-image-title">Image Compressor</h3>
+            <p class="lab-card-desc">Compress PNG/JPEG for web with format comparison and visual diff.</p>
+            <span class="lab-card-cta">try it →</span>
+          </div>
+        </a>
+
+        <a class="lab-card reveal" href="./lab-luz.html" aria-labelledby="lab-luz-title">
+          <div class="lab-card-media" aria-hidden="true">
+            <div class="lab-card-media-deco lab-card-media-placeholder has-image" data-lab-slug="luz"><img src="./assets/home/lab-luz.png" alt="Luz App">
+              <svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                  <pattern id="lab-grid-luz" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1F1F22" stroke-width="0.5"></path>
+                  </pattern>
+                </defs>
+                <rect width="400" height="250" fill="#141417"></rect>
+                <rect width="400" height="250" fill="url(#lab-grid-luz)"></rect>
+                <g transform="translate(200 125)" fill="none" stroke="#34343A" stroke-width="1.5">
+                  <rect x="-40" y="-25" width="80" height="50" rx="3"></rect>
+                  <circle cx="-18" cy="-10" r="5"></circle>
+                  <path d="M -35 15 L -18 2 L 4 10 L 35 -8 L 35 22 L -35 22 Z"></path>
+                </g>
+              </svg>
+            </div>
+            <span class="lab-card-media-label">luz app</span>
+          </div>
+          <div class="lab-card-content">
+            <span class="lab-card-meta">tool · private · v0.1</span>
+            <h3 class="lab-card-title" id="lab-luz-title">Luz App</h3>
+            <p class="lab-card-desc">Splits utility bills by department consumption and sends each tenant their breakdown via WhatsApp. Built for family.</p>
+            <span class="lab-card-cta">read about →</span>
+          </div>
+        </a>
+
+        <a class="lab-card reveal" href="./lab-audio-extractor.html" aria-labelledby="lab-audio-title">
+          <div class="lab-card-media" aria-hidden="true">
+            <div class="lab-card-media-deco lab-card-media-placeholder has-image" data-lab-slug="audio-extractor"><img src="./assets/home/lab-mp3.png" alt="Audio Extractor">
+              <svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                  <pattern id="lab-grid-audio-extractor" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1F1F22" stroke-width="0.5"></path>
+                  </pattern>
+                </defs>
+                <rect width="400" height="250" fill="#141417"></rect>
+                <rect width="400" height="250" fill="url(#lab-grid-audio-extractor)"></rect>
+                <g transform="translate(200 125)" fill="none" stroke="#34343A" stroke-width="1.5">
+                  <rect x="-40" y="-25" width="80" height="50" rx="3"></rect>
+                  <circle cx="-18" cy="-10" r="5"></circle>
+                  <path d="M -35 15 L -18 2 L 4 10 L 35 -8 L 35 22 L -35 22 Z"></path>
+                </g>
+              </svg>
+            </div>
+            <span class="lab-card-media-label">audio extractor</span>
+          </div>
+          <div class="lab-card-content">
+            <span class="lab-card-meta">tool · v0.1</span>
+            <h3 class="lab-card-title" id="lab-audio-title">Audio Extractor</h3>
+            <p class="lab-card-desc">Extract clean audio tracks from video files. MP3, WAV and OGG output with quality settings.</p>
+            <span class="lab-card-cta">try it →</span>
+          </div>
+        </a>
+
+      </div>
+
+      <div class="lab-hint" aria-hidden="true">
+        <span class="lab-hint-arrow">← →</span>
+        <span>scroll to explore</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="about section-divider" id="about" aria-labelledby="about-title">
+    <div class="container">
+      <div class="about-grid reveal">
+        <div>
+          <div class="about-photo" aria-hidden="true"></div>
+          <p class="about-photo-caption">jordan, 2025</p>
+        </div>
+        <div class="about-content">
+          <span class="section-label">about</span>
+          <h2 id="about-title">Hi, I'm Jordan from Perú 🇵🇪</h2>
+          <p>I'm a UX/UI Designer Senior &amp; Interaction Designer focused on digital products where motion supports human-computer interaction, usability and clarity.</p>
+          <p class="muted">I specialize in interaction design, affordances and micro-interactions, using motion to guide user behavior, communicate system states and reduce friction in complex interfaces.</p>
+          <p class="muted">I follow an AI-first approach, using AI at the early stages of the UX/UI process — research synthesis, ideation, exploration of interaction patterns and validation of concepts — always grounded in UX principles and product constraints.</p>
+          <div class="about-actions">
+            <a class="btn" href="#" download="">download CV</a>
+            <a class="btn" href="https://www.linkedin.com/in/jordancollao/" target="_blank" rel="noopener">view linkedin</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="experience" id="experience" aria-labelledby="experience-title">
+    <div class="container">
+      <div class="exp-head">
+        <span class="section-label">experience</span>
+        <h2 id="experience-title">Where I've worked</h2>
+      </div>
+
+      <div class="exp-track">
+        <div class="exp-track-fill" id="exp-track-fill" aria-hidden="true"></div>
+
+        <!-- 1. TasteMakers (USA, active) -->
+        <div class="exp-entry active reveal">
+          <div class="exp-period-row">
+            <span class="exp-period">2026 — now</span>
+            <span class="exp-active-tag">active</span>
+          </div>
+          <div class="exp-company">TasteMakers</div>
+          <div class="exp-role">design prompt engineer</div>
+          <p class="exp-desc">Translating UI structures into structured prompts for AI reconstruction. SVG analysis, layout semantics, motion documentation.</p>
+          <span class="exp-location">
+            <span class="flag" aria-hidden="true">
+              <svg viewBox="0 0 19 10" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="19" height="10" fill="#B22234"></rect>
+                <rect y="0.77" width="19" height="0.77" fill="#FFFFFF"></rect>
+                <rect y="2.31" width="19" height="0.77" fill="#FFFFFF"></rect>
+                <rect y="3.85" width="19" height="0.77" fill="#FFFFFF"></rect>
+                <rect y="5.38" width="19" height="0.77" fill="#FFFFFF"></rect>
+                <rect y="6.92" width="19" height="0.77" fill="#FFFFFF"></rect>
+                <rect y="8.46" width="19" height="0.77" fill="#FFFFFF"></rect>
+                <rect width="7.6" height="5.38" fill="#3C3B6E"></rect>
+              </svg>
+            </span>
+            remote · usa
+          </span>
+        </div>
+
+        <!-- 2. Grupo UNACEM (Perú, active) -->
+        <div class="exp-entry active reveal">
+          <div class="exp-period-row">
+            <span class="exp-period">2023 — now</span>
+            <span class="exp-active-tag">active</span>
+          </div>
+          <div class="exp-company">Grupo UNACEM</div>
+          <div class="exp-role">ui designer senior → ui designer specialist</div>
+          <p class="exp-desc">UI design and design system contributions across the group. Currently leading UI for Cantera, a web platform for site supervisors with Lottie tutorials and micro-interactions.</p>
+          <span class="exp-location">
+            <span class="flag" aria-hidden="true">
+              <svg viewBox="0 0 3 2" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="1" height="2" fill="#D91023"></rect>
+                <rect x="1" width="1" height="2" fill="#FFFFFF"></rect>
+                <rect x="2" width="1" height="2" fill="#D91023"></rect>
+              </svg>
+            </span>
+            lima, perú
+          </span>
+        </div>
+
+        <!-- 3. Cencosud S.A. (Chile) -->
+        <div class="exp-entry featured reveal">
+          <div class="exp-period-row">
+            <span class="exp-period">2022 — 2023</span>
+          </div>
+          <div class="exp-company">Cencosud S.A.</div>
+          <div class="exp-role">design system designer · product designer · sr ux/ui</div>
+          <p class="exp-desc">Designed system components, product UX and senior UI work for one of LATAM's largest retail groups. Cross-functional collaboration on multiple consumer products.</p>
+          <span class="exp-location">
+            <span class="flag" aria-hidden="true">
+              <svg viewBox="0 0 30 20" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="30" height="10" fill="#FFFFFF"></rect>
+                <rect y="10" width="30" height="10" fill="#D52B1E"></rect>
+                <rect width="10" height="10" fill="#0039A6"></rect>
+                <polygon points="5,2 6.18,5.62 9.76,5.62 6.79,7.86 7.97,11.48 5,9.24 2.03,11.48 3.21,7.86 0.24,5.62 3.82,5.62" fill="#FFFFFF"></polygon>
+              </svg>
+            </span>
+            santiago, cl
+          </span>
+        </div>
+
+        <!-- 4. Auna (Perú) -->
+        <div class="exp-entry featured reveal">
+          <div class="exp-period-row">
+            <span class="exp-period">2021 — 2022</span>
+          </div>
+          <div class="exp-company">Auna</div>
+          <div class="exp-role">ux motion · visual · ui designer</div>
+          <p class="exp-desc">Defined motion foundations for Vitamin DS — the healthcare design system. Established motion tokens, easings and a prefers-reduced-motion baseline considering accessibility for patients.</p>
+          <span class="exp-location">
+            <span class="flag" aria-hidden="true">
+              <svg viewBox="0 0 3 2" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="1" height="2" fill="#D91023"></rect>
+                <rect x="1" width="1" height="2" fill="#FFFFFF"></rect>
+                <rect x="2" width="1" height="2" fill="#D91023"></rect>
+              </svg>
+            </span>
+            lima, perú
+          </span>
+        </div>
+
+        <!-- 5. IconScout (global, active) -->
+        <div class="exp-entry featured reveal">
+          <div class="exp-period-row">
+            <span class="exp-period">2020 — now</span>
+          </div>
+          <div class="exp-company">IconScout</div>
+          <div class="exp-role">motion systems &amp; ai visual designer · contributor</div>
+          <p class="exp-desc">Contributor uploading motion icons and AI visual assets to a global marketplace. Six years of consistent contribution to one of the largest icon platforms.</p>
+          <span class="exp-location">
+            <span class="flag" aria-hidden="true" style="background: var(--surface-2); border-color: var(--border-strong); display: inline-flex; align-items: center; justify-content: center;">
+              <svg viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="9" cy="6.5" r="4.5" fill="none" stroke="#888" stroke-width="0.7"></circle>
+                <ellipse cx="9" cy="6.5" rx="2.2" ry="4.5" fill="none" stroke="#888" stroke-width="0.7"></ellipse>
+                <line x1="4.5" y1="6.5" x2="13.5" y2="6.5" stroke="#888" stroke-width="0.7"></line>
+              </svg>
+            </span>
+            remote · global
+          </span>
+        </div>
+
+        <!-- 6. Cajalab (Perú) -->
+        <div class="exp-entry featured reveal">
+          <div class="exp-period-row">
+            <span class="exp-period">2020 — 2021</span>
+          </div>
+          <div class="exp-company">Cajalab</div>
+          <div class="exp-role">ui designer · motion graphic designer</div>
+          <p class="exp-desc">UI design and motion graphics for product and marketing initiatives. Lottie integrations and brand motion work.</p>
+          <span class="exp-location">
+            <span class="flag" aria-hidden="true">
+              <svg viewBox="0 0 3 2" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="1" height="2" fill="#D91023"></rect>
+                <rect x="1" width="1" height="2" fill="#FFFFFF"></rect>
+                <rect x="2" width="1" height="2" fill="#D91023"></rect>
+              </svg>
+            </span>
+            lima, perú
+          </span>
+        </div>
+
+        <!-- 7. Ludik (Perú) -->
+        <div class="exp-entry featured reveal">
+          <div class="exp-period-row">
+            <span class="exp-period">2018 — 2020</span>
+          </div>
+          <div class="exp-company">Ludik</div>
+          <div class="exp-role">visual designer · motion designer</div>
+          <p class="exp-desc">Visual identity and motion design across digital products and campaigns. Where motion design became a core craft.</p>
+          <span class="exp-location">
+            <span class="flag" aria-hidden="true">
+              <svg viewBox="0 0 3 2" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="1" height="2" fill="#D91023"></rect>
+                <rect x="1" width="1" height="2" fill="#FFFFFF"></rect>
+                <rect x="2" width="1" height="2" fill="#D91023"></rect>
+              </svg>
+            </span>
+            lima, perú
+          </span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact" aria-labelledby="contact-title">
+    <div class="container">
+      <div class="contact-inner">
+        <span class="section-label">contact</span>
+        <h2 class="contact-title" id="contact-title">Let's build <em>something</em>.</h2>
+        <p class="contact-desc">I'm open to senior + lead roles, freelance projects and collaborations. Drop me a line — I usually respond within 24 hours.</p>
+
+        <div class="contact-grid">
+          <a class="contact-card primary reveal" href="https://wa.me/51960280858" target="_blank" rel="noopener" aria-label="WhatsApp Jordan">
+            <span class="contact-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"></path></svg>
+            </span>
+            <span class="contact-card-meta">
+              <span class="contact-card-label">whatsapp · fastest</span>
+              <span class="contact-card-value">+51 960 280 858</span>
+            </span>
+          </a>
+
+          <a class="contact-card reveal" href="mailto:jmotionux@gmail.com" aria-label="Email Jordan">
+            <span class="contact-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg>
+            </span>
+            <span class="contact-card-meta">
+              <span class="contact-card-label">email</span>
+              <span class="contact-card-value">jmotionux@gmail.com</span>
+            </span>
+          </a>
+
+          <a class="contact-card reveal" href="https://www.linkedin.com/in/jordancollao/" target="_blank" rel="noopener" aria-label="LinkedIn profile">
+            <span class="contact-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"></path></svg>
+            </span>
+            <span class="contact-card-meta">
+              <span class="contact-card-label">linkedin</span>
+              <span class="contact-card-value">/in/jordancollao</span>
+            </span>
+          </a>
+        </div>
+
+        <span class="contact-status">currently in perú · responses within 24h</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer" role="contentinfo">
+  <div class="container footer-inner">
+    <p class="footer-copy">© 2026 jordan collao · made in perú</p>
+    <div class="footer-links">
+      <a class="footer-link" href="https://wa.me/51960280858" target="_blank" rel="noopener">whatsapp</a>
+      <a class="footer-link" href="https://www.linkedin.com/in/jordancollao/" target="_blank" rel="noopener">linkedin</a>
+      <a class="footer-link" href="#" target="_blank" rel="noopener">github</a>
+      <a class="footer-link" href="#" target="_blank" rel="noopener">lottiefiles</a>
+      <a class="footer-link" href="https://iconscout.com/contributors/jlossst" target="_blank" rel="noopener">iconscout</a>
+      <a class="footer-link" href="mailto:jmotionux@gmail.com">email</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Back-to-top button: appears after scrolling past hero -->
+<button class="back-to-top" id="back-to-top" aria-label="Back to top" type="button">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M12 19V5"></path>
+    <path d="m5 12 7-7 7 7"></path>
+  </svg>
+</button>
+
+<script>
+  // ============================================================
+  // CURTAIN PRE-COVER — runs BEFORE anything else (loader, reveals, scroll restore)
+  // When coming from a curtain transition, we must cover the viewport instantly
+  // before the browser does scroll restoration or paints reveal animations.
+  // ============================================================
+  (function preCoverIfFromCurtain() {
+    if (sessionStorage.getItem('curtain-transition') !== '1') return;
+    const curtain = document.getElementById('curtain');
+    if (!curtain) return;
+    // Prevent browser auto scroll restore — we'll let it happen but under the curtain
+    if ('scrollRestoration' in history) {
+      // Keep 'auto' so user lands on the right scroll position, but it happens hidden under the curtain
+    }
+    // Cover instantly — no transition
+    curtain.style.transition = 'none';
+    curtain.style.transform = 'translateY(0)';
+    curtain.classList.add('in');
+    // Force layout/paint
+    void curtain.offsetHeight;
+  })();
+
+  // Loading screen: shows ONCE per session (first visit only)
+  // Subsequent visits within same session (e.g. returning from case-template)
+  // skip the loader entirely so the curtain transition is seamless.
+  (function() {
+    const loader = document.getElementById('loader');
+    const numEl = document.getElementById('loader-num');
+    const barEl = document.getElementById('loader-bar');
+    if (!loader) return;
+
+    const sessionKey = 'portfolio-loader-shown';
+    const alreadyShown = sessionStorage.getItem(sessionKey) === '1';
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Skip loader if: already shown this session, OR reduced-motion, OR coming from a curtain transition
+    const fromCurtain = sessionStorage.getItem('curtain-transition') === '1';
+    if (alreadyShown || fromCurtain) {
+      // Hide loader instantly without ceremony — page reveals via curtain instead
+      loader.classList.add('done');
+      document.body.classList.add('loaded');
+      // Mark as shown for completeness
+      sessionStorage.setItem(sessionKey, '1');
+      return;
+    }
+
+    if (reduceMotion) {
+      // Reduced motion: skip the show, hide immediately on load
+      window.addEventListener('load', () => {
+        loader.classList.add('done');
+        document.body.classList.add('loaded');
+        sessionStorage.setItem(sessionKey, '1');
+      });
+      return;
+    }
+
+    const startTime = performance.now();
+    const minDuration = 1500; // minimum visible time in ms
+    let pageReady = false;
+    let displayedProgress = 0;
+
+    window.addEventListener('load', () => { pageReady = true; });
+
+    function tick() {
+      const elapsed = performance.now() - startTime;
+      const minProgress = Math.min(elapsed / minDuration, 1);
+
+      let realProgress = 0;
+      if (document.readyState === 'loading') realProgress = 0.3;
+      else if (document.readyState === 'interactive') realProgress = 0.7;
+      else if (document.readyState === 'complete') realProgress = 1;
+
+      const target = Math.min(minProgress, realProgress) * 100;
+
+      displayedProgress += (target - displayedProgress) * 0.18;
+
+      if (pageReady && elapsed >= minDuration) {
+        displayedProgress = 100;
+      }
+
+      const rounded = Math.round(displayedProgress);
+      numEl.textContent = rounded;
+      barEl.style.width = rounded + '%';
+
+      if (rounded >= 100) {
+        setTimeout(() => {
+          loader.classList.add('done');
+          document.body.classList.add('loaded');
+          sessionStorage.setItem(sessionKey, '1');
+        }, 200);
+        return;
+      }
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  })();
+
+  // ============================================================
+  // PAGE TRANSITION CURTAIN
+  // - Same-origin link clicks intercepted
+  // - Curtain slides UP from bottom (480ms)
+  // - Brief pause with curtain covering (120ms)
+  // - Navigate to target URL
+  // - On new page load: curtain starts covering, slides UP and OUT (480ms)
+  // - Total: ~1080ms perceived
+  // ============================================================
+  // Detect entry from curtain-driven navigation IMMEDIATELY (before scroll restore)
+  // The pre-cover already happened at script top. Now we handle the slide-out logic.
+
+  (function() {
+    const curtain = document.getElementById('curtain');
+    if (!curtain) return;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const SLIDE_IN_MS  = reduceMotion ? 200 : 600;
+    const HOLD_MS      = reduceMotion ? 0   : 300;
+    const SLIDE_OUT_MS = reduceMotion ? 200 : 600;
+
+    // ---------- ENTRY: curtain reveals new page ----------
+    // Curtain is already covering (from preCoverIfFromCurtain above).
+    // Wait for: page-loaded + scroll restore done + min hold, then slide out.
+    function playEntryReveal() {
+      // Re-enable transitions and slide curtain out
+      requestAnimationFrame(() => {
+        curtain.style.transition = '';
+        // Force reflow so the next class change uses the transition
+        void curtain.offsetHeight;
+        requestAnimationFrame(() => {
+          curtain.classList.remove('in');
+          curtain.classList.add('out');
+          setTimeout(() => {
+            curtain.classList.remove('out');
+            curtain.style.transform = '';
+          }, SLIDE_OUT_MS + 50);
+        });
+      });
+    }
+
+    // Detect entry from a curtain-driven navigation via sessionStorage flag
+    if (sessionStorage.getItem('curtain-transition') === '1') {
+      sessionStorage.removeItem('curtain-transition');
+
+      // Wait for: (1) page loaded, (2) DOM idle/scroll-restored, (3) min hold time
+      const waitForReady = () => {
+        const minHold = HOLD_MS + 200; // give scroll restore time to complete
+        const startTime = performance.now();
+
+        const tryReveal = () => {
+          const isLoaded = document.body.classList.contains('loaded') || document.body.classList.contains('skip-loader');
+          const elapsed = performance.now() - startTime;
+
+          if (isLoaded && elapsed >= minHold) {
+            playEntryReveal();
+          } else if (elapsed >= 3000) {
+            // Failsafe: even if loaded class never appears, reveal after 3s
+            playEntryReveal();
+          } else {
+            setTimeout(tryReveal, 50);
+          }
+        };
+        tryReveal();
+      };
+      // Start the wait — but defer to allow initial paint
+      requestAnimationFrame(waitForReady);
+    }
+
+    // ---------- EXIT: cover screen then navigate ----------
+    function isInternalLink(anchor) {
+      if (!anchor || !anchor.href) return false;
+      // Skip external links, mailto, tel, hash-only, download links
+      if (anchor.target === '_blank') return false;
+      if (anchor.hasAttribute('download')) return false;
+      const href = anchor.getAttribute('href');
+      if (!href) return false;
+      if (href.startsWith('mailto:') || href.startsWith('tel:')) return false;
+      if (href.startsWith('#')) return false;
+      // Same-origin check
+      try {
+        const url = new URL(anchor.href, window.location.href);
+        if (url.origin !== window.location.origin) return false;
+        // If it's the same page (same path + no different hash semantics), skip
+        if (url.pathname === window.location.pathname && url.search === window.location.search) {
+          return false;
+        }
+        return true;
+      } catch {
+        return false;
+      }
+    }
+
+    function navigateWithCurtain(url) {
+      // Slide curtain up to cover
+      curtain.classList.remove('out');
+      curtain.classList.add('in');
+      // Mark for the next page to know it should reveal with curtain
+      sessionStorage.setItem('curtain-transition', '1');
+      // After slide-in + hold, navigate
+      setTimeout(() => {
+        window.location.href = url;
+      }, SLIDE_IN_MS + HOLD_MS);
+    }
+
+    // Intercept clicks on internal links
+    document.addEventListener('click', (e) => {
+      // Look for an <a> ancestor of the click target
+      let el = e.target;
+      while (el && el !== document.body) {
+        if (el.tagName === 'A') break;
+        el = el.parentElement;
+      }
+      if (!el || el.tagName !== 'A') return;
+      if (!isInternalLink(el)) return;
+      // Allow modifier-key clicks to behave normally (open in new tab, etc.)
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+
+      e.preventDefault();
+      navigateWithCurtain(el.href);
+    });
+
+    // If user comes back via browser back/forward (bfcache restore), reset curtain
+    window.addEventListener('pageshow', (e) => {
+      if (e.persisted) {
+        curtain.classList.remove('in', 'out');
+        curtain.style.transform = '';
+      }
+    });
+  })();
+
+  // ============================================================
+  // REVEAL ANIMATIONS — entry stagger + scroll-driven
+  // - Entry stagger: hero elements appear sequentially after loader
+  // - Scroll reveal: elements with .reveal fade in when they enter viewport
+  // - Both fire ONCE per session (sessionStorage flag)
+  // ============================================================
+  (function() {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // For reduced motion, just unhide everything immediately
+    if (reduceMotion) {
+      document.querySelectorAll('.entry-reveal, .reveal').forEach(el => el.classList.add('visible'));
+      return;
+    }
+
+    // Check if reveals already played this session, OR if loader was already shown
+    // (returning from case-template → no fresh entry sequence, just curtain reveal)
+    const sessionKey = 'portfolio-revealed';
+    const alreadyRevealed = sessionStorage.getItem(sessionKey) === '1';
+    const loaderAlreadyShown = sessionStorage.getItem('portfolio-loader-shown') === '1';
+    const fromCurtain = sessionStorage.getItem('curtain-transition') === '1';
+
+    if (alreadyRevealed || loaderAlreadyShown || fromCurtain) {
+      // Skip animations, show everything immediately so the curtain
+      // transition (if any) can do its job without competing animations
+      document.querySelectorAll('.entry-reveal, .reveal').forEach(el => el.classList.add('visible'));
+      return;
+    }
+
+    // ---------- Entry stagger (Hero elements) ----------
+    function playEntryStagger() {
+      const entries = document.querySelectorAll('.entry-reveal');
+      const staggerMs = 80;
+      entries.forEach(el => {
+        const idx = parseInt(el.dataset.stagger || '0', 10);
+        setTimeout(() => el.classList.add('visible'), idx * staggerMs);
+      });
+    }
+
+    // Wait for loader to finish before triggering entry stagger.
+    // The loader sets body.loaded class when done.
+    function waitForLoaderThenStagger() {
+      if (document.body.classList.contains('loaded')) {
+        playEntryStagger();
+        return;
+      }
+      const obs = new MutationObserver(() => {
+        if (document.body.classList.contains('loaded')) {
+          obs.disconnect();
+          // Small delay to let loader fade complete
+          setTimeout(playEntryStagger, 100);
+        }
+      });
+      obs.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+    }
+
+    waitForLoaderThenStagger();
+
+    // ---------- Scroll reveal (everything else) ----------
+    const revealEls = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) {
+      // Fallback: show everything
+      revealEls.forEach(el => el.classList.add('visible'));
+    } else {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            io.unobserve(entry.target); // one-shot per element
+          }
+        });
+      }, {
+        // Trigger when element is 12% into viewport from bottom
+        rootMargin: '0px 0px -12% 0px',
+        threshold: 0.05
+      });
+      revealEls.forEach(el => io.observe(el));
+    }
+
+    // Mark session as revealed once user has scrolled past hero
+    // (so on next page load within session, no re-play)
+    let scrolled = false;
+    function markRevealed() {
+      if (scrolled) return;
+      scrolled = true;
+      sessionStorage.setItem(sessionKey, '1');
+      window.removeEventListener('scroll', markRevealed);
+    }
+    window.addEventListener('scroll', markRevealed, { passive: true, once: false });
+    // Also mark after 3s in case user doesn't scroll
+    setTimeout(markRevealed, 3000);
+  })();
+
+  // ============================================================
+  // EXPERIENCE TIMELINE — scroll-painted line + dot ignition (OPTIMIZED)
+  // - Positions cached on load + resize (not recalculated every scroll)
+  // - Stops observing once all dots are ignited
+  // ============================================================
+  (function() {
+    const track = document.querySelector('.exp-track');
+    const fill = document.getElementById('exp-track-fill');
+    const entries = document.querySelectorAll('.exp-entry');
+    if (!track || !fill || !entries.length) return;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) {
+      entries.forEach(el => el.classList.add('ignited', 'settled'));
+      return;
+    }
+
+    // Cached document-relative positions (recomputed on resize only)
+    let cache = null;
+    function rebuildCache() {
+      const scrollY = window.scrollY;
+      const trackRect = track.getBoundingClientRect();
+      cache = {
+        trackTop: trackRect.top + scrollY,
+        trackHeight: trackRect.height,
+        entries: Array.from(entries).map(el => ({
+          el,
+          dotTop: el.getBoundingClientRect().top + scrollY + 6,
+        })),
+      };
+    }
+
+    let ticking = false;
+    let allIgnited = false;
+
+    function update() {
+      if (!cache) rebuildCache();
+      const viewportH = window.innerHeight;
+      const scrollY = window.scrollY;
+      // triggerLine in document coords (where scroll meets viewport)
+      const triggerLine = scrollY + viewportH * 0.6;
+
+      // Fill progress
+      const trackTopRel = cache.trackTop - scrollY;
+      const trackBottomRel = trackTopRel + cache.trackHeight;
+      const triggerRel = viewportH * 0.6;
+
+      let progress = 0;
+      if (trackTopRel <= triggerRel && trackBottomRel >= triggerRel) {
+        progress = (triggerRel - trackTopRel) / cache.trackHeight;
+      } else if (trackBottomRel < triggerRel) {
+        progress = 1;
+      }
+      progress = Math.max(0, Math.min(1, progress));
+      fill.style.transform = `scaleY(${progress})`;
+
+      // Ignite dots whose document-position is above triggerLine
+      let pendingCount = 0;
+      cache.entries.forEach(item => {
+        if (item.el.classList.contains('ignited')) return;
+        pendingCount++;
+        if (item.dotTop <= triggerLine) {
+          item.el.classList.add('ignited');
+          setTimeout(() => item.el.classList.add('settled'), 250);
+          pendingCount--;
+        }
+      });
+
+      // If all ignited and progress is 100, stop listening
+      if (pendingCount === 0 && progress >= 0.999) {
+        allIgnited = true;
+      }
+      ticking = false;
+    }
+
+    function onScroll() {
+      if (allIgnited) return; // Only fill update needed; we still want progress, but it's already 1
+      if (!ticking) {
+        requestAnimationFrame(update);
+        ticking = true;
+      }
+    }
+
+    function onResize() {
+      rebuildCache();
+      allIgnited = false; // recheck after resize
+      requestAnimationFrame(update);
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onResize, { passive: true });
+    // Build cache after DOM is ready (images may shift positions)
+    if (document.readyState === 'complete') {
+      rebuildCache();
+      update();
+    } else {
+      window.addEventListener('load', () => {
+        rebuildCache();
+        update();
+      });
+    }
+  })();
+
+  // Smooth scroll with header offset
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      const targetId = link.getAttribute('href');
+      if (targetId === '#') return;
+      const target = document.querySelector(targetId);
+      if (!target) return;
+      e.preventDefault();
+      const headerHeight = document.querySelector('.header').offsetHeight;
+      const top = target.getBoundingClientRect().top + window.scrollY - headerHeight - 16;
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
+  });
+
+  // Scroll-driven curved marquee — RAF pauses when offscreen
+  (function() {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) return;
+
+    const tp = document.getElementById('text-path');
+    const banner = document.querySelector('.marquee-banner');
+    if (!tp || !banner) return;
+
+    let offset = 0;
+    let velocity = 0;
+    let lastScroll = window.scrollY;
+    let lastTime = performance.now();
+    let rafId = null;
+    let isVisible = true;
+
+    const scrollImpulse = 0.6;
+    const inertiaDecay = 0.92;
+    const maxVelocity = 80;
+    const velocityFloor = 0.05;
+
+    function tick(now) {
+      const dt = Math.min((now - lastTime) / 1000, 0.05);
+      lastTime = now;
+
+      const currentScroll = window.scrollY;
+      const scrollDelta = currentScroll - lastScroll;
+      lastScroll = currentScroll;
+
+      velocity += scrollDelta * scrollImpulse;
+      if (velocity > maxVelocity) velocity = maxVelocity;
+      if (velocity < -maxVelocity) velocity = -maxVelocity;
+
+      offset += velocity * dt;
+      velocity *= inertiaDecay;
+      if (Math.abs(velocity) < velocityFloor) velocity = 0;
+
+      offset = ((offset % 100) + 100) % 100;
+      tp.setAttribute('startOffset', `${-offset}%`);
+
+      // Stop when offscreen and velocity has settled
+      if (!isVisible && Math.abs(velocity) < velocityFloor) {
+        rafId = null;
+        return;
+      }
+      rafId = requestAnimationFrame(tick);
+    }
+
+    function start() {
+      if (!rafId) {
+        lastTime = performance.now();
+        lastScroll = window.scrollY;
+        rafId = requestAnimationFrame(tick);
+      }
+    }
+
+    // IntersectionObserver to track visibility
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          isVisible = entry.isIntersecting;
+          if (isVisible) start();
+        });
+      }, { rootMargin: '100px 0px' });
+      io.observe(banner);
+    }
+
+    // Also trigger from scroll (in case observer fires late)
+    window.addEventListener('scroll', () => {
+      if (isVisible) start();
+    }, { passive: true });
+
+    start();
+  })();
+
+  // ============================================================
+  // ============================================================
+  // PERFORMANCE: pause infinite animations when elements leave viewport
+  // - pulse-dot, exp-pulse and other infinite keyframes consume GPU/CPU
+  //   even when not visible. This observer adds .anim-paused when the
+  //   container goes offscreen, removing it on re-entry.
+  // ============================================================
+  (function() {
+    if (!('IntersectionObserver' in window)) return;
+
+    // Targets: containers holding infinite animations
+    const targets = document.querySelectorAll(
+      '.hero, .contact-status, .badge-active, .preview-meta-right, ' +
+      '.exp-entry.active, .lab'
+    );
+    if (!targets.length) return;
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.remove('anim-paused');
+        } else {
+          entry.target.classList.add('anim-paused');
+        }
+      });
+    }, { rootMargin: '50px 0px' });
+
+    targets.forEach(t => io.observe(t));
+  })();
+
+  // CUSTOM CURSORS — dual system
+  // - cursor-dot: small green dot follower, active site-wide
+  // - custom-cursor: big circle with arrow, active over project rows AND lab cards
+  // - RAF pauses when mouse leaves viewport for performance
+  // ============================================================
+  (function() {
+    const isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (isTouch || reduceMotion) return;
+
+    const dot = document.getElementById('cursor-dot');
+    const bigCursor = document.getElementById('custom-cursor');
+    const rows = document.querySelectorAll('.proj-row');
+    const labCards = document.querySelectorAll('.lab-card:not(.empty)');
+    if (!dot || !bigCursor) return;
+
+    let mouseX = 0, mouseY = 0;
+    let dotX = 0, dotY = 0;
+    let bigX = 0, bigY = 0;
+    let bigActive = false;
+    let onBig = false;
+    let started = false;
+    let rafId = null;
+    let running = false;
+
+    function tick() {
+      dotX += (mouseX - dotX) * 0.28;
+      dotY += (mouseY - dotY) * 0.28;
+      bigX += (mouseX - bigX) * 0.22;
+      bigY += (mouseY - bigY) * 0.22;
+
+      dot.style.transform = `translate3d(${dotX}px, ${dotY}px, 0)`;
+      const scale = bigActive ? 1 : 0.4;
+      bigCursor.style.transform = `translate3d(${bigX}px, ${bigY}px, 0) scale(${scale})`;
+
+      // Stop RAF when both cursors are very close to mouse (settled) AND not moving
+      const dotSettled = Math.abs(mouseX - dotX) < 0.1 && Math.abs(mouseY - dotY) < 0.1;
+      const bigSettled = Math.abs(mouseX - bigX) < 0.1 && Math.abs(mouseY - bigY) < 0.1;
+      if (dotSettled && bigSettled && !bigActive) {
+        running = false;
+        rafId = null;
+        return;
+      }
+      rafId = requestAnimationFrame(tick);
+    }
+
+    function startTick() {
+      if (!running) {
+        running = true;
+        rafId = requestAnimationFrame(tick);
+      }
+    }
+
+    function onMouseMove(e) {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      if (!started) {
+        dotX = bigX = mouseX;
+        dotY = bigY = mouseY;
+        started = true;
+        dot.classList.add('visible');
+        document.body.classList.add('cursor-dot-active');
+      }
+      startTick();
+    }
+
+    function onMouseLeave() {
+      dot.classList.remove('visible');
+      // Stop RAF when mouse leaves viewport entirely
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+        running = false;
+        rafId = null;
+      }
+    }
+    function onMouseEnter() {
+      dot.classList.add('visible');
+    }
+
+    // Both project rows AND lab cards trigger the big cursor
+    function onBigEnter() {
+      onBig = true;
+      bigActive = true;
+      bigCursor.classList.add('visible');
+      dot.style.opacity = '0';
+      startTick();
+    }
+    function onBigLeave() {
+      onBig = false;
+      bigActive = false;
+      bigCursor.classList.remove('visible');
+      dot.style.opacity = '';
+    }
+
+    rows.forEach(row => {
+      row.classList.add('cursor-active');
+      row.addEventListener('mouseenter', onBigEnter);
+      row.addEventListener('mouseleave', onBigLeave);
+    });
+    labCards.forEach(card => {
+      card.classList.add('cursor-active');
+      card.addEventListener('mouseenter', onBigEnter);
+      card.addEventListener('mouseleave', onBigLeave);
+    });
+
+    // Grow effect on interactive elements (links, buttons) — except project rows + lab cards
+    const interactiveSelectors = 'a:not(.proj-row):not(.lab-card), button, .contact-card, .hero-alive, .nav-link, .nav-cta, .back-to-top';
+    document.querySelectorAll(interactiveSelectors).forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        if (!onBig) dot.classList.add('grow');
+      });
+      el.addEventListener('mouseleave', () => {
+        dot.classList.remove('grow');
+      });
+    });
+
+    document.addEventListener('mousemove', onMouseMove, { passive: true });
+    document.addEventListener('mouseleave', onMouseLeave);
+    document.addEventListener('mouseenter', onMouseEnter);
+  })();
+
+  // ============================================================
+  // ============================================================
+  // ALIVE SCRAMBLE — letters scramble through random chars on hover
+  // - Total duration ~400ms with stagger of 50ms per letter
+  // - Each letter cycles ~6-8 random chars before settling
+  // - One-shot per hover; sacar y volver a entrar dispara de nuevo
+  // ============================================================
+  (function() {
+    const alive = document.querySelector('.hero-alive');
+    if (!alive) return;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) return;
+
+    const letters = alive.querySelectorAll('.letter');
+    if (!letters.length) return;
+
+    // Cache the original characters so we always restore the right text
+    const originals = Array.from(letters).map(el => el.textContent);
+
+    // Mono-friendly scramble alphabet — punctuation + brackets, no letters
+    // (using letters would create accidental words; symbols stay obviously "in flux")
+    const chars = '!<>-_\\/[]{}—=+*^?#$%&';
+
+    let isScrambling = false;
+    let cooldown = false;
+
+    function randomChar() {
+      return chars[Math.floor(Math.random() * chars.length)];
+    }
+
+    function scramble() {
+      if (isScrambling || cooldown) return;
+      isScrambling = true;
+      alive.classList.add('scrambling');
+
+      const staggerMs = 50;
+      const letterDuration = 240; // ms each letter spends scrambling
+      const tickMs = 35; // how often each letter changes char
+
+      letters.forEach((el, idx) => {
+        const startDelay = idx * staggerMs;
+        const original = originals[idx];
+        let elapsed = 0;
+        let intervalId = null;
+
+        // Start scrambling for this letter after its delay
+        setTimeout(() => {
+          intervalId = setInterval(() => {
+            el.textContent = randomChar();
+            elapsed += tickMs;
+            if (elapsed >= letterDuration) {
+              clearInterval(intervalId);
+              el.textContent = original;
+              // Last letter? Mark as done
+              if (idx === letters.length - 1) {
+                isScrambling = false;
+                alive.classList.remove('scrambling');
+                // Brief cooldown so a quick mouse-out/mouse-in doesn't re-trigger immediately
+                cooldown = true;
+                setTimeout(() => { cooldown = false; }, 150);
+              }
+            }
+          }, tickMs);
+        }, startDelay);
+      });
+    }
+
+    alive.addEventListener('mouseenter', scramble);
+
+    // Also trigger on focus for keyboard users (the word is interactive enough that focusing it = exploring)
+    alive.setAttribute('tabindex', '0');
+    alive.addEventListener('focus', scramble);
+  })();
+
+  // BACK TO TOP — appears after scrolling past hero (Portfolio section)
+  // ============================================================
+  (function() {
+    const btn = document.getElementById('back-to-top');
+    const portfolio = document.getElementById('portfolio');
+    if (!btn || !portfolio) return;
+
+    let ticking = false;
+    function check() {
+      const portfolioTop = portfolio.getBoundingClientRect().top;
+      // Show button when portfolio section reaches the top of viewport
+      if (portfolioTop <= 100) {
+        btn.classList.add('visible');
+      } else {
+        btn.classList.remove('visible');
+      }
+      ticking = false;
+    }
+    function onScroll() {
+      if (!ticking) {
+        requestAnimationFrame(check);
+        ticking = true;
+      }
+    }
+
+    btn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    check();
+  })();
+</script>
+
+
+
+</body></html>
