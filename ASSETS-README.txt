@@ -1,24 +1,48 @@
-ESTRUCTURA DE ASSETS (v3) — estado final
-=========================================
-Todas las rutas del HTML apuntan a assets/<proyecto>/ y TODOS los archivos
-locales existen y resuelven. Listo para subir a GitHub tal cual.
+ESTRUCTURA DE ASSETS — dónde va cada archivo
+=============================================
+Todas las rutas del HTML ahora apuntan a assets/<proyecto>/.
 
-Previews del index  -> assets/<proyecto>/cover.png   (los 8 proyectos)
+[YA INCLUIDOS EN ESTE ZIP]  (listos, no hagas nada)
+  assets/tastemakers/cover.png            (dashboard TASKFLOW)
+  assets/tastemakers/spec.png             (descripción SVG)
+  assets/progresol/cover.png              (catálogo→checkout→confirmación)
+  assets/progresol/home-variants.png      (variantes de home)
+  assets/vitamin/motion-tokens.png
+  assets/vitamin/components.webp
+  assets/vitamin/icons.png
+  assets/cantera/lottie-product-selection.mp4
+  assets/cantera/lottie-choosing-quote.mp4
+  assets/cantera/lottie-store-location.mp4
 
-Detalle por proyecto:
-  tastemakers : cover.png, spec.png, spec2.png
-  hidroroots  : cover.png, benchmark.webp, wireframes.webp, ui-desktop.webp, ui-mobile.webp
-  progresol   : cover.png, flow-checkout.png, home-variants.png
-  unacem360   : cover.png, wireframes.webp, ui-desktop.webp, ui-mobile.webp
-  cantera     : cover.png, lottie-product-selection.mp4, lottie-choosing-quote.mp4, lottie-store-location.mp4
-  vitamin     : cover.png, motion-tokens.png, components.webp, icons.png
-  gawq        : cover.png, pull-to-refresh.mp4, splash-screen.mp4, web-transition.mp4
-  cometa      : cover.png   (el video es un embed de YouTube)
+[YA LOS TIENES EN TU REPO]  (el HTML los referencia, no los toco)
+  assets/jordan-avatar.jpg
+  assets/jordan-portrait.jpg
+  assets/home/lab-image.png  lab-luz.png  lab-motion.png  lab-mp3.png
 
-UNICO asset no-local:
-  case-cantera.html -> el video "Complete interactions" (overview) sigue apuntando
-  a la URL de Contra porque no había un archivo local. Si quieres tenerlo local,
-  descarga:
-    https://media.contra.com/video/upload/fl_progressive/q_auto:best,w_1200/sajnvfamvi1eu3xaktuy.mp4
-  guárdalo como assets/cantera/overview.mp4 y en case-cantera.html cambia ese src
-  por: ./assets/cantera/overview.mp4
+[DEBES DESCARGAR DE CONTRA Y GUARDAR CON ESTE NOMBRE EXACTO]
+  Descarga cada URL y guárdala en la ruta indicada:
+
+  HIDROROOTS
+    assets/hidroroots/cover.webp        <- https://media.contra.com/image/upload/fl_progressive/q_auto:best/il2pvlgvwasmjm2nbrfs.webp
+    assets/hidroroots/benchmark.webp    <- https://media.contra.com/image/upload/fl_progressive/q_auto:best/f9hfycqr7rzejtzxezmv.webp
+    assets/hidroroots/wireframes.webp   <- https://media.contra.com/image/upload/fl_progressive/q_auto:best/mcx7rkwqc88jq8oepdwf.webp
+    assets/hidroroots/ui-desktop.webp   <- https://media.contra.com/image/upload/fl_progressive/q_auto:best/hte9qrv2kn1tevktravg.webp
+    assets/hidroroots/ui-mobile.webp    <- https://media.contra.com/image/upload/fl_progressive/q_auto:best/ysxry4virpmty2xpkdjk.webp
+
+  UNACEM 360
+    assets/unacem360/cover.webp         <- https://media.contra.com/image/upload/fl_progressive/q_auto:best/zcpxuiep3ks1gdzxbirg.webp
+    assets/unacem360/wireframes.webp    <- https://media.contra.com/image/upload/fl_progressive/q_auto:best/wmqsnik3vnpk5r2sjgv0.webp
+    assets/unacem360/ui-desktop.webp    <- https://media.contra.com/image/upload/fl_progressive/q_auto:best/p0hka88l10agn73gve6g.webp
+    assets/unacem360/ui-mobile.webp     <- https://media.contra.com/image/upload/fl_progressive/q_auto:best/pfbyjwj3lb3fciemij6k.webp
+
+  GAWQ
+    assets/gawq/cover.webp              <- https://media.contra.com/image/upload/fl_progressive/q_auto:best/cb2z9eyxmk7laj7f8ns9.webp
+    assets/gawq/pull-to-refresh.mp4     <- https://media.contra.com/image/upload/fl_progressive/q_auto:best/tqwvovnq0xi4pd4b8j32.mp4
+    assets/gawq/splash-screen.mp4       <- https://media.contra.com/image/upload/fl_progressive/q_auto:best/bglmiblylhxuysvqxvkj.mp4
+    assets/gawq/web-transition.mp4      <- https://media.contra.com/image/upload/fl_progressive/q_auto:best/hasu3jimkdneigze9jcu.mp4
+
+  CANTERA (video general de interacciones completas)
+    assets/cantera/overview.mp4         <- https://media.contra.com/video/upload/fl_progressive/q_auto:best,w_1200/sajnvfamvi1eu3xaktuy.mp4
+
+NOTA: si prefieres no descargar alguno, puedes volver a poner su URL de Contra
+directamente en el src="" del HTML correspondiente y también funcionará.
