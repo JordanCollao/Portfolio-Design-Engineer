@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Page not found | Jordan Collao</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#F3F4F6">
+<!-- Root-relative paths: this page is served for any missing URL, at any depth -->
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/case.css">
+<style>
+  .nf { padding: clamp(40px, 6vw, 80px) 0 clamp(64px, 8vw, 110px); }
+  .nf-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
+  .nf h1 { font-weight: 800; font-size: clamp(44px, 6vw, 88px); line-height: .95; letter-spacing: -0.045em; margin: 20px 0 22px; text-wrap: balance; }
+  .nf p { font-size: clamp(18px, 1.6vw, 21px); color: var(--ink-2); max-width: 46ch; }
+  .nf .btns { margin-top: 28px; }
+  /* The comp viewer with its footage missing, the way After Effects shows it */
+  .nf .viewer { margin-top: 0; }
+  .nf .viewer-frame { aspect-ratio: 4 / 3; display: grid; place-items: center; }
+  .missing { position: relative; z-index: 1; text-align: center; color: #fff; }
+  .missing b { display: block; font-weight: 800; font-size: clamp(88px, 13vw, 180px); line-height: .9; letter-spacing: -0.05em; }
+  .missing span { display: inline-block; margin-top: 14px; font-family: var(--mono); font-size: 13px; color: #C5CAD3; border: 1px solid #3A3F4B; padding: 4px 10px; border-radius: 4px; }
+  .missing-key { position: absolute; left: 50%; bottom: 14%; width: 10px; height: 10px; background: var(--playhead); transform: translateX(-50%) rotate(45deg); }
+  @media (max-width: 860px) { .nf-grid { grid-template-columns: minmax(0, 1fr); } .nf .viewer { order: -1; } }
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+<!-- Page transition curtain -->
+<div class="curtain" id="curtain" aria-hidden="true"><div class="curtain-mark"><span class="curtain-key"></span></div></div>
+<script src="/assets/js/transition.js"></script>
+
+<header class="header">
+  <div class="wrap">
+    <a class="brand" href="/index.html" aria-label="Jordan Collao, home">
+      <img src="/assets/jordan-avatar.webp" alt="">
+      <div><b>Jordan Collao</b><span>Design Engineer &amp; Motion Designer</span></div>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/index.html#portfolio">portfolio</a>
+      <a href="/index.html#lab">lab</a>
+      <a href="/index.html#about">about</a>
+      <a href="/index.html#experience">experience</a>
+      <a href="/index.html#contact">contact</a>
+      <a class="cta" href="https://wa.me/51960280858" target="_blank" rel="noopener">let's talk</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="nf">
+  <div class="wrap nf-grid">
+    <div>
+      <span class="status"><i></i>Error 404</span>
+      <h1>This frame isn't in the comp.</h1>
+      <p>The page you're looking for was moved or never existed. The rest of the timeline is still here.</p>
+      <div class="btns">
+        <a class="btn solid" href="/index.html">Back to home</a>
+        <a class="btn ghost" href="/index.html#portfolio">See portfolio</a>
+      </div>
+    </div>
+    <figure class="viewer">
+      <div class="viewer-frame">
+        <div class="missing" aria-hidden="true"><b>404</b><span>Missing footage</span></div>
+        <i class="missing-key" aria-hidden="true"></i>
+        <span class="safe" aria-hidden="true"></span>
+      </div>
+      <figcaption class="comp-bar"><span>jordan-collao.aep</span><b>0:00:04:04</b></figcaption>
+    </figure>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <span>© 2026 Jordan Collao, made in Perú</span>
+    <nav aria-label="Elsewhere">
+      <a href="https://wa.me/51960280858">WhatsApp</a>
+      <a href="https://www.linkedin.com/in/jordancollao/">LinkedIn</a>
+      <a href="https://iconscout.com/contributors/jlossst">IconScout</a>
+      <a href="mailto:jmotionux@gmail.com">Email</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>

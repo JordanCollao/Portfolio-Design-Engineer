@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="40 40 220 220">
+  <!-- Dynamic Geometry 02, the About graphic, at rest -->
+  <circle cx="97.5" cy="97.5" r="52" fill="#FD506F"/>
+  <rect x="155.2" y="50.2" width="93.6" height="93.6" rx="6.3" fill="#4B6FF4"/>
+  <path d="M46 150 H254 A104 104 0 0 1 46 150 Z" fill="#FBBC12"/>
+</svg>

@@ -1,0 +1,6 @@
+# macOS
+.DS_Store
+
+# Local only: Claude Code settings and the pre-redesign backups / original images
+.claude/
+_backup/
