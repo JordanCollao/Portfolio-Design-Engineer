@@ -9,7 +9,7 @@ Idioma de trabajo con Jordan: **español**. Idioma del sitio: **inglés**.
 ## 1. Contexto
 
 - **Quién:** Jordan Collao, Design Engineer & Motion Designer, Lima (Perú). Estudio: **Chocolab Studio**. IconScout: `jlossst` (Elite Contributor).
-- **Repo:** `JordanCollao/Portfolio-Design-Engineer` — sitio estático (HTML/CSS/JS sin framework), deploy en Netlify.
+- **Repo:** `JordanCollao/Portfolio-Design-Engineer` — sitio estático (HTML/CSS/JS sin framework), deploy en **Vercel** desde `main`: https://jordancollao.vercel.app (cada `git push origin main` publica solo).
 - **Archivos del sitio:** `index.html`, 8 cases (`case-*.html`), 4 labs (`lab-*.html`), `assets/`.
 - **Concepto del rediseño:** el sitio como una **línea de tiempo de After Effects**. Capas, keyframes (rombos), playhead azul, timecodes. Cada interacción se siente como "mover algo en una timeline".
 - **Por qué se dejó el diseño anterior:** fondo casi negro + verde ácido + labels mono es un look muy genérico. El nuevo es claro, frío y con un solo acento azul.
@@ -138,4 +138,4 @@ Los meses de Progresol, Unacem 360, Vitamin y Gawq son aproximados: **pedir a Jo
 4. **Labs (4):** mismo sistema.
    - **Hecho (oct 2026):** los 4 labs usan la misma plantilla (`case.css`, `case.js`, `transition.js`): versión y tipo en el estado, botones "Try it live" / "View on GitHub" (los 8 enlaces verificados con 200), barra en la timeline, captura dentro de su sección, header con las secciones del lab, prev/next en el orden del home y "← All experiments" a `#lab`. Originales en `_backup/`.
    - Favicon: el gráfico Dynamic Geometry 02 del About (`assets/favicon.svg`, `favicon-32.png`, `apple-touch-icon.png` y `/favicon.ico`), enlazado en las 14 páginas.
-5. Commit y push a GitHub; Netlify despliega.
+5. **Hecho (oct 2026):** commit y push a GitHub; Vercel publica en https://jordancollao.vercel.app. `.vercelignore` deja fuera del sitio el brief, el prototipo y `tools/`. La URL está en `og:image`, `canonical` y `sitemap.xml`: si cambia el dominio, actualizarla ahí.
