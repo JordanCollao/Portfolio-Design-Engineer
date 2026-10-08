@@ -23,12 +23,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./assets/css/site.css?v=2026100702">
+<link rel="stylesheet" href="./assets/css/site.css?v=2026100704">
 <style>
   /* HOME: hero, IconScout record, lab grid, experience list, about notes. Shared pieces live in site.css */
   /* HERO: the headline is the only loud thing; the strike is a margin note */
   .hero { padding: clamp(40px, 6vw, 88px) 0 clamp(64px, 8vw, 112px); }
-  .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: clamp(32px, 5vw, 80px); align-items: end; margin-top: clamp(28px, 3vw, 40px); }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: clamp(32px, 5vw, 80px); align-items: center; margin-top: clamp(28px, 3vw, 40px); }
   /* Eyebrow: a lime dot marks the label (no lines next to text: they read as an em dash) */
   .eyebrow { display: flex; align-items: center; gap: 10px; color: var(--lime); }
   .eyebrow::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex: none; }
@@ -42,16 +42,18 @@
   .lede { margin-top: clamp(24px, 3vw, 36px); font-size: clamp(17px, 1.4vw, 20px); color: var(--cream-2); max-width: 48ch; }
   .lede strong { color: var(--cream); font-weight: 700; }
   .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
-  .print { position: relative; width: clamp(200px, 19vw, 270px); background: var(--cream); padding: 10px 10px 14px; border-radius: 6px; transform: rotate(3deg); box-shadow: 0 18px 40px -16px rgba(0,0,0,.8); transition: transform .5s var(--spring); margin-bottom: 8px; }
+  .print { position: relative; width: clamp(200px, 19vw, 270px); background: var(--cream); padding: 10px 10px 14px; border-radius: 6px; transform: rotate(3deg); box-shadow: 0 18px 40px -16px rgba(0,0,0,.8); transition: transform .5s var(--spring); margin-right: clamp(16px, 6vw, 120px); }
   .print:hover { transform: rotate(-1.5deg) scale(1.02); }
   .print img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 3px; }
   .print figcaption { display: flex; justify-content: space-between; margin-top: 10px; color: var(--ink); font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; }
-  .sticker { position: absolute; font-family: var(--mono); font-weight: 700; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; padding: 9px 15px; border-radius: 999px; color: var(--ink); background: var(--lime); box-shadow: 0 4px 0 rgba(0,0,0,.45); white-space: nowrap; transform: rotate(-8deg); transition: transform .4s var(--spring); }
+  .sticker { position: absolute; display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-weight: 700; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; padding: 6px 15px 6px 6px; border-radius: 999px; color: var(--ink); background: #00DDB3; box-shadow: 0 4px 0 rgba(0,0,0,.45); white-space: nowrap; transform: rotate(-8deg); transition: transform .4s var(--spring); }
   .print .sticker { left: -34px; top: 22px; }
+  /* LottieFiles mark: white disc with the teal curve */
+  .sticker .lf { width: 22px; height: 22px; flex: none; display: block; }
   .print:hover .sticker { transform: rotate(4deg) scale(1.06); }
   @media (max-width: 860px) {
     .hero-grid { grid-template-columns: minmax(0, 1fr); }
-    .print { justify-self: start; margin-left: 30px; }
+    .print { justify-self: center; margin: 8px 0 0; }
   }
 
   /* NOW SPINNING: an auto-playing playlist; each Lottie is a track */
@@ -112,8 +114,20 @@
   .stats b { display: block; font-family: var(--display); font-weight: 400; font-size: clamp(30px, 2.8vw, 40px); line-height: 1; }
   .stats span { display: block; margin-top: 6px; font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
   .np-info .pill { margin-top: 24px; }
-  @media (max-width: 900px) { .np { grid-template-columns: minmax(0, 1fr); } .deck { max-width: 380px; } }
-  @media (max-width: 560px) { .np-head { flex-direction: column; align-items: flex-start; gap: 6px; } .music { margin-bottom: 0; } }
+  /* Tablets: record and playlist stay side by side; the music button drops under the title */
+  @media (max-width: 900px) {
+    .np-head { flex-direction: column; align-items: flex-start; gap: 0; }
+    .music { margin: 18px 0 22px; }
+  }
+  /* Phones: the record shrinks and sits half off the right edge, next to the title,
+     so record and playlist read as one block */
+  @media (max-width: 600px) {
+    .np { grid-template-columns: minmax(0, 1fr); position: relative; }
+    .np-info { position: relative; z-index: 1; }
+    .deck { position: absolute; z-index: 0; top: 34px; right: 0; width: clamp(220px, 58vw, 340px); max-width: none; transform: translateX(50%); }
+    .arm { display: none; }
+    .np-info h2 { max-width: calc(100% - clamp(110px, 29vw, 170px) - 8px); }
+  }
 
   /* LAB: same card component as the work section, four across */
   .lab-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -156,7 +170,26 @@
   .find dd a:hover, .find dd a:focus-visible { background-size: 100% 2px; color: var(--lime); }
   @media (max-width: 900px) { .notes-grid { grid-template-columns: minmax(0, 1fr); } }
 
+  /* WALLET (phones only): the cards pile up like cards in a wallet. Each one sticks under the header,
+     the next slides over it, and the ones behind peek out, shrink and dim a little. */
+  @media (max-width: 680px) {
+    .stack { display: block; }
+    .stack .card { position: sticky; top: calc(118px + var(--i, 0) * 10px); margin-bottom: 16px; transform-origin: 50% 0;
+      transform: scale(var(--s, 1)); filter: brightness(var(--b, 1)); box-shadow: 0 -14px 28px -18px rgba(0, 0, 0, .75); transition: none; }
+    .stack .card.rise, .js .stack .card.rise { opacity: 1; transform: scale(var(--s, 1)); }
+    .stack .card:hover, .stack .card:focus-visible { transform: scale(var(--s, 1)); }
+    .stack .card:last-child { margin-bottom: 0; }
+    .stack .card .shot img { aspect-ratio: 16 / 9; }
+    /* The counter rides on top of the pile so you always know which card you're on */
+    .stack-count { position: sticky; top: 76px; z-index: 5; display: flex; justify-content: space-between; align-items: center; margin: 0 calc(-1 * var(--gutter)) 12px; padding: 10px var(--gutter); background: var(--ink); color: var(--muted); font-size: 11px; }
+    .stack-count b { color: var(--lime); font-weight: 500; }
+  }
+  @media (min-width: 681px) { .stack-count { display: none; } }
+  /* Experience rows come in one by one, top to bottom, as they enter the screen */
+  .js #experience .row { opacity: 0; transform: translateY(20px); transition: opacity .7s var(--out), transform .7s var(--out); }
+  .js #experience .row.in { opacity: 1; transform: none; }
   @media (prefers-reduced-motion: reduce) {
+    .js #experience .row { opacity: 1; transform: none; }
     .note::after { transform: translateY(-50%) rotate(-1deg) scaleX(1); }
     .vinyl { animation: none; }
     .notes .hl { background-size: 100% 100%; }
@@ -178,7 +211,7 @@
 
 <!-- Page transition curtain -->
 <div class="curtain" id="curtain" aria-hidden="true"><span class="curtain-mark">JC</span></div>
-<script src="./assets/js/transition.js?v=2026100702"></script>
+<script src="./assets/js/transition.js?v=2026100704"></script>
 <script>
 (function () {
   // First visit of the session: count up to 100 while the page loads (minimum 1.4s), then lift.
@@ -219,6 +252,7 @@
     </ul>
     <a class="pill" href="https://wa.me/51960280858" target="_blank" rel="noopener">Let's talk <span class="ring"><svg class="ico"><use href="#arrow"/></svg></span></a>
   </div>
+  <span class="read-head" aria-hidden="true"></span>
 </header>
 
 <main id="main">
@@ -228,7 +262,7 @@
       <div class="status mono">
         <span class="live">Open to work · <span id="clock">--:--</span> Lima</span>
         <span class="mid">Lima, Perú · Remote worldwide</span>
-        <span>Portfolio / Vol 04</span>
+        
       </div>
 
       <div class="hero-grid">
@@ -244,7 +278,7 @@
         <figure class="print">
           <img src="./assets/jordan-portrait.webp" alt="Portrait of Jordan Collao">
           <figcaption><span>Jordan Collao</span><span>Lima · PE</span></figcaption>
-          <span class="sticker">&#9733; Lottie Expert</span>
+          <span class="sticker"><svg class="lf" viewBox="0 0 400 400" aria-hidden="true"><circle cx="200" cy="200" r="200" fill="#fff"/><path d="M104 286c66 0 88-54 112-100s38-74 84-74" fill="none" stroke="#00DDB3" stroke-width="40" stroke-linecap="round"/></svg>Lottie Expert</span>
         </figure>
       </div>
     </div>
@@ -254,63 +288,63 @@
     <div class="wrap">
       <div class="sec-head">
         <div>
-          <span class="eyebrow mono">Side A · Selected work</span>
+          <span class="eyebrow mono">Selected work</span>
           <h2 class="big">Eight projects.<br><em>All motion.</em></h2>
         </div>
         <p>Product UI, design systems and motion for teams in <b>Perú, Chile and the US</b>.</p>
       </div>
 
-      <div class="cards">
-        <a class="card c-lime wide rise" href="./case-tastemakers.html" data-cursor="View case">
+      <div class="cards stack" data-stack="Projects">
+        <a class="card p-tastemakers wide rise" href="./case-tastemakers.html" data-cursor="View case">
           <div class="card-top"><span>Prompt Design · AI</span><span>01 / 08</span></div>
           <h3>TasteMakers / Anthropic</h3>
           <p>Design prompt engineering: I turn UI structures into structured prompts so AI models can rebuild layouts accurately.</p>
-          <div class="shot"><img src="./assets/tastemakers/cover.webp" alt="" loading="lazy"><span class="badge" style="--b:var(--coral)">Now<br>active</span></div>
+          <div class="shot"><img src="./assets/tastemakers/cover.webp" alt="" loading="lazy"><span class="badge">Now<br>active</span></div>
           <div class="card-foot"><span class="meta">2026 · USA · Remote</span><span class="go"><svg class="ico"><use href="#arrow"/></svg></span></div>
         </a>
-        <a class="card dark rise" href="./case-hidroroots.html" data-cursor="View case">
+        <a class="card p-hidroroots rise" href="./case-hidroroots.html" data-cursor="View case">
           <div class="card-top"><span>Responsive Web</span><span>02 / 08</span></div>
           <h3>HidroRoots</h3>
           <p>A responsive site for a Peruvian hydroponics company, from benchmark to high-fidelity UI.</p>
           <div class="shot"><img src="./assets/hidroroots/cover.webp" alt="" loading="lazy"><span class="badge">Live<br>site</span></div>
           <div class="card-foot"><span class="meta">2025 · Perú</span><span class="go"><svg class="ico"><use href="#arrow"/></svg></span></div>
         </a>
-        <a class="card c-cream rise" href="./case-progresol.html" data-cursor="View case">
+        <a class="card p-progresol rise" href="./case-progresol.html" data-cursor="View case">
           <div class="card-top"><span>App Design</span><span>03 / 08</span></div>
           <h3>Progresol Plus</h3>
           <p>A B2B app that connects hardware sellers with retailers across Perú, on iOS and Android.</p>
           <div class="shot"><img src="./assets/progresol/cover.webp" alt="" loading="lazy"><span class="badge">On the<br>stores</span></div>
           <div class="card-foot"><span class="meta">2023 · Perú</span><span class="go"><svg class="ico"><use href="#arrow"/></svg></span></div>
         </a>
-        <a class="card c-orange rise" href="./case-unacem360.html" data-cursor="View case">
+        <a class="card p-unacem360 rise" href="./case-unacem360.html" data-cursor="View case">
           <div class="card-top"><span>Responsive Web</span><span>04 / 08</span></div>
           <h3>Unacem 360</h3>
           <p>A responsive landing for UNACEM's regional cement platform, built on trust and clear calls to action.</p>
           <div class="shot"><img src="./assets/unacem360/cover.webp" alt="" loading="lazy"></div>
           <div class="card-foot"><span class="meta">2026 · 4 countries</span><span class="go"><svg class="ico"><use href="#arrow"/></svg></span></div>
         </a>
-        <a class="card dark rise" href="./case-cantera.html" data-cursor="View case">
+        <a class="card p-cantera rise" href="./case-cantera.html" data-cursor="View case">
           <div class="card-top"><span>Lottie Motion</span><span>05 / 08</span></div>
           <h3>Cantera</h3>
           <p>Three short Lottie animations that explain the main flows of a hardware-store platform.</p>
-          <div class="shot"><img src="./assets/cantera/cover.webp" alt="" loading="lazy"><span class="badge" style="--b:var(--orange)">Lottie<br>x3</span></div>
+          <div class="shot"><img src="./assets/cantera/cover.webp" alt="" loading="lazy"><span class="badge">Lottie<br>x3</span></div>
           <div class="card-foot"><span class="meta">2026 · Perú</span><span class="go"><svg class="ico"><use href="#arrow"/></svg></span></div>
         </a>
-        <a class="card c-coral rise" href="./case-vitamin.html" data-cursor="View case">
+        <a class="card p-vitamin rise" href="./case-vitamin.html" data-cursor="View case">
           <div class="card-top"><span>Design System</span><span>06 / 08</span></div>
           <h3>Vitamin DS · Auna</h3>
           <p>Motion tokens, components and icons for a healthcare design system, accessible from day one.</p>
           <div class="shot"><img src="./assets/vitamin/components.webp" alt="" loading="lazy"></div>
           <div class="card-foot"><span class="meta">2022 · 3 countries</span><span class="go"><svg class="ico"><use href="#arrow"/></svg></span></div>
         </a>
-        <a class="card c-cream rise" href="./case-gawq.html" data-cursor="View case">
+        <a class="card p-gawq rise" href="./case-gawq.html" data-cursor="View case">
           <div class="card-top"><span>Interaction Design</span><span>07 / 08</span></div>
           <h3>Gawq App</h3>
           <p>Interaction and motion for a US news app: pull-to-refresh, splash screen and web transitions.</p>
           <div class="shot"><img src="./assets/gawq/cover.webp" alt="" loading="lazy"></div>
           <div class="card-foot"><span class="meta">2022 · USA</span><span class="go"><svg class="ico"><use href="#arrow"/></svg></span></div>
         </a>
-        <a class="card c-lime rise" href="./case-cometa.html" data-cursor="View case">
+        <a class="card p-cometa rise" href="./case-cometa.html" data-cursor="View case">
           <div class="card-top"><span>Motion Design</span><span>08 / 08</span></div>
           <h3>Cometa</h3>
           <p>A presentation video for a platform that connects schools and parents in México.</p>
@@ -329,7 +363,7 @@
         <div class="arm"><svg viewBox="0 0 100 100"><circle cx="78" cy="18" r="10" fill="#E7DECF" stroke="#2C241E" stroke-width="4"/><path d="M78 18 L70 70 L52 88" fill="none" stroke="#E7DECF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><rect x="44" y="82" width="16" height="12" rx="2" fill="#C6F24E" transform="rotate(45 52 88)"/></svg></div>
       </div>
       <div class="np-info">
-        <span class="eyebrow mono">Side B · Chocolab Studio on IconScout</span>
+        <span class="eyebrow mono">Chocolab Studio on IconScout</span>
         <div class="np-head">
           <h2 class="big">Now spinning <em id="np-title">Global payments</em></h2>
           <button type="button" class="music" id="np-music" aria-pressed="false">
@@ -368,34 +402,34 @@
     <div class="wrap">
       <div class="sec-head">
         <div>
-          <span class="eyebrow mono">Side C · The lab</span>
+          <span class="eyebrow mono">The lab</span>
           <h2 class="big">Tools I build.<br><em>In your browser.</em></h2>
         </div>
         <p>Small experiments, free to use. <b>No sign-up</b>, nothing uploaded to a server.</p>
       </div>
-      <div class="cards lab-grid">
-        <a class="card dark rise" href="./lab-motion-tokens.html" data-cursor="Try it">
+      <div class="cards lab-grid stack" data-stack="Experiments">
+        <a class="card p-motion rise" href="./lab-motion-tokens.html" data-cursor="Try it">
           <div class="card-top"><span>Public Tool</span><span>Lab 01 / 04</span></div>
           <h3>Motion Tokens Generator</h3>
           <p>Define duration, easing and delay as design tokens and export them to Figma.</p>
           <div class="shot"><img src="./assets/home/lab-motion.webp" alt="" loading="lazy"><span class="badge">v0.2</span></div>
           <div class="card-foot"><span class="meta">W3C tokens · Figma</span><span class="go"><svg class="ico"><use href="#arrow"/></svg></span></div>
         </a>
-        <a class="card c-cream rise" href="./lab-image-compressor.html" data-cursor="Try it">
+        <a class="card p-compressor rise" href="./lab-image-compressor.html" data-cursor="Try it">
           <div class="card-top"><span>Public Tool</span><span>Lab 02 / 04</span></div>
           <h3>Image Compressor</h3>
           <p>Compare four quality levels side by side and keep the smallest that still looks right.</p>
           <div class="shot"><img src="./assets/home/lab-image.webp" alt="" loading="lazy"><span class="badge">v0.1</span></div>
           <div class="card-foot"><span class="meta">PNG · JPEG · WebP</span><span class="go"><svg class="ico"><use href="#arrow"/></svg></span></div>
         </a>
-        <a class="card dark rise" href="./lab-luz.html" data-cursor="Read">
+        <a class="card p-luz rise" href="./lab-luz.html" data-cursor="Read">
           <div class="card-top"><span>Private Tool</span><span>Lab 03 / 04</span></div>
           <h3>Luz App</h3>
           <p>Splits the electricity bill by apartment and sends each tenant their share on WhatsApp.</p>
           <div class="shot"><img src="./assets/home/lab-luz.webp" alt="" loading="lazy"><span class="badge">v0.1</span></div>
           <div class="card-foot"><span class="meta">WhatsApp share</span><span class="go"><svg class="ico"><use href="#arrow"/></svg></span></div>
         </a>
-        <a class="card c-cream rise" href="./lab-audio-extractor.html" data-cursor="Try it">
+        <a class="card p-audio rise" href="./lab-audio-extractor.html" data-cursor="Try it">
           <div class="card-top"><span>Public Tool</span><span>Lab 04 / 04</span></div>
           <h3>Audio Extractor</h3>
           <p>Pull MP3, WAV or OGG out of any video, right in the browser.</p>
@@ -410,7 +444,7 @@
     <div class="wrap">
       <div class="sec-head">
         <div>
-          <span class="eyebrow mono">Side D · Experience</span>
+          <span class="eyebrow mono">Experience</span>
           <h2 class="big">Seven teams.<br><em>Since 2018.</em></h2>
         </div>
         <p>Perú, Chile and the US. <b>Three of them</b> are still on the record.</p>
@@ -431,7 +465,7 @@
     <span class="wm big" aria-hidden="true">Collao</span>
     <div class="wrap notes-grid">
       <div>
-        <span class="eyebrow mono">Studio notes · About</span>
+        <span class="eyebrow mono">About</span>
         <h2>A designer from Perú who <span class="hl">animates for a living</span>. I design the <span class="hl o">interface</span> and the <span class="hl k">motion inside it</span>.</h2>
         <p>I'm a Senior UX/UI and Interaction Designer focused on digital products where motion supports usability: affordances, micro-interactions and system states that reduce friction. I use AI early in the process for research synthesis, ideation and concept validation, always grounded in UX principles and product constraints.</p>
         <div class="cta-row">
@@ -472,14 +506,55 @@
       <div><h4>Follow</h4><a href="https://www.linkedin.com/in/jordancollao/" target="_blank" rel="noopener">LinkedIn</a><a href="https://iconscout.com/contributors/jlossst" target="_blank" rel="noopener">IconScout</a><a href="https://github.com/JordanCollao" target="_blank" rel="noopener">GitHub</a></div>
       <div><h4>Hello</h4><a href="mailto:jmotionux@gmail.com">jmotionux@gmail.com</a><a href="https://wa.me/51960280858" target="_blank" rel="noopener">WhatsApp</a></div>
     </div>
-    <div class="legal mono"><span>© 2026 Jordan Collao</span><span>Made in Lima, Perú</span><span>Portfolio / Vol 04</span></div>
+    <div class="legal mono"><span>© 2026 Jordan Collao</span><span>Made in Lima, Perú</span></div>
   </div>
 </footer>
 
-<script src="./assets/js/site.js?v=2026100702" defer></script>
+<script src="./assets/js/site.js?v=2026100704" defer></script>
 <script>
 (function () {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // EXPERIENCE: rows reveal in reading order; rows that arrive together follow each other by 120ms
+  const xpRows = [...document.querySelectorAll('#experience .row')];
+  const xpIO = new IntersectionObserver(entries => {
+    entries.filter(en => en.isIntersecting)
+      .sort((a, b) => xpRows.indexOf(a.target) - xpRows.indexOf(b.target))
+      .forEach((en, k) => { setTimeout(() => en.target.classList.add('in'), k * 120); xpIO.unobserve(en.target); });
+  }, { rootMargin: '0px 0px -12% 0px' });
+  xpRows.forEach(r => xpIO.observe(r));
+
+  // WALLET (phones): each card shrinks and dims as the next one slides over it; a counter shows where you are
+  const phone = matchMedia('(max-width: 680px)');
+  const stacks = [...document.querySelectorAll('[data-stack]')].map(el => {
+    const cards = [...el.querySelectorAll('.card')];
+    cards.forEach((c, i) => c.style.setProperty('--i', i));
+    const count = document.createElement('div');
+    count.className = 'stack-count mono'; count.setAttribute('aria-hidden', 'true');
+    count.innerHTML = `<span>${el.dataset.stack}</span><span><b>01</b> / ${String(cards.length).padStart(2, '0')}</span>`;
+    el.before(count);
+    return { cards, num: count.querySelector('b') };
+  });
+  function wallet() {
+    stacks.forEach(({ cards, num }) => {
+      let current = 0;
+      cards.forEach((c, i) => {
+        let cover = 0;
+        const next = cards[i + 1];
+        if (next && phone.matches) {
+          const a = c.getBoundingClientRect(), b = next.getBoundingClientRect();
+          cover = Math.max(0, Math.min(1, 1 - (b.top - a.top - 10) / a.height));
+        }
+        if (cover > .5) current = i + 1;
+        c.style.setProperty('--s', reduce ? 1 : (1 - cover * .06).toFixed(4));
+        c.style.setProperty('--b', reduce ? 1 : (1 - cover * .35).toFixed(3));
+      });
+      num.textContent = String(current + 1).padStart(2, '0');
+    });
+  }
+  let walletTick = false;
+  addEventListener('scroll', () => { if (!walletTick) { walletTick = true; requestAnimationFrame(() => { walletTick = false; wallet(); }); } }, { passive: true });
+  addEventListener('resize', wallet); phone.addEventListener('change', wallet); wallet();
 
   // MUSIC: a tiny generated soundtrack per track (Web Audio, no files). Each one lasts exactly
   // as long as its animation plays on the record, and every track has its own tempo, key and timbre.
@@ -679,7 +754,7 @@
       ready = true;
       Promise.all([
         load('https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie_light.min.js'),
-        load('./assets/iconscout/reel-data.js?v=2026100702'),
+        load('./assets/iconscout/reel-data.js?v=2026100704'),
       ]).then(() => { onScreen = near > 0; ready = false; play(0); }).catch(() => { ready = false; });
     }
     // The record spins (and the playlist advances) whenever it can be heard or seen

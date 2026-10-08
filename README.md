@@ -26,10 +26,10 @@ Every page uses `assets/css/site.css` and `assets/js/site.js` (cursor, nav, butt
 
 - **Project facts:** each case and lab shows its role, period and stack in the spec sheet (`<dl>` inside `.spec`). The home cards repeat the period in their footer.
 
-- **CSS / JS changes:** pages load them with a version (`site.css?v=2026100702`). After editing a file in `assets/css/` or `assets/js/`, change that number in every page so browsers fetch the new file instead of a cached one:
+- **CSS / JS changes:** pages load them with a version (`site.css?v=2026100704`). After editing a file in `assets/css/` or `assets/js/`, change that number in every page so browsers fetch the new file instead of a cached one:
 
   ```bash
-  grep -rl "?v=2026100702" --include=*.html . | xargs sed -i '' "s/?v=2026100702/?v=$(date +%Y%m%d)/g"
+  grep -rl "?v=2026100704" --include=*.html . | xargs sed -i '' "s/?v=2026100704/?v=$(date +%Y%m%d)/g"
   ```
 
 - **Links:** anything that leaves the site (WhatsApp, LinkedIn, IconScout, GitHub, lab apps, the CV) opens in a new tab: `target="_blank" rel="noopener"`.

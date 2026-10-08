@@ -112,19 +112,36 @@ body::before { content: ''; position: fixed; inset: 0; pointer-events: none; z-i
 .card.c-orange { --bg: var(--orange); --fg: var(--ink); }
 .card.c-coral { --bg: var(--coral); --fg: var(--ink); }
 .card.wide { grid-column: span 2; }
-.card-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; opacity: .7; }
+/* Each project card takes the main colour of its image, in a lighter tone so the image still stands out.
+   All cards use dark text: every pair below passes WCAG AA (4.5:1), small labels included. */
+.card.p-tastemakers { --bg: #E08A6B; }
+.card.p-hidroroots  { --bg: #B9E3A8; }
+.card.p-progresol   { --bg: #9FB4FF; }
+.card.p-unacem360   { --bg: #C9CCD3; }
+.card.p-cantera     { --bg: #F49488; }
+.card.p-vitamin     { --bg: #45B8C6; }
+.card.p-gawq        { --bg: #F2B634; }
+.card.p-cometa      { --bg: #F6B5CF; }
+.card.p-motion      { --bg: #9EE3A8; }
+.card.p-compressor  { --bg: #D2E68E; }
+.card.p-luz         { --bg: #F7E7A0; }
+.card.p-audio       { --bg: #F9B48C; }
+.card[class*=" p-"] { --fg: var(--ink); }
+.card-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; opacity: .82; }
 .card h3 { font-family: var(--display); font-weight: 400; text-transform: uppercase; font-size: clamp(38px, 3.4vw, 54px); line-height: .92; margin: 18px 0 10px; }
-.card p { font-size: 15px; line-height: 1.45; max-width: 36ch; opacity: .8; }
+.card p { font-size: 15px; line-height: 1.45; max-width: 36ch; opacity: .88; }
 .shot { position: relative; margin-top: auto; padding-top: 22px; }
 .shot img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 12px; border: 1.5px solid rgba(0,0,0,.25); transition: transform .6s var(--out); }
 .card.wide .shot img { aspect-ratio: 21 / 9; }
 .card.dark .shot img { border-color: var(--line); }
 .card:hover .shot img { transform: scale(1.02) rotate(-.6deg); }
-.badge { position: absolute; right: -8px; top: 8px; z-index: 2; width: 62px; height: 62px; border-radius: 50%; display: grid; place-items: center; text-align: center; background: var(--b, var(--lime));
-  font-family: var(--mono); font-size: 9.5px; font-weight: 700; line-height: 1.25; letter-spacing: .08em; text-transform: uppercase; color: var(--ink); transform: rotate(12deg); box-shadow: 0 4px 0 rgba(0,0,0,.35); transition: transform .5s var(--spring); }
+/* Badge: sits inside the image corner, ink with a lime label and a ring in the card colour, readable on any image */
+.badge { position: absolute; right: 10px; top: 32px; z-index: 2; width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; text-align: center; background: var(--ink);
+  font-family: var(--mono); font-size: 9.5px; font-weight: 700; line-height: 1.25; letter-spacing: .08em; text-transform: uppercase; color: var(--lime); transform: rotate(12deg);
+  box-shadow: 0 0 0 3px var(--bg, var(--ink)), 0 8px 16px -6px rgba(0,0,0,.55); transition: transform .5s var(--spring); }
 .card:hover .badge { transform: rotate(-8deg) scale(1.06); }
 .card-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 18px; }
-.card-foot .meta { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; opacity: .7; }
+.card-foot .meta { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; opacity: .82; }
 .go { width: 40px; height: 40px; flex: none; border-radius: 50%; display: grid; place-items: center; background: var(--fg); color: var(--bg); font-size: 16px; transition: transform .35s var(--spring); }
 .card:hover .go, .card:focus-visible .go { transform: rotate(45deg); }
 .go.back { transform: rotate(-90deg); }
