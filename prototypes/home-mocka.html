@@ -3,29 +3,100 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Jordan Collao | Design Engineer &amp; Motion Designer</title>
-<meta name="description" content="Jordan Collao is a Design Engineer and Motion Designer from Perú. Interfaces and the motion inside them, so products feel clear, accessible and responsive.">
-<meta property="og:title" content="Jordan Collao | Design Engineer &amp; Motion Designer">
-<meta property="og:description" content="Interfaces and the motion inside them: interaction, UX motion, UI and Lottie.">
-<meta name="theme-color" content="#F3F4F6">
-<link rel="canonical" href="https://jordancollao.vercel.app/">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://jordancollao.vercel.app/">
-<meta property="og:image" content="https://jordancollao.vercel.app/assets/og-image.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Jordan Collao, Design Engineer &amp; Motion Designer">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
-<link rel="icon" href="./assets/favicon-32.png" sizes="32x32" type="image/png">
-<link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
-<script>document.documentElement.classList.add('js')</script>
+<title>Jordan Collao | Design Engineer &amp; Motion Designer (Mocka exploration)</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./assets/css/site.css?v=2026100702">
 <style>
-  /* HOME: hero, IconScout record, lab grid, experience list, about notes. Shared pieces live in site.css */
+  /* Exploration based on the Mocka Studio reference: warm black, cream, lime, coral, orange.
+     Isolated test page; it does not touch the published site.
+     Hierarchy rule: one loud voice per screen. Display type (Anton) only for the hero and section titles;
+     everything else steps down to Archivo or mono. */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #15110E;
+    --ink-2: #211A15;
+    --ink-3: #2C241E;
+    --cream: #F4EFE6;
+    --cream-2: #E7DECF;
+    --muted: #A69C8E;
+    --lime: #C6F24E;
+    --coral: #F2554A;
+    --orange: #F79A4B;
+    --line: rgba(244, 239, 230, .14);
+    --display: 'Anton', 'Archivo Black', Impact, sans-serif;
+    --sans: 'Archivo', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+    --ease: cubic-bezier(.65, 0, .35, 1);
+    --out: cubic-bezier(.23, 1, .32, 1);
+    --spring: cubic-bezier(.34, 1.56, .64, 1);
+    --gutter: clamp(20px, 3.4vw, 48px);
+  }
+  html { scroll-behavior: smooth; }
+  html, body { overflow-x: clip; }
+  body { background: var(--ink); color: var(--cream); font-family: var(--sans); font-size: 17px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--lime); outline-offset: 3px; }
+  ::selection { background: var(--lime); color: var(--ink); }
+  .wrap { max-width: 1440px; margin: 0 auto; padding: 0 var(--gutter); }
+  .mono { font-family: var(--mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
+  .big { font-family: var(--display); font-weight: 400; text-transform: uppercase; line-height: .9; }
+  body::before { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 100; opacity: .05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+  /* ICON: one arrow, drawn in SVG so it centers in its circle */
+  .ico { width: 1em; height: 1em; display: block; }
+
+  /* CURSOR: a lime dot plus a ring that trails it; the ring grows and labels what you are about to do */
+  .has-cursor, .has-cursor a, .has-cursor button { cursor: none; }
+  .c-dot, .c-ring { position: fixed; left: 0; top: 0; z-index: 200; pointer-events: none; border-radius: 50%; will-change: transform; }
+  .c-dot { width: 6px; height: 6px; margin: -3px 0 0 -3px; background: var(--lime); mix-blend-mode: difference; }
+  /* The ring keeps a thin dark halo so it stays visible on lime and cream cards too */
+  .c-ring { width: 40px; height: 40px; margin: -20px 0 0 -20px; border: 2px solid var(--lime); box-shadow: 0 0 0 1.5px rgba(21, 17, 14, .55); display: grid; place-items: center;
+    transition: width .25s var(--out), height .25s var(--out), margin .25s var(--out), background .25s var(--out), opacity .2s; }
+  .c-ring span { font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--lime); opacity: 0; transform: scale(.6); transition: opacity .2s, transform .25s var(--out); white-space: nowrap; }
+  .c-ring.is-hot { width: 60px; height: 60px; margin: -30px 0 0 -30px; background: rgba(198, 242, 78, .18); }
+  /* Over cards: a solid ink disc with a lime label, readable on every card colour */
+  .c-ring.is-label { width: 108px; height: 108px; margin: -54px 0 0 -54px; background: var(--ink); box-shadow: 0 10px 30px -8px rgba(0, 0, 0, .6); }
+  .c-dot.hide { opacity: 0; }
+  .c-ring.is-label span { opacity: 1; transform: none; }
+  .c-ring.is-press { width: 26px; height: 26px; margin: -13px 0 0 -13px; }
+  .c-ring.away, .c-dot.away { opacity: 0; }
+
+  /* NAV */
+  .nav { position: sticky; top: 0; z-index: 50; background: var(--ink); border-bottom: 1px solid var(--line); }
+  .nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 76px; }
+  .logo { display: flex; align-items: center; gap: 10px; white-space: nowrap; text-decoration: none; font-weight: 900; font-size: 17px; letter-spacing: .02em; text-transform: uppercase; }
+  .logo i { width: 30px; height: 30px; border-radius: 8px; background: var(--lime); color: var(--ink); display: grid; place-items: center; font-style: normal; font-size: 13px; transform: rotate(-6deg); transition: transform .4s var(--spring); }
+  .logo:hover i { transform: rotate(6deg) scale(1.08); }
+  .links { display: flex; gap: 30px; list-style: none; }
+  .links a { text-decoration: none; font-family: var(--mono); font-size: 12px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--cream-2); display: inline-flex; align-items: center; gap: 10px; transition: color .2s; }
+  .links a::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; opacity: .4; transition: background .2s, opacity .2s, transform .3s var(--spring); }
+  .links a:hover, .links a:focus-visible { color: var(--lime); }
+  .links a:hover::before, .links a:focus-visible::before { background: var(--lime); opacity: 1; transform: scale(1.6); }
+  @media (max-width: 960px) { .links { display: none; } }
+
+  /* PILL BUTTON: label + a round arrow badge, both optically centered */
+  .pill { display: inline-flex; align-items: center; gap: 14px; white-space: nowrap; text-decoration: none; background: var(--lime); color: var(--ink); border-radius: 999px; padding: 7px 7px 7px 22px;
+    font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; line-height: 1; transition: transform .3s var(--spring), box-shadow .2s; }
+  .pill .ring { width: 34px; height: 34px; flex: none; border-radius: 50%; background: var(--ink); color: var(--lime); display: grid; place-items: center; font-size: 15px; transition: transform .35s var(--spring); }
+  .pill:hover, .pill:focus-visible { transform: translateY(-2px); }
+  .pill:hover .ring, .pill:focus-visible .ring { transform: rotate(45deg); }
+  .pill:active { transform: scale(.96); }
+  .pill.ghost { background: transparent; color: var(--cream); box-shadow: inset 0 0 0 1.5px var(--line); }
+  .pill.ghost .ring { background: var(--cream); color: var(--ink); }
+  .pill.ghost:hover { box-shadow: inset 0 0 0 1.5px var(--cream); }
+  .pill.down:hover .ring, .pill.down:focus-visible .ring { transform: translateY(2px); }
+  @media (max-width: 560px) { .nav .pill { padding: 5px 5px 5px 16px; font-size: 11px; gap: 10px; } .nav .pill .ring { width: 30px; height: 30px; } }
+
+  /* STATUS BAR: quiet, it is context, not content */
+  .status { display: flex; justify-content: space-between; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 11px; }
+  .status .live::before { content: ''; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--lime); margin-right: 10px; vertical-align: 1px; animation: ping 2s infinite; }
+  @keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(198,242,78,.55); } 80%, 100% { box-shadow: 0 0 0 9px rgba(198,242,78,0); } }
+  @media (max-width: 760px) { .status .mid, .status > span:last-child { display: none; } }
+
   /* HERO: the headline is the only loud thing; the strike is a margin note */
   .hero { padding: clamp(40px, 6vw, 88px) 0 clamp(64px, 8vw, 112px); }
   .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: clamp(32px, 5vw, 80px); align-items: end; margin-top: clamp(28px, 3vw, 40px); }
@@ -53,6 +124,44 @@
     .hero-grid { grid-template-columns: minmax(0, 1fr); }
     .print { justify-self: start; margin-left: 30px; }
   }
+
+  /* SECTION HEAD: one step below the hero */
+  .sec { padding: clamp(80px, 10vw, 140px) 0; border-top: 1px solid var(--line); }
+  .sec-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 320px); gap: 32px; align-items: end; margin-bottom: clamp(36px, 5vw, 56px); }
+  .sec-head h2 { font-size: clamp(48px, 6.4vw, 100px); margin-top: 18px; }
+  .sec-head h2 em { font-style: normal; color: var(--lime); }
+  .sec-head p { color: var(--muted); font-size: 15px; }
+  .sec-head p b { color: var(--cream); font-weight: 700; }
+  @media (max-width: 860px) { .sec-head { grid-template-columns: minmax(0, 1fr); } }
+
+  /* WORK CARDS: title, line, image, footer; badges sit on the image corner, never on text */
+  .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+  .card { --bg: var(--ink-2); --fg: var(--cream); display: flex; flex-direction: column; padding: 24px; border-radius: 22px; background: var(--bg); color: var(--fg);
+    text-decoration: none; border: 1.5px solid rgba(0,0,0,.2); transition: transform .5s var(--out), box-shadow .4s; }
+  .card.dark { border-color: var(--line); }
+  .card:hover, .card:focus-visible { transform: translateY(-6px); box-shadow: 0 28px 48px -26px rgba(0,0,0,.9); outline: none; }
+  .card.c-lime { --bg: var(--lime); --fg: var(--ink); }
+  .card.c-cream { --bg: var(--cream); --fg: var(--ink); }
+  .card.c-orange { --bg: var(--orange); --fg: var(--ink); }
+  .card.c-coral { --bg: var(--coral); --fg: var(--ink); }
+  .card.wide { grid-column: span 2; }
+  .card-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; opacity: .7; }
+  .card h3 { font-family: var(--display); font-weight: 400; text-transform: uppercase; font-size: clamp(38px, 3.4vw, 54px); line-height: .92; margin: 18px 0 10px; }
+  .card p { font-size: 15px; line-height: 1.45; max-width: 36ch; opacity: .8; }
+  .shot { position: relative; margin-top: auto; padding-top: 22px; }
+  .shot img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 12px; border: 1.5px solid rgba(0,0,0,.25); transition: transform .6s var(--out); }
+  .card.wide .shot img { aspect-ratio: 21 / 9; }
+  .card.dark .shot img { border-color: var(--line); }
+  .card:hover .shot img { transform: scale(1.02) rotate(-.6deg); }
+  .badge { position: absolute; right: -8px; top: 8px; z-index: 2; width: 62px; height: 62px; border-radius: 50%; display: grid; place-items: center; text-align: center; background: var(--b, var(--lime));
+    font-family: var(--mono); font-size: 9.5px; font-weight: 700; line-height: 1.25; letter-spacing: .08em; text-transform: uppercase; color: var(--ink); transform: rotate(12deg); box-shadow: 0 4px 0 rgba(0,0,0,.35); transition: transform .5s var(--spring); }
+  .card:hover .badge { transform: rotate(-8deg) scale(1.06); }
+  .card-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 18px; }
+  .card-foot .meta { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; opacity: .7; }
+  .go { width: 40px; height: 40px; flex: none; border-radius: 50%; display: grid; place-items: center; background: var(--fg); color: var(--bg); font-size: 16px; transition: transform .35s var(--spring); }
+  .card:hover .go, .card:focus-visible .go { transform: rotate(45deg); }
+  @media (max-width: 1080px) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 680px) { .cards { grid-template-columns: minmax(0, 1fr); } .card.wide { grid-column: auto; } .card.wide .shot img { aspect-ratio: 16 / 10; } }
 
   /* NOW SPINNING: an auto-playing playlist; each Lottie is a track */
   .np { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(40px, 6vw, 96px); align-items: center; }
@@ -156,50 +265,43 @@
   .find dd a:hover, .find dd a:focus-visible { background-size: 100% 2px; color: var(--lime); }
   @media (max-width: 900px) { .notes-grid { grid-template-columns: minmax(0, 1fr); } }
 
+  /* MARQUEE: words and stars are flex items, centred on the same axis */
+  .marquee { background: var(--orange); color: var(--ink); border-top: 3px solid var(--ink); border-bottom: 3px solid var(--ink); overflow: hidden; transform: rotate(-1.5deg); margin: -28px -2% 0; position: relative; z-index: 2; }
+  .marquee-track { display: flex; align-items: center; width: max-content; padding: 14px 0; animation: slide 30s linear infinite; }
+  .marquee-track > * { flex: none; }
+  .marquee .w { font-family: var(--display); font-size: clamp(30px, 3.4vw, 50px); text-transform: uppercase; line-height: 1; padding-top: .04em; }
+  .marquee .s { width: clamp(18px, 1.8vw, 26px); height: clamp(18px, 1.8vw, 26px); margin: 0 clamp(18px, 2vw, 30px); }
+  @keyframes slide { to { transform: translateX(-50%); } }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+
+  /* FOOTER */
+  .footer { padding: clamp(90px, 11vw, 160px) 0 28px; }
+  .footer .word { font-size: clamp(80px, 16vw, 260px); }
+  .footer .word em { font-style: normal; color: var(--lime); }
+  .fcols { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; margin-top: clamp(48px, 6vw, 80px); padding-top: 28px; border-top: 1px solid var(--line); }
+  .fcols h4 { font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+  .fcols a { display: block; text-decoration: none; font-weight: 700; font-size: 15px; padding: 4px 0; transition: color .2s, transform .3s var(--spring); }
+  .fcols a:hover, .fcols a:focus-visible { color: var(--lime); transform: translateX(4px); }
+  .legal { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 56px; color: var(--muted); font-size: 11px; }
+  @media (max-width: 760px) { .fcols { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+  .js .rise { opacity: 0; transform: translateY(24px); transition: opacity .8s var(--out), transform .8s var(--out); }
+  .js .rise.in { opacity: 1; transform: none; }
+
   @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
     .note::after { transform: translateY(-50%) rotate(-1deg) scaleX(1); }
     .vinyl { animation: none; }
+    .js .rise { opacity: 1; transform: none; }
     .notes .hl { background-size: 100% 100%; }
+    .marquee-track { animation: none; }
+    .c-dot, .c-ring { display: none; }
   }
 </style>
+<script>document.documentElement.classList.add('js')</script>
 </head>
-<body class="home">
-
-<a href="#main" class="skip-link">Skip to content</a>
-
-<!-- First-visit loader -->
-<div class="loader" id="loader" aria-hidden="true">
-  <div class="loader-box">
-    <div class="loader-meta mono"><span>Jordan Collao</span><span>Loading the record</span></div>
-    <div class="loader-num"><span id="loader-num">0</span><span>%</span></div>
-    <div class="loader-track"><i class="loader-bar" id="loader-bar"></i></div>
-  </div>
-</div>
-
-<!-- Page transition curtain -->
-<div class="curtain" id="curtain" aria-hidden="true"><span class="curtain-mark">JC</span></div>
-<script src="./assets/js/transition.js?v=2026100702"></script>
-<script>
-(function () {
-  // First visit of the session: count up to 100 while the page loads (minimum 1.4s), then lift.
-  // Returning visitors and arrivals through the curtain skip it.
-  const loader = document.getElementById('loader'), num = document.getElementById('loader-num'), bar = document.getElementById('loader-bar');
-  const KEY = 'portfolio-loader-shown';
-  const done = () => { loader.classList.add('done'); document.body.classList.add('loaded'); sessionStorage.setItem(KEY, '1'); };
-  if (sessionStorage.getItem(KEY) === '1' || window.__fromCurtain) { done(); return; }
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { addEventListener('load', done); return; }
-  const t0 = performance.now(), MIN = 1400; let shown = 0, ready = false;
-  addEventListener('load', () => { ready = true; });
-  (function tick() {
-    const el = performance.now() - t0, real = document.readyState === 'complete' ? 1 : document.readyState === 'interactive' ? .7 : .3;
-    shown += (Math.min(el / MIN, real) * 100 - shown) * .18;
-    if (ready && el >= MIN) shown = 100;
-    const v = Math.round(shown); num.textContent = v; bar.style.width = v + '%';
-    if (v >= 100) { setTimeout(done, 180); return; }
-    requestAnimationFrame(tick);
-  })();
-})();
-</script>
+<body>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
@@ -209,7 +311,7 @@
 
 <header class="nav">
   <div class="wrap">
-    <a class="logo" href="#main" aria-label="Jordan Collao, home"><i>JC</i>Jordan Collao</a>
+    <a class="logo" href="#top" aria-label="Jordan Collao, home"><i>JC</i>Jordan Collao</a>
     <ul class="links">
       <li><a href="#portfolio">Portfolio</a></li>
       <li><a href="#lab">Lab</a></li>
@@ -221,8 +323,7 @@
   </div>
 </header>
 
-<main id="main">
-  <span id="top"></span>
+<main id="top">
   <section class="hero" aria-label="Introduction">
     <div class="wrap">
       <div class="status mono">
@@ -238,11 +339,11 @@
           <p class="lede">I'm Jordan Collao, a <strong>Design Engineer &amp; Motion Designer</strong> from Lima. I design interfaces and the motion inside them, so products feel clear, accessible and responsive to every action.</p>
           <div class="cta-row">
             <a class="pill" href="#portfolio">See the work <span class="ring"><svg class="ico" style="transform:rotate(90deg)"><use href="#arrow"/></svg></span></a>
-            <a class="pill ghost down" href="./assets/EN_CV_Jordan-Collao_2026-last.pdf" target="_blank" rel="noopener">Download CV <span class="ring"><svg class="ico"><use href="#down"/></svg></span></a>
+            <a class="pill ghost down" href="../assets/EN_CV_Jordan-Collao_2026-last.pdf" download>Download CV <span class="ring"><svg class="ico"><use href="#down"/></svg></span></a>
           </div>
         </div>
         <figure class="print">
-          <img src="./assets/jordan-portrait.webp" alt="Portrait of Jordan Collao">
+          <img src="../assets/jordan-portrait.webp" alt="Portrait of Jordan Collao">
           <figcaption><span>Jordan Collao</span><span>Lima · PE</span></figcaption>
           <span class="sticker">&#9733; Lottie Expert</span>
         </figure>
@@ -261,60 +362,60 @@
       </div>
 
       <div class="cards">
-        <a class="card c-lime wide rise" href="./case-tastemakers.html" data-cursor="View case">
+        <a class="card c-lime wide rise" href="../case-tastemakers.html" data-cursor="View case">
           <div class="card-top"><span>Prompt Design · AI</span><span>01 / 08</span></div>
           <h3>TasteMakers / Anthropic</h3>
           <p>Design prompt engineering: I turn UI structures into structured prompts so AI models can rebuild layouts accurately.</p>
-          <div class="shot"><img src="./assets/tastemakers/cover.webp" alt="" loading="lazy"><span class="badge" style="--b:var(--coral)">Now<br>active</span></div>
+          <div class="shot"><img src="../assets/tastemakers/cover.webp" alt="" loading="lazy"><span class="badge" style="--b:var(--coral)">Now<br>active</span></div>
           <div class="card-foot"><span class="meta">2026 · USA · Remote</span><span class="go"><svg class="ico"><use href="#arrow"/></svg></span></div>
         </a>
-        <a class="card dark rise" href="./case-hidroroots.html" data-cursor="View case">
+        <a class="card dark rise" href="../case-hidroroots.html" data-cursor="View case">
           <div class="card-top"><span>Responsive Web</span><span>02 / 08</span></div>
           <h3>HidroRoots</h3>
           <p>A responsive site for a Peruvian hydroponics company, from benchmark to high-fidelity UI.</p>
-          <div class="shot"><img src="./assets/hidroroots/cover.webp" alt="" loading="lazy"><span class="badge">Live<br>site</span></div>
+          <div class="shot"><img src="../assets/hidroroots/cover.webp" alt="" loading="lazy"><span class="badge">Live<br>site</span></div>
           <div class="card-foot"><span class="meta">2025 · Perú</span><span class="go"><svg class="ico"><use href="#arrow"/></svg></span></div>
         </a>
-        <a class="card c-cream rise" href="./case-progresol.html" data-cursor="View case">
+        <a class="card c-cream rise" href="../case-progresol.html" data-cursor="View case">
           <div class="card-top"><span>App Design</span><span>03 / 08</span></div>
           <h3>Progresol Plus</h3>
           <p>A B2B app that connects hardware sellers with retailers across Perú, on iOS and Android.</p>
-          <div class="shot"><img src="./assets/progresol/cover.webp" alt="" loading="lazy"><span class="badge">On the<br>stores</span></div>
+          <div class="shot"><img src="../assets/progresol/cover.webp" alt="" loading="lazy"><span class="badge">On the<br>stores</span></div>
           <div class="card-foot"><span class="meta">2023 · Perú</span><span class="go"><svg class="ico"><use href="#arrow"/></svg></span></div>
         </a>
-        <a class="card c-orange rise" href="./case-unacem360.html" data-cursor="View case">
+        <a class="card c-orange rise" href="../case-unacem360.html" data-cursor="View case">
           <div class="card-top"><span>Responsive Web</span><span>04 / 08</span></div>
           <h3>Unacem 360</h3>
           <p>A responsive landing for UNACEM's regional cement platform, built on trust and clear calls to action.</p>
-          <div class="shot"><img src="./assets/unacem360/cover.webp" alt="" loading="lazy"></div>
+          <div class="shot"><img src="../assets/unacem360/cover.webp" alt="" loading="lazy"></div>
           <div class="card-foot"><span class="meta">2026 · 4 countries</span><span class="go"><svg class="ico"><use href="#arrow"/></svg></span></div>
         </a>
-        <a class="card dark rise" href="./case-cantera.html" data-cursor="View case">
+        <a class="card dark rise" href="../case-cantera.html" data-cursor="View case">
           <div class="card-top"><span>Lottie Motion</span><span>05 / 08</span></div>
           <h3>Cantera</h3>
           <p>Three short Lottie animations that explain the main flows of a hardware-store platform.</p>
-          <div class="shot"><img src="./assets/cantera/cover.webp" alt="" loading="lazy"><span class="badge" style="--b:var(--orange)">Lottie<br>x3</span></div>
+          <div class="shot"><img src="../assets/cantera/cover.webp" alt="" loading="lazy"><span class="badge" style="--b:var(--orange)">Lottie<br>x3</span></div>
           <div class="card-foot"><span class="meta">2026 · Perú</span><span class="go"><svg class="ico"><use href="#arrow"/></svg></span></div>
         </a>
-        <a class="card c-coral rise" href="./case-vitamin.html" data-cursor="View case">
+        <a class="card c-coral rise" href="../case-vitamin.html" data-cursor="View case">
           <div class="card-top"><span>Design System</span><span>06 / 08</span></div>
           <h3>Vitamin DS · Auna</h3>
           <p>Motion tokens, components and icons for a healthcare design system, accessible from day one.</p>
-          <div class="shot"><img src="./assets/vitamin/components.webp" alt="" loading="lazy"></div>
+          <div class="shot"><img src="../assets/vitamin/components.webp" alt="" loading="lazy"></div>
           <div class="card-foot"><span class="meta">2022 · 3 countries</span><span class="go"><svg class="ico"><use href="#arrow"/></svg></span></div>
         </a>
-        <a class="card c-cream rise" href="./case-gawq.html" data-cursor="View case">
+        <a class="card c-cream rise" href="../case-gawq.html" data-cursor="View case">
           <div class="card-top"><span>Interaction Design</span><span>07 / 08</span></div>
           <h3>Gawq App</h3>
           <p>Interaction and motion for a US news app: pull-to-refresh, splash screen and web transitions.</p>
-          <div class="shot"><img src="./assets/gawq/cover.webp" alt="" loading="lazy"></div>
+          <div class="shot"><img src="../assets/gawq/cover.webp" alt="" loading="lazy"></div>
           <div class="card-foot"><span class="meta">2022 · USA</span><span class="go"><svg class="ico"><use href="#arrow"/></svg></span></div>
         </a>
-        <a class="card c-lime rise" href="./case-cometa.html" data-cursor="View case">
+        <a class="card c-lime rise" href="../case-cometa.html" data-cursor="View case">
           <div class="card-top"><span>Motion Design</span><span>08 / 08</span></div>
           <h3>Cometa</h3>
           <p>A presentation video for a platform that connects schools and parents in México.</p>
-          <div class="shot"><img src="./assets/cometa/cover.webp" alt="" loading="lazy"></div>
+          <div class="shot"><img src="../assets/cometa/cover.webp" alt="" loading="lazy"></div>
           <div class="card-foot"><span class="meta">2023 · México</span><span class="go"><svg class="ico"><use href="#arrow"/></svg></span></div>
         </a>
       </div>
@@ -341,7 +442,6 @@
         <div class="scrub" aria-hidden="true"><span id="np-time">0:00</span><span class="bar"><i id="np-bar"></i></span><span id="np-total">0:08</span></div>
         <div class="tl-head mono"><span>Now playing · up next</span><span>10 tracks · auto</span></div>
         <ol class="tracks" id="np-tracks" aria-label="Playlist. It plays on its own; pick a track to jump to it.">
-          <!-- reel:start (generated by tools/build-reel.py from tools/reel.json; do not edit by hand) -->
           <li><button type="button" data-file="v1-technology-dollar-01" data-coll="Technology"><span class="n">A1</span><span>Global payments</span><span class="c">Technology</span></button></li>
           <li><button type="button" data-file="productivity-check-01" data-coll="Productivity"><span class="n">A2</span><span>Calendar check</span><span class="c">Productivity</span></button></li>
           <li><button type="button" data-file="v1-startup-default-01" data-coll="StartUp"><span class="n">A3</span><span>Rocket launch</span><span class="c">StartUp</span></button></li>
@@ -352,7 +452,6 @@
           <li><button type="button" data-file="education-add-01" data-coll="Education"><span class="n">B3</span><span>Book add</span><span class="c">Education</span></button></li>
           <li><button type="button" data-file="ecommerce-check-06" data-coll="Ecommerce"><span class="n">B4</span><span>Payment approved</span><span class="c">Ecommerce</span></button></li>
           <li><button type="button" data-file="icon-search-05" data-coll="Essential UI"><span class="n">B5</span><span>Cloud search</span><span class="c">Essential UI</span></button></li>
-          <!-- reel:end -->
         </ol>
         <div class="stats">
           <div><b>4,540</b><span>Lottie</span></div>
@@ -374,32 +473,32 @@
         <p>Small experiments, free to use. <b>No sign-up</b>, nothing uploaded to a server.</p>
       </div>
       <div class="cards lab-grid">
-        <a class="card dark rise" href="./lab-motion-tokens.html" data-cursor="Try it">
+        <a class="card dark rise" href="../lab-motion-tokens.html" data-cursor="Try it">
           <div class="card-top"><span>Public Tool</span><span>Lab 01 / 04</span></div>
           <h3>Motion Tokens Generator</h3>
           <p>Define duration, easing and delay as design tokens and export them to Figma.</p>
-          <div class="shot"><img src="./assets/home/lab-motion.webp" alt="" loading="lazy"><span class="badge">v0.2</span></div>
+          <div class="shot"><img src="../assets/home/lab-motion.webp" alt="" loading="lazy"><span class="badge">v0.2</span></div>
           <div class="card-foot"><span class="meta">W3C tokens · Figma</span><span class="go"><svg class="ico"><use href="#arrow"/></svg></span></div>
         </a>
-        <a class="card c-cream rise" href="./lab-image-compressor.html" data-cursor="Try it">
+        <a class="card c-cream rise" href="../lab-image-compressor.html" data-cursor="Try it">
           <div class="card-top"><span>Public Tool</span><span>Lab 02 / 04</span></div>
           <h3>Image Compressor</h3>
           <p>Compare four quality levels side by side and keep the smallest that still looks right.</p>
-          <div class="shot"><img src="./assets/home/lab-image.webp" alt="" loading="lazy"><span class="badge">v0.1</span></div>
+          <div class="shot"><img src="../assets/home/lab-image.webp" alt="" loading="lazy"><span class="badge">v0.1</span></div>
           <div class="card-foot"><span class="meta">PNG · JPEG · WebP</span><span class="go"><svg class="ico"><use href="#arrow"/></svg></span></div>
         </a>
-        <a class="card dark rise" href="./lab-luz.html" data-cursor="Read">
+        <a class="card dark rise" href="../lab-luz.html" data-cursor="Read">
           <div class="card-top"><span>Private Tool</span><span>Lab 03 / 04</span></div>
           <h3>Luz App</h3>
           <p>Splits the electricity bill by apartment and sends each tenant their share on WhatsApp.</p>
-          <div class="shot"><img src="./assets/home/lab-luz.webp" alt="" loading="lazy"><span class="badge">v0.1</span></div>
+          <div class="shot"><img src="../assets/home/lab-luz.webp" alt="" loading="lazy"><span class="badge">v0.1</span></div>
           <div class="card-foot"><span class="meta">WhatsApp share</span><span class="go"><svg class="ico"><use href="#arrow"/></svg></span></div>
         </a>
-        <a class="card c-cream rise" href="./lab-audio-extractor.html" data-cursor="Try it">
+        <a class="card c-cream rise" href="../lab-audio-extractor.html" data-cursor="Try it">
           <div class="card-top"><span>Public Tool</span><span>Lab 04 / 04</span></div>
           <h3>Audio Extractor</h3>
           <p>Pull MP3, WAV or OGG out of any video, right in the browser.</p>
-          <div class="shot"><img src="./assets/home/lab-mp3.webp" alt="" loading="lazy"><span class="badge">v0.1</span></div>
+          <div class="shot"><img src="../assets/home/lab-mp3.webp" alt="" loading="lazy"><span class="badge">v0.1</span></div>
           <div class="card-foot"><span class="meta">WebCodecs</span><span class="go"><svg class="ico"><use href="#arrow"/></svg></span></div>
         </a>
       </div>
@@ -435,16 +534,16 @@
         <h2>A designer from Perú who <span class="hl">animates for a living</span>. I design the <span class="hl o">interface</span> and the <span class="hl k">motion inside it</span>.</h2>
         <p>I'm a Senior UX/UI and Interaction Designer focused on digital products where motion supports usability: affordances, micro-interactions and system states that reduce friction. I use AI early in the process for research synthesis, ideation and concept validation, always grounded in UX principles and product constraints.</p>
         <div class="cta-row">
-          <a class="pill down" href="./assets/EN_CV_Jordan-Collao_2026-last.pdf" target="_blank" rel="noopener">Download CV <span class="ring"><svg class="ico"><use href="#down"/></svg></span></a>
+          <a class="pill down" href="../assets/EN_CV_Jordan-Collao_2026-last.pdf" download>Download CV <span class="ring"><svg class="ico"><use href="#down"/></svg></span></a>
           <a class="pill ghost" href="https://www.linkedin.com/in/jordancollao/" target="_blank" rel="noopener">LinkedIn <span class="ring"><svg class="ico"><use href="#arrow"/></svg></span></a>
         </div>
       </div>
       <aside class="find" id="contact" aria-label="Contact">
         <h3>Find <em>me.</em></h3>
         <dl>
-          <dt class="mono">WhatsApp</dt><dd><a href="https://wa.me/51960280858" target="_blank" rel="noopener">+51 960 280 858</a></dd>
+          <dt class="mono">WhatsApp</dt><dd><a href="https://wa.me/51960280858">+51 960 280 858</a></dd>
           <dt class="mono">Email</dt><dd><a href="mailto:jmotionux@gmail.com">jmotionux@gmail.com</a></dd>
-          <dt class="mono">LinkedIn</dt><dd><a href="https://www.linkedin.com/in/jordancollao/" target="_blank" rel="noopener">/in/jordancollao</a></dd>
+          <dt class="mono">LinkedIn</dt><dd><a href="https://www.linkedin.com/in/jordancollao/">/in/jordancollao</a></dd>
           <dt class="mono">Based</dt><dd>Lima, Perú · Remote</dd>
         </dl>
       </aside>
@@ -467,19 +566,66 @@
   <div class="wrap">
     <p class="word big">Make it <em>move.</em></p>
     <div class="fcols">
-      <div><h4>Work</h4><a href="./case-tastemakers.html">TasteMakers</a><a href="./case-progresol.html">Progresol Plus</a><a href="./case-vitamin.html">Vitamin DS</a><a href="#portfolio">All projects</a></div>
-      <div><h4>Lab</h4><a href="./lab-motion-tokens.html">Motion Tokens</a><a href="./lab-image-compressor.html">Image Compressor</a><a href="./lab-audio-extractor.html">Audio Extractor</a></div>
-      <div><h4>Follow</h4><a href="https://www.linkedin.com/in/jordancollao/" target="_blank" rel="noopener">LinkedIn</a><a href="https://iconscout.com/contributors/jlossst" target="_blank" rel="noopener">IconScout</a><a href="https://github.com/JordanCollao" target="_blank" rel="noopener">GitHub</a></div>
-      <div><h4>Hello</h4><a href="mailto:jmotionux@gmail.com">jmotionux@gmail.com</a><a href="https://wa.me/51960280858" target="_blank" rel="noopener">WhatsApp</a></div>
+      <div><h4>Work</h4><a href="../case-tastemakers.html">TasteMakers</a><a href="../case-progresol.html">Progresol Plus</a><a href="../case-vitamin.html">Vitamin DS</a><a href="#portfolio">All projects</a></div>
+      <div><h4>Lab</h4><a href="../lab-motion-tokens.html">Motion Tokens</a><a href="../lab-image-compressor.html">Image Compressor</a><a href="../lab-audio-extractor.html">Audio Extractor</a></div>
+      <div><h4>Follow</h4><a href="https://www.linkedin.com/in/jordancollao/">LinkedIn</a><a href="https://iconscout.com/contributors/jlossst">IconScout</a><a href="https://github.com/JordanCollao">GitHub</a></div>
+      <div><h4>Hello</h4><a href="mailto:jmotionux@gmail.com">jmotionux@gmail.com</a><a href="https://wa.me/51960280858">WhatsApp</a></div>
     </div>
-    <div class="legal mono"><span>© 2026 Jordan Collao</span><span>Made in Lima, Perú</span><span>Portfolio / Vol 04</span></div>
+    <div class="legal mono"><span>© 2026 Jordan Collao</span><span>Made in Lima, Perú</span><span>Portfolio / Vol 04 · Mocka cut</span></div>
   </div>
 </footer>
 
-<script src="./assets/js/site.js?v=2026100702" defer></script>
 <script>
 (function () {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Live Lima clock
+  const clock = document.getElementById('clock');
+  const fmt = new Intl.DateTimeFormat('en-GB', { timeZone: 'America/Lima', hour: '2-digit', minute: '2-digit' });
+  const tick = () => { clock.textContent = fmt.format(new Date()); };
+  tick(); setInterval(tick, 15000);
+
+  // Marquee: duplicate the set so the loop never shows a gap
+  const mq = document.getElementById('marquee');
+  mq.innerHTML += mq.innerHTML;
+
+  // Reveal on scroll
+  const io = new IntersectionObserver(entries => entries.forEach(en => {
+    if (!en.isIntersecting) return;
+    en.target.classList.add('in'); io.unobserve(en.target);
+  }), { threshold: .15 });
+  document.querySelectorAll('.rise, .notes').forEach(el => io.observe(el));
+
+  // CURSOR: dot follows exactly, ring trails; links grow it, [data-cursor] adds a label
+  if (!reduce && matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    const dot = document.createElement('div'), ring = document.createElement('div'), label = document.createElement('span');
+    dot.className = 'c-dot away'; ring.className = 'c-ring away'; ring.appendChild(label);
+    dot.setAttribute('aria-hidden', 'true'); ring.setAttribute('aria-hidden', 'true');
+    document.body.append(dot, ring); document.documentElement.classList.add('has-cursor');
+    let mx = -100, my = -100, rx = -100, ry = -100;
+    addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.transform = `translate3d(${mx}px, ${my}px, 0)`;
+      dot.classList.remove('away'); ring.classList.remove('away');
+    });
+    (function follow() {
+      rx += (mx - rx) * .18; ry += (my - ry) * .18;
+      ring.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
+      requestAnimationFrame(follow);
+    })();
+    addEventListener('mouseover', e => {
+      const t = e.target.closest('a, button, [data-cursor]');
+      const host = t && t.closest('[data-cursor]');
+      const text = host ? host.dataset.cursor : '';
+      ring.classList.toggle('is-hot', !!t && !text);
+      ring.classList.toggle('is-label', !!text);
+      dot.classList.toggle('hide', !!text);
+      label.textContent = text;
+    });
+    addEventListener('mousedown', () => ring.classList.add('is-press'));
+    addEventListener('mouseup', () => ring.classList.remove('is-press'));
+    document.addEventListener('mouseleave', () => { dot.classList.add('away'); ring.classList.add('away'); });
+  }
 
   // MUSIC: a tiny generated soundtrack per track (Web Audio, no files). Each one lasts exactly
   // as long as its animation plays on the record, and every track has its own tempo, key and timbre.
@@ -498,17 +644,6 @@
       'ecommerce-check-06':      { bpm: 120, root: 67, scale: 'major',  wave: 'triangle', step: 4, arp: [0, 2, 4, 7],        prog: [0, 4, 5, 3], kick: true,  g: .05 },
       'icon-search-05':          { bpm: 78,  root: 69, scale: 'lydian', wave: 'sine',     step: 2, arp: [0, 4, 6, 4],        prog: [0, 1, 0, 4], kick: false, g: .05 },
     };
-    // New animations added with tools/build-reel.py get one of these moods, picked from their file name
-    const MOODS = [
-      { bpm: 112, scale: 'major',  wave: 'triangle', step: 2, arp: [0, 2, 4, 2],       prog: [0, 3, 4, 0], kick: false, g: .06 },
-      { bpm: 120, scale: 'minor',  wave: 'square',   step: 4, arp: [0, 2, 4, 7, 4, 2], prog: [0, 5, 3, 4], kick: true,  g: .035 },
-      { bpm: 92,  scale: 'dorian', wave: 'sine',     step: 2, arp: [0, 4, 2, 6],       prog: [0, 3, 0, 4], kick: false, g: .07 },
-      { bpm: 104, scale: 'penta',  wave: 'triangle', step: 2, arp: [0, 2, 3, 4, 3, 1], prog: [0, 3, 1, 4], kick: false, g: .06 },
-    ];
-    function fallback(file) {
-      let h = 0; for (const c of file) h = (h * 31 + c.charCodeAt(0)) >>> 0;
-      return Object.assign({ root: 55 + (h % 12) }, MOODS[h % MOODS.length]);
-    }
     let ctx = null, master = null, bus = null, noise = null;
     const mtof = m => 440 * Math.pow(2, (m - 69) / 12);
     function ensure() {
@@ -549,7 +684,7 @@
     function start(file, duration, offset = 0) {
       ensure(); stop();
       if (ctx.state === 'suspended') ctx.resume();
-      const pr = P[file] || fallback(file);
+      const pr = P[file]; if (!pr) return;
       const remaining = duration - offset; if (remaining <= .3) return;
       bus = ctx.createGain(); bus.connect(master);
       const t0 = ctx.currentTime + .05, end = t0 + remaining;
@@ -679,7 +814,7 @@
       ready = true;
       Promise.all([
         load('https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie_light.min.js'),
-        load('./assets/iconscout/reel-data.js?v=2026100702'),
+        load('../assets/iconscout/reel-data.js'),
       ]).then(() => { onScreen = near > 0; ready = false; play(0); }).catch(() => { ready = false; });
     }
     // The record spins (and the playlist advances) whenever it can be heard or seen

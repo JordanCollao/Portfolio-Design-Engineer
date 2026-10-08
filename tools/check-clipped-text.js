@@ -61,8 +61,8 @@ async function checkClippedText(pages = [
       const n = walker.currentNode;
       if (!n.textContent.trim()) continue;
       const el = n.parentElement;
-      // The IconScout reel and the overlays clip on purpose
-      if (el.closest('.reel,.curtain,.loader,script,style,noscript,.skip-link,svg')) continue;
+      // The IconScout reel, the overlays and decorative text (aria-hidden: marquees, watermarks) clip on purpose
+      if (el.closest('.reel,.curtain,.loader,script,style,noscript,.skip-link,svg,[aria-hidden="true"]')) continue;
       const cs = w.getComputedStyle(el);
       if (cs.visibility === 'hidden' || cs.display === 'none' || cs.opacity === '0') continue;
       const range = d.createRange();

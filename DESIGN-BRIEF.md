@@ -28,6 +28,17 @@ Idioma de trabajo con Jordan: **español**. Idioma del sitio: **inglés**.
 
 ## 3. Sistema visual
 
+> **Actualización (oct 2026): el sitio pasó al estilo "Mocka"** (referencia: design-skills-joaco.vercel.app/mocka-studio.html), aprobado por Jordan. Lo que sigue en esta sección describe el sistema anterior ("Timeline"), guardado en `_backup/timeline-v1/`.
+>
+> - **Colores:** negro cálido `#15110E` (`--ink`), crema `#F4EFE6`, lima `#C6F24E` (acento principal), coral `#F2554A`, naranja `#F79A4B`.
+> - **Tipos:** Anton (solo hero y títulos de sección, en mayúsculas), Archivo (texto), JetBrains Mono (etiquetas).
+> - **Jerarquía:** una sola voz fuerte por pantalla. Las etiquetas (eyebrow) llevan un punto lima, nunca una línea al lado (se lee como guión largo).
+> - **Archivos:** `assets/css/site.css` + `assets/js/site.js` (sistema compartido: cursor, nav, píldoras, tarjetas, footer, marquee, cortina, loader), `assets/css/case.css` (cases y labs), `assets/js/transition.js` (cortina). El home tiene su CSS/JS propio inline.
+> - **Cursor:** punto lima + anillo; sobre tarjetas se vuelve un disco oscuro con etiqueta (`data-cursor="View case"`).
+> - **IconScout:** tocadiscos con playlist automática (5 pistas visibles) y música generada por pista (Web Audio). La música está armada por defecto, su volumen sube al acercarse a la sección y se activa con la primera interacción (regla del navegador). `tools/build-reel.py` regenera la playlist.
+> - **Cases y labs:** barra de estado, título con el proyecto en lima, spec sheet, cover con badge, secciones con etiqueta sticky, tarjetas anterior/siguiente. El header lista las secciones de la página.
+
+
 ```css
 :root {
   --bg: #E4E7EC;      /* fondo página, gris claro frío */

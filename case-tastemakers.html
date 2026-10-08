@@ -22,68 +22,63 @@
 <script>document.documentElement.classList.add('js')</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./assets/css/case.css">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./assets/css/site.css?v=2026100702">
+<link rel="stylesheet" href="./assets/css/case.css?v=2026100702">
 </head>
-<body data-start="2026.17" data-end="now" style="--c:var(--l1)">
+<body class="page">
 
 <a href="#main" class="skip-link">Skip to content</a>
 
 <!-- Page transition curtain -->
-<div class="curtain" id="curtain" aria-hidden="true"><div class="curtain-mark"><span class="curtain-key"></span></div></div>
-<script src="./assets/js/transition.js"></script>
+<div class="curtain" id="curtain" aria-hidden="true"><span class="curtain-mark">JC</span></div>
+<script src="./assets/js/transition.js?v=2026100702"></script>
 
-<header class="header">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<header class="nav">
   <div class="wrap">
-    <a class="brand" href="./index.html" aria-label="Jordan Collao, home">
-      <img src="./assets/jordan-avatar.webp" alt="">
-      <div><b>Jordan Collao</b><span>Design Engineer &amp; Motion Designer</span></div>
-    </a>
-    <nav class="nav" aria-label="Sections of this case">
-      <a href="#context">context</a>
-      <a href="#approach">approach</a>
-      <a href="#outcome">outcome</a>
-      <a class="cta" href="https://wa.me/51960280858" target="_blank" rel="noopener">let's talk</a>
-    </nav>
+    <a class="logo" href="./index.html" aria-label="Jordan Collao, home"><i>JC</i>Jordan Collao</a>
+    <ul class="links" aria-label="Sections of this page">
+      <li><a href="#context">context</a></li>
+      <li><a href="#approach">approach</a></li>
+      <li><a href="#outcome">outcome</a></li>
+    </ul>
+    <a class="pill" href="https://wa.me/51960280858" target="_blank" rel="noopener">Let's talk <span class="ring"><svg class="ico"><use href="#arrow"/></svg></span></a>
   </div>
   <span class="read-head" aria-hidden="true"></span>
 </header>
 
 <main id="main">
   <section class="c-hero" aria-labelledby="case-title">
-    <div class="sweep" aria-hidden="true"></div>
     <div class="wrap">
-      <a class="c-back tlink" href="./index.html#portfolio">← All projects</a>
-
-      <span class="status live"><i></i>Active, Mar 2026 to now</span>
-      <h1 class="wipe" id="case-title">Prompt Design for TasteMakers/<wbr>Anthropic</h1>
+      <div class="status mono">
+        <a class="back" href="./index.html#portfolio"><svg class="ico"><use href="#arrow"/></svg>All projects</a>
+        <span class="mid">01 / 08</span>
+        <span class="state live">Active, Mar 2026 to now</span>
+      </div>
       <div class="c-hero-grid">
         <div>
-          <p class="c-lede wipe d1">Design prompt engineering for Anthropic's TasteMakers. I translate UI structures into structured prompts so AI models can rebuild layouts accurately. It's an ongoing R&amp;D engagement.</p>
+          <span class="eyebrow mono">Track 01 / 08 · Prompt Design · AI</span>
+          <h1 class="big" id="case-title">Prompt Design for <em>TasteMakers/<wbr>Anthropic</em></h1>
+          <p class="lede">Design prompt engineering for Anthropic's TasteMakers. I translate UI structures into structured prompts so AI models can rebuild layouts accurately. It's an ongoing R&amp;D engagement.</p>
         </div>
-        <dl class="props">
-          <dt>Role</dt><dd>Design Prompt Engineer, then LLM Trainer and Visual Design Evaluator</dd>
+        <aside class="spec" aria-label="Project facts">
+          <span class="mono spec-title">Spec sheet</span>
+          <dl>
+<dt>Role</dt><dd>Design Prompt Engineer, then LLM Trainer and Visual Design Evaluator</dd>
           <dt>Period</dt><dd>Mar 2026 to now</dd>
           <dt>Location</dt><dd>USA, remote</dd>
           <dt>Stack</dt><dd>Claude, Figma, custom prompt scaffolds</dd>
           <dt>Team</dt><dd>Taste Makers AI team</dd>
-        </dl>
+          </dl>
+        </aside>
       </div>
-
-      <div class="c-track" aria-label="Project period on the 2021 to now timeline">
-        <div class="c-track-ruler" aria-hidden="true"><span>Project</span><div class="c-ticks"></div></div>
-        <div class="c-track-row">
-          <div class="c-track-name"><i class="chip"></i><div><b>Taste Makers</b><span>2026.03 → now</span></div></div>
-          <div class="c-lane"><i class="bar"></i></div>
-        </div>
-      </div>
-
-      <figure class="viewer">
-        <div class="viewer-frame">
-          <img src="./assets/tastemakers/cover.webp" alt="Claude Design, the Taste Makers project cover">
-          <span class="safe" aria-hidden="true"></span>
-        </div>
-        <figcaption class="comp-bar"><span>case-tastemakers.aep</span><b>2026.03 → now</b></figcaption>
+      <figure class="c-cover">
+        <img src="./assets/tastemakers/cover.webp" alt="Claude Design, the Taste Makers project cover"><span class="badge" style="--b:var(--coral)">Now<br>active</span>
+        <figcaption class="mono"><span>case-tastemakers</span><b>2026.03 → now</b></figcaption>
       </figure>
     </div>
   </section>
@@ -128,42 +123,52 @@
         <p>The engagement is active. Early findings: pure visual descriptions ("a card with rounded corners and a subtle shadow") produce inconsistent results. <strong>Structural prompts that encode rules and tokens</strong> produce much more reliable reconstructions.</p>
         <p>Since August 2026 I work as an <strong>LLM Trainer and Visual Design Evaluator</strong>. I review AI-generated visual and UI designs against reference material (alignment, typography, spacing, color, illustration quality) and give structured comparative feedback for model training.</p>
       </div>
-
     </div>
   </section>
 
-  <nav class="c-nav" aria-label="More case studies">
+  <section class="sec c-more" aria-label="More projects">
     <div class="wrap">
-      <div class="c-nav-head">
-        <h2>More projects</h2>
-        <a class="btn ghost" href="./index.html#portfolio">All projects</a>
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow mono">Keep listening</span>
+          <h2 class="big">More <em>projects.</em></h2>
+        </div>
+        <p>Previous and next in the order of the home page.</p>
       </div>
-      <div class="c-nav-grid">
-        <a class="c-next prev" href="./case-cometa.html" style="--c:var(--l8)">
-          <img src="./assets/cometa/cover.webp" alt="" loading="lazy">
-          <div><small>Previous · Motion Design</small><b>Cometa</b></div>
+      <div class="cards more-cards">
+        <a class="card c-lime" href="./case-cometa.html" data-cursor="View case">
+          <div class="card-top"><span>Motion Design</span><span>Previous</span></div>
+          <h3>Cometa</h3>
+          <p>A presentation video for a platform that connects schools and parents in México.</p>
+          <div class="shot"><img src="./assets/cometa/cover.webp" alt="" loading="lazy"></div>
+          <div class="card-foot"><span class="meta">2023 · México</span><span class="go back"><svg class="ico"><use href="#arrow"/></svg></span></div>
         </a>
-        <a class="c-next next" href="./case-hidroroots.html" style="--c:var(--l2)">
-          <img src="./assets/hidroroots/cover.webp" alt="" loading="lazy">
-          <div><small>Next · Responsive Web</small><b>HidroRoots</b></div>
+        <a class="card dark" href="./case-hidroroots.html" data-cursor="View case">
+          <div class="card-top"><span>Responsive Web</span><span>Next</span></div>
+          <h3>HidroRoots</h3>
+          <p>A responsive site for a Peruvian hydroponics company, from benchmark to high-fidelity UI.</p>
+          <div class="shot"><img src="./assets/hidroroots/cover.webp" alt="" loading="lazy"><span class="badge">Live<br>site</span></div>
+          <div class="card-foot"><span class="meta">2025 · Perú</span><span class="go"><svg class="ico"><use href="#arrow"/></svg></span></div>
         </a>
       </div>
+      <div class="cta-row"><a class="pill ghost" href="./index.html#portfolio">All projects <span class="ring"><svg class="ico"><use href="#arrow"/></svg></span></a></div>
     </div>
-  </nav>
+  </section>
 </main>
 
-<footer class="footer">
+<footer class="footer compact">
   <div class="wrap">
-    <span>© 2026 Jordan Collao, made in Perú</span>
-    <nav aria-label="Elsewhere">
-      <a href="https://wa.me/51960280858">WhatsApp</a>
-      <a href="https://www.linkedin.com/in/jordancollao/">LinkedIn</a>
-      <a href="https://iconscout.com/contributors/jlossst">IconScout</a>
-      <a href="mailto:jmotionux@gmail.com">Email</a>
-    </nav>
+    <p class="word big">Make it <em>move.</em></p>
+    <div class="fcols">
+      <div><h4>Work</h4><a href="./case-tastemakers.html">TasteMakers</a><a href="./case-progresol.html">Progresol Plus</a><a href="./case-vitamin.html">Vitamin DS</a><a href="./index.html#portfolio">All projects</a></div>
+      <div><h4>Lab</h4><a href="./lab-motion-tokens.html">Motion Tokens</a><a href="./lab-image-compressor.html">Image Compressor</a><a href="./lab-audio-extractor.html">Audio Extractor</a></div>
+      <div><h4>Follow</h4><a href="https://www.linkedin.com/in/jordancollao/" target="_blank" rel="noopener">LinkedIn</a><a href="https://iconscout.com/contributors/jlossst" target="_blank" rel="noopener">IconScout</a><a href="https://github.com/JordanCollao" target="_blank" rel="noopener">GitHub</a></div>
+      <div><h4>Hello</h4><a href="mailto:jmotionux@gmail.com">jmotionux@gmail.com</a><a href="https://wa.me/51960280858" target="_blank" rel="noopener">WhatsApp</a></div>
+    </div>
+    <div class="legal mono"><span>© 2026 Jordan Collao</span><span>Made in Lima, Perú</span><span>Portfolio / Vol 04</span></div>
   </div>
 </footer>
 
-<script src="./assets/js/case.js" defer></script>
+<script src="./assets/js/site.js?v=2026100702" defer></script>
 </body>
 </html>

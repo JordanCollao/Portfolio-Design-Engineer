@@ -22,72 +22,64 @@
 <script>document.documentElement.classList.add('js')</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./assets/css/case.css">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./assets/css/site.css?v=2026100702">
+<link rel="stylesheet" href="./assets/css/case.css?v=2026100702">
 </head>
-<body data-start="2025" data-end="now" style="--c:var(--l7)">
+<body class="page">
 
 <a href="#main" class="skip-link">Skip to content</a>
 
 <!-- Page transition curtain -->
-<div class="curtain" id="curtain" aria-hidden="true"><div class="curtain-mark"><span class="curtain-key"></span></div></div>
-<script src="./assets/js/transition.js"></script>
+<div class="curtain" id="curtain" aria-hidden="true"><span class="curtain-mark">JC</span></div>
+<script src="./assets/js/transition.js?v=2026100702"></script>
 
-<header class="header">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<header class="nav">
   <div class="wrap">
-    <a class="brand" href="./index.html" aria-label="Jordan Collao, home">
-      <img src="./assets/jordan-avatar.webp" alt="">
-      <div><b>Jordan Collao</b><span>Design Engineer &amp; Motion Designer</span></div>
-    </a>
-    <nav class="nav" aria-label="Sections of this experiment">
-      <a href="#what-it-does">what it does</a>
-      <a href="#how-it-works">how it works</a>
-      <a href="#status">status</a>
-      <a class="cta" href="https://wa.me/51960280858" target="_blank" rel="noopener">let's talk</a>
-    </nav>
+    <a class="logo" href="./index.html" aria-label="Jordan Collao, home"><i>JC</i>Jordan Collao</a>
+    <ul class="links" aria-label="Sections of this page">
+      <li><a href="#what-it-does">what it does</a></li>
+      <li><a href="#how-it-works">how it works</a></li>
+      <li><a href="#status">status</a></li>
+    </ul>
+    <a class="pill" href="https://wa.me/51960280858" target="_blank" rel="noopener">Let's talk <span class="ring"><svg class="ico"><use href="#arrow"/></svg></span></a>
   </div>
   <span class="read-head" aria-hidden="true"></span>
 </header>
 
 <main id="main">
   <section class="c-hero" aria-labelledby="case-title">
-    <div class="sweep" aria-hidden="true"></div>
     <div class="wrap">
-      <a class="c-back tlink" href="./index.html#lab">← All experiments</a>
-
-      <span class="status"><i></i>v0.1 · Public Tool</span>
-      <h1 class="wipe" id="case-title">Audio Extractor</h1>
+      <div class="status mono">
+        <a class="back" href="./index.html#lab"><svg class="ico"><use href="#arrow"/></svg>All experiments</a>
+        <span class="mid">Lab 04 / 04</span>
+        <span class="state">v0.1 · Public Tool</span>
+      </div>
       <div class="c-hero-grid">
         <div>
-          <p class="c-lede wipe d1">Extract the audio track from a video file as MP3, WAV or OGG, with quality settings. It runs in the browser.</p>
-          <div class="btns">
-            <a class="btn solid" href="https://jordancollao.github.io/extractor-audio/" target="_blank" rel="noopener">Try it live</a>
-            <a class="btn ghost" href="https://github.com/JordanCollao/extractor-audio" target="_blank" rel="noopener">View on GitHub</a>
-          </div>
+          <span class="eyebrow mono">Lab 04 / 04 · Public Tool</span>
+          <h1 class="big" id="case-title"><em>Audio Extractor</em></h1>
+          <p class="lede">Extract the audio track from a video file as MP3, WAV or OGG, with quality settings. It runs in the browser.</p>
+          <div class="cta-row"><a class="pill" href="https://jordancollao.github.io/extractor-audio/" target="_blank" rel="noopener">Try it live <span class="ring"><svg class="ico"><use href="#arrow"/></svg></span></a><a class="pill ghost" href="https://github.com/JordanCollao/extractor-audio" target="_blank" rel="noopener">View on GitHub <span class="ring"><svg class="ico"><use href="#arrow"/></svg></span></a></div>
         </div>
-        <dl class="props">
-          <dt>Version</dt><dd>v0.1</dd>
+        <aside class="spec" aria-label="Project facts">
+          <span class="mono spec-title">Spec sheet</span>
+          <dl>
+<dt>Version</dt><dd>v0.1</dd>
           <dt>Type</dt><dd>Public Tool, Web</dd>
           <dt>Period</dt><dd>2025 to now</dd>
           <dt>Stack</dt><dd>WebCodecs API, HTML, JS</dd>
           <dt>Team</dt><dd>Solo</dd>
-        </dl>
+          </dl>
+        </aside>
       </div>
-
-      <div class="c-track" aria-label="Experiment period on the 2021 to now timeline">
-        <div class="c-track-ruler" aria-hidden="true"><span>Experiment</span><div class="c-ticks"></div></div>
-        <div class="c-track-row">
-          <div class="c-track-name"><i class="chip"></i><div><b>Audio Extractor</b><span>2025 → now</span></div></div>
-          <div class="c-lane"><i class="bar"></i></div>
-        </div>
-      </div>
-
-      <figure class="viewer">
-        <div class="viewer-frame">
-          <img src="./assets/home/lab-mp3.webp" alt="Audio Extractor cover">
-          <span class="safe" aria-hidden="true"></span>
-        </div>
-        <figcaption class="comp-bar"><span>lab-audio-extractor.aep</span><b>v0.1</b></figcaption>
+      <figure class="c-cover">
+        <img src="./assets/home/lab-mp3.webp" alt="Audio Extractor cover"><span class="badge">v0.1</span>
+        <figcaption class="mono"><span>lab-audio-extractor</span><b>v0.1</b></figcaption>
       </figure>
     </div>
   </section>
@@ -120,42 +112,52 @@
         <h2 class="case-section-title">Where it is now</h2>
         <p>v0.1 in development. Core extraction working for MP4 and WebM containers. Next iteration adds MOV and broader codec support.</p>
       </div>
-
     </div>
   </section>
 
-  <nav class="c-nav" aria-label="More experiments">
+  <section class="sec c-more" aria-label="More experiments">
     <div class="wrap">
-      <div class="c-nav-head">
-        <h2>More experiments</h2>
-        <a class="btn ghost" href="./index.html#lab">All experiments</a>
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow mono">Keep listening</span>
+          <h2 class="big">More <em>experiments.</em></h2>
+        </div>
+        <p>Previous and next in the order of the home page.</p>
       </div>
-      <div class="c-nav-grid">
-        <a class="c-next prev" href="./lab-luz.html" style="--c:var(--l1)">
-          <img src="./assets/home/lab-luz.webp" alt="" loading="lazy">
-          <div><small>Previous</small><b>Luz App</b></div>
+      <div class="cards more-cards">
+        <a class="card dark" href="./lab-luz.html" data-cursor="Read">
+          <div class="card-top"><span>Private Tool</span><span>Previous</span></div>
+          <h3>Luz App</h3>
+          <p>Splits the electricity bill by apartment and sends each tenant their share on WhatsApp.</p>
+          <div class="shot"><img src="./assets/home/lab-luz.webp" alt="" loading="lazy"><span class="badge">v0.1</span></div>
+          <div class="card-foot"><span class="meta">WhatsApp share</span><span class="go back"><svg class="ico"><use href="#arrow"/></svg></span></div>
         </a>
-        <a class="c-next next" href="./lab-motion-tokens.html" style="--c:var(--l4)">
-          <img src="./assets/home/lab-motion.webp" alt="" loading="lazy">
-          <div><small>Next</small><b>Motion Tokens Generator</b></div>
+        <a class="card dark" href="./lab-motion-tokens.html" data-cursor="Try it">
+          <div class="card-top"><span>Public Tool</span><span>Next</span></div>
+          <h3>Motion Tokens Generator</h3>
+          <p>Define duration, easing and delay as design tokens and export them to Figma.</p>
+          <div class="shot"><img src="./assets/home/lab-motion.webp" alt="" loading="lazy"><span class="badge">v0.2</span></div>
+          <div class="card-foot"><span class="meta">W3C tokens · Figma</span><span class="go"><svg class="ico"><use href="#arrow"/></svg></span></div>
         </a>
       </div>
+      <div class="cta-row"><a class="pill ghost" href="./index.html#lab">All experiments <span class="ring"><svg class="ico"><use href="#arrow"/></svg></span></a></div>
     </div>
-  </nav>
+  </section>
 </main>
 
-<footer class="footer">
+<footer class="footer compact">
   <div class="wrap">
-    <span>© 2026 Jordan Collao, made in Perú</span>
-    <nav aria-label="Elsewhere">
-      <a href="https://wa.me/51960280858">WhatsApp</a>
-      <a href="https://www.linkedin.com/in/jordancollao/">LinkedIn</a>
-      <a href="https://iconscout.com/contributors/jlossst">IconScout</a>
-      <a href="mailto:jmotionux@gmail.com">Email</a>
-    </nav>
+    <p class="word big">Make it <em>move.</em></p>
+    <div class="fcols">
+      <div><h4>Work</h4><a href="./case-tastemakers.html">TasteMakers</a><a href="./case-progresol.html">Progresol Plus</a><a href="./case-vitamin.html">Vitamin DS</a><a href="./index.html#portfolio">All projects</a></div>
+      <div><h4>Lab</h4><a href="./lab-motion-tokens.html">Motion Tokens</a><a href="./lab-image-compressor.html">Image Compressor</a><a href="./lab-audio-extractor.html">Audio Extractor</a></div>
+      <div><h4>Follow</h4><a href="https://www.linkedin.com/in/jordancollao/" target="_blank" rel="noopener">LinkedIn</a><a href="https://iconscout.com/contributors/jlossst" target="_blank" rel="noopener">IconScout</a><a href="https://github.com/JordanCollao" target="_blank" rel="noopener">GitHub</a></div>
+      <div><h4>Hello</h4><a href="mailto:jmotionux@gmail.com">jmotionux@gmail.com</a><a href="https://wa.me/51960280858" target="_blank" rel="noopener">WhatsApp</a></div>
+    </div>
+    <div class="legal mono"><span>© 2026 Jordan Collao</span><span>Made in Lima, Perú</span><span>Portfolio / Vol 04</span></div>
   </div>
 </footer>
 
-<script src="./assets/js/case.js" defer></script>
+<script src="./assets/js/site.js?v=2026100702" defer></script>
 </body>
 </html>

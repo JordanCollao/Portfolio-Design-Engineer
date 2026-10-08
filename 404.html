@@ -13,22 +13,26 @@
 <script>document.documentElement.classList.add('js')</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/case.css">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/site.css?v=2026100702">
 <style>
-  .nf { padding: clamp(40px, 6vw, 80px) 0 clamp(64px, 8vw, 110px); }
-  .nf-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
-  .nf h1 { font-weight: 800; font-size: clamp(44px, 6vw, 88px); line-height: .95; letter-spacing: -0.045em; margin: 20px 0 22px; text-wrap: balance; }
-  .nf p { font-size: clamp(18px, 1.6vw, 21px); color: var(--ink-2); max-width: 46ch; }
-  .nf .btns { margin-top: 28px; }
-  /* The comp viewer with its footage missing, the way After Effects shows it */
-  .nf .viewer { margin-top: 0; }
-  .nf .viewer-frame { aspect-ratio: 4 / 3; display: grid; place-items: center; }
-  .missing { position: relative; z-index: 1; text-align: center; color: #fff; }
-  .missing b { display: block; font-weight: 800; font-size: clamp(88px, 13vw, 180px); line-height: .9; letter-spacing: -0.05em; }
-  .missing span { display: inline-block; margin-top: 14px; font-family: var(--mono); font-size: 13px; color: #C5CAD3; border: 1px solid #3A3F4B; padding: 4px 10px; border-radius: 4px; }
-  .missing-key { position: absolute; left: 50%; bottom: 14%; width: 10px; height: 10px; background: var(--playhead); transform: translateX(-50%) rotate(45deg); }
-  @media (max-width: 860px) { .nf-grid { grid-template-columns: minmax(0, 1fr); } .nf .viewer { order: -1; } }
+  /* 404: a scratched record. Root-relative paths, because this page is served for any missing URL */
+  .nf { padding: clamp(48px, 7vw, 100px) 0 clamp(72px, 9vw, 130px); }
+  .nf-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(40px, 6vw, 96px); align-items: center; }
+  .nf h1 { font-size: clamp(64px, 9vw, 150px); margin-top: 18px; }
+  .nf h1 em { font-style: normal; color: var(--lime); display: block; }
+  .nf p { margin-top: 24px; font-size: clamp(17px, 1.4vw, 20px); color: var(--cream-2); max-width: 44ch; }
+  .disc { position: relative; aspect-ratio: 1; max-width: 460px; width: 100%; justify-self: center; border-radius: 50%;
+    background: radial-gradient(circle, #0b0907 0 33%, transparent 33.4%), repeating-radial-gradient(circle, #191410 0 2px, #0e0b09 2px 4px);
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,.9); animation: skip 2.4s steps(1) infinite; }
+  .disc::before { content: ''; position: absolute; left: 12%; right: 30%; top: 46%; height: 2px; background: rgba(244,239,230,.25); transform: rotate(-24deg); border-radius: 2px; }
+  .disc .lbl { position: absolute; inset: 31%; border-radius: 50%; background: #fff; display: grid; place-items: center; text-align: center; color: var(--ink); }
+  .disc .lbl b { display: block; font-family: var(--display); font-weight: 400; font-size: clamp(44px, 6vw, 72px); line-height: .9; }
+  .disc .lbl span { display: block; margin-top: 6px; font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  /* The needle keeps jumping back: the record skips */
+  @keyframes skip { 0% { transform: rotate(0deg); } 25% { transform: rotate(14deg); } 50% { transform: rotate(28deg); } 75% { transform: rotate(14deg); } }
+  @media (max-width: 860px) { .nf-grid { grid-template-columns: minmax(0, 1fr); } .disc { max-width: 320px; order: -1; } }
+  @media (prefers-reduced-motion: reduce) { .disc { animation: none; } }
 </style>
 </head>
 <body>
@@ -36,59 +40,48 @@
 <a href="#main" class="skip-link">Skip to content</a>
 
 <!-- Page transition curtain -->
-<div class="curtain" id="curtain" aria-hidden="true"><div class="curtain-mark"><span class="curtain-key"></span></div></div>
-<script src="/assets/js/transition.js"></script>
+<div class="curtain" id="curtain" aria-hidden="true"><span class="curtain-mark">JC</span></div>
+<script src="/assets/js/transition.js?v=2026100702"></script>
 
-<header class="header">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<header class="nav">
   <div class="wrap">
-    <a class="brand" href="/index.html" aria-label="Jordan Collao, home">
-      <img src="/assets/jordan-avatar.webp" alt="">
-      <div><b>Jordan Collao</b><span>Design Engineer &amp; Motion Designer</span></div>
-    </a>
-    <nav class="nav" aria-label="Main">
-      <a href="/index.html#portfolio">portfolio</a>
-      <a href="/index.html#lab">lab</a>
-      <a href="/index.html#about">about</a>
-      <a href="/index.html#experience">experience</a>
-      <a href="/index.html#contact">contact</a>
-      <a class="cta" href="https://wa.me/51960280858" target="_blank" rel="noopener">let's talk</a>
-    </nav>
+    <a class="logo" href="/index.html" aria-label="Jordan Collao, home"><i>JC</i>Jordan Collao</a>
+    <ul class="links">
+      <li><a href="/index.html#portfolio">Portfolio</a></li>
+      <li><a href="/index.html#lab">Lab</a></li>
+      <li><a href="/index.html#about">About</a></li>
+      <li><a href="/index.html#experience">Experience</a></li>
+      <li><a href="/index.html#contact">Contact</a></li>
+    </ul>
+    <a class="pill" href="https://wa.me/51960280858" target="_blank" rel="noopener">Let's talk <span class="ring"><svg class="ico"><use href="#arrow"/></svg></span></a>
   </div>
 </header>
 
 <main id="main" class="nf">
   <div class="wrap nf-grid">
     <div>
-      <span class="status"><i></i>Error 404</span>
-      <h1>This frame isn't in the comp.</h1>
-      <p>The page you're looking for was moved or never existed. The rest of the timeline is still here.</p>
-      <div class="btns">
-        <a class="btn solid" href="/index.html">Back to home</a>
-        <a class="btn ghost" href="/index.html#portfolio">See portfolio</a>
+      <span class="eyebrow mono">Error 404 · Track not found</span>
+      <h1 class="big">This record <em>skipped.</em></h1>
+      <p>The page you're looking for was moved or never existed. The rest of the album is still here.</p>
+      <div class="cta-row">
+        <a class="pill" href="/index.html">Back to home <span class="ring"><svg class="ico"><use href="#arrow"/></svg></span></a>
+        <a class="pill ghost" href="/index.html#portfolio">See the work <span class="ring"><svg class="ico"><use href="#arrow"/></svg></span></a>
       </div>
     </div>
-    <figure class="viewer">
-      <div class="viewer-frame">
-        <div class="missing" aria-hidden="true"><b>404</b><span>Missing footage</span></div>
-        <i class="missing-key" aria-hidden="true"></i>
-        <span class="safe" aria-hidden="true"></span>
-      </div>
-      <figcaption class="comp-bar"><span>jordan-collao.aep</span><b>0:00:04:04</b></figcaption>
-    </figure>
+    <div class="disc" aria-hidden="true"><div class="lbl"><div><b>404</b><span>Side ?</span></div></div></div>
   </div>
 </main>
 
-<footer class="footer">
+<footer class="footer compact">
   <div class="wrap">
-    <span>© 2026 Jordan Collao, made in Perú</span>
-    <nav aria-label="Elsewhere">
-      <a href="https://wa.me/51960280858">WhatsApp</a>
-      <a href="https://www.linkedin.com/in/jordancollao/">LinkedIn</a>
-      <a href="https://iconscout.com/contributors/jlossst">IconScout</a>
-      <a href="mailto:jmotionux@gmail.com">Email</a>
-    </nav>
+    <div class="legal mono" style="margin-top:0"><span>© 2026 Jordan Collao</span><span>Made in Lima, Perú</span><span>Portfolio / Vol 04</span></div>
   </div>
 </footer>
 
+<script src="/assets/js/site.js?v=2026100702" defer></script>
 </body>
 </html>

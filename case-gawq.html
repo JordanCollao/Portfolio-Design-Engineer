@@ -22,69 +22,64 @@
 <script>document.documentElement.classList.add('js')</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./assets/css/case.css">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./assets/css/site.css?v=2026100702">
+<link rel="stylesheet" href="./assets/css/case.css?v=2026100702">
 </head>
-<body data-start="2022" data-end="2022.6" style="--c:var(--l7)">
+<body class="page">
 
 <a href="#main" class="skip-link">Skip to content</a>
 
 <!-- Page transition curtain -->
-<div class="curtain" id="curtain" aria-hidden="true"><div class="curtain-mark"><span class="curtain-key"></span></div></div>
-<script src="./assets/js/transition.js"></script>
+<div class="curtain" id="curtain" aria-hidden="true"><span class="curtain-mark">JC</span></div>
+<script src="./assets/js/transition.js?v=2026100702"></script>
 
-<header class="header">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<header class="nav">
   <div class="wrap">
-    <a class="brand" href="./index.html" aria-label="Jordan Collao, home">
-      <img src="./assets/jordan-avatar.webp" alt="">
-      <div><b>Jordan Collao</b><span>Design Engineer &amp; Motion Designer</span></div>
-    </a>
-    <nav class="nav" aria-label="Sections of this case">
-      <a href="#context">context</a>
-      <a href="#pull">pull</a>
-      <a href="#splash">splash</a>
-      <a href="#web">web</a>
-      <a class="cta" href="https://wa.me/51960280858" target="_blank" rel="noopener">let's talk</a>
-    </nav>
+    <a class="logo" href="./index.html" aria-label="Jordan Collao, home"><i>JC</i>Jordan Collao</a>
+    <ul class="links" aria-label="Sections of this page">
+      <li><a href="#context">context</a></li>
+      <li><a href="#pull">pull</a></li>
+      <li><a href="#splash">splash</a></li>
+      <li><a href="#web">web</a></li>
+    </ul>
+    <a class="pill" href="https://wa.me/51960280858" target="_blank" rel="noopener">Let's talk <span class="ring"><svg class="ico"><use href="#arrow"/></svg></span></a>
   </div>
   <span class="read-head" aria-hidden="true"></span>
 </header>
 
 <main id="main">
   <section class="c-hero" aria-labelledby="case-title">
-    <div class="sweep" aria-hidden="true"></div>
     <div class="wrap">
-      <a class="c-back tlink" href="./index.html#portfolio">← All projects</a>
-
-      <span class="status"><i></i>Delivered, 2022</span>
-      <h1 class="wipe" id="case-title">Interaction Design for Gawq</h1>
+      <div class="status mono">
+        <a class="back" href="./index.html#portfolio"><svg class="ico"><use href="#arrow"/></svg>All projects</a>
+        <span class="mid">07 / 08</span>
+        <span class="state">Delivered, 2022</span>
+      </div>
       <div class="c-hero-grid">
         <div>
-          <p class="c-lede wipe d1">Interaction and motion for Gawq, a US news app: one motion system covering pull-to-refresh, the splash screen and web entry transitions.</p>
+          <span class="eyebrow mono">Track 07 / 08 · Interaction Design</span>
+          <h1 class="big" id="case-title">Interaction Design for <em>Gawq</em></h1>
+          <p class="lede">Interaction and motion for Gawq, a US news app: one motion system covering pull-to-refresh, the splash screen and web entry transitions.</p>
         </div>
-        <dl class="props">
-          <dt>Role</dt><dd>Interaction, UX Motion, Lottie Expert</dd>
+        <aside class="spec" aria-label="Project facts">
+          <span class="mono spec-title">Spec sheet</span>
+          <dl>
+<dt>Role</dt><dd>Interaction, UX Motion, Lottie Expert</dd>
           <dt>Period</dt><dd>2022</dd>
           <dt>Location</dt><dd>USA</dd>
           <dt>Stack</dt><dd>After Effects, Bodymovin, Lottie</dd>
           <dt>Team</dt><dd>Product, engineering, brand</dd>
-        </dl>
+          </dl>
+        </aside>
       </div>
-
-      <div class="c-track" aria-label="Project period on the 2021 to now timeline">
-        <div class="c-track-ruler" aria-hidden="true"><span>Project</span><div class="c-ticks"></div></div>
-        <div class="c-track-row">
-          <div class="c-track-name"><i class="chip"></i><div><b>Gawq App</b><span>2022.01 → 2022.08</span></div></div>
-          <div class="c-lane"><i class="bar"></i></div>
-        </div>
-      </div>
-
-      <figure class="viewer">
-        <div class="viewer-frame">
-          <img src="./assets/gawq/cover.webp" alt="Gawq App project cover">
-          <span class="safe" aria-hidden="true"></span>
-        </div>
-        <figcaption class="comp-bar"><span>case-gawq.aep</span><b>2022.01 → 2022.08</b></figcaption>
+      <figure class="c-cover">
+        <img src="./assets/gawq/cover.webp" alt="Gawq App project cover">
+        <figcaption class="mono"><span>case-gawq</span><b>2022.01 → 2022.08</b></figcaption>
       </figure>
     </div>
   </section>
@@ -132,42 +127,52 @@
           <p class="case-video-caption">Gawq: web entry transition and motion specs</p>
         </div>
       </div>
-
     </div>
   </section>
 
-  <nav class="c-nav" aria-label="More case studies">
+  <section class="sec c-more" aria-label="More projects">
     <div class="wrap">
-      <div class="c-nav-head">
-        <h2>More projects</h2>
-        <a class="btn ghost" href="./index.html#portfolio">All projects</a>
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow mono">Keep listening</span>
+          <h2 class="big">More <em>projects.</em></h2>
+        </div>
+        <p>Previous and next in the order of the home page.</p>
       </div>
-      <div class="c-nav-grid">
-        <a class="c-next prev" href="./case-vitamin.html" style="--c:var(--l6)">
-          <img src="./assets/vitamin/cover.webp" alt="" loading="lazy">
-          <div><small>Previous · Design System</small><b>Vitamin Design System</b></div>
+      <div class="cards more-cards">
+        <a class="card c-coral" href="./case-vitamin.html" data-cursor="View case">
+          <div class="card-top"><span>Design System</span><span>Previous</span></div>
+          <h3>Vitamin DS · Auna</h3>
+          <p>Motion tokens, components and icons for a healthcare design system, accessible from day one.</p>
+          <div class="shot"><img src="./assets/vitamin/components.webp" alt="" loading="lazy"></div>
+          <div class="card-foot"><span class="meta">2022 · 3 countries</span><span class="go back"><svg class="ico"><use href="#arrow"/></svg></span></div>
         </a>
-        <a class="c-next next" href="./case-cometa.html" style="--c:var(--l8)">
-          <img src="./assets/cometa/cover.webp" alt="" loading="lazy">
-          <div><small>Next · Motion Design</small><b>Cometa</b></div>
+        <a class="card c-lime" href="./case-cometa.html" data-cursor="View case">
+          <div class="card-top"><span>Motion Design</span><span>Next</span></div>
+          <h3>Cometa</h3>
+          <p>A presentation video for a platform that connects schools and parents in México.</p>
+          <div class="shot"><img src="./assets/cometa/cover.webp" alt="" loading="lazy"></div>
+          <div class="card-foot"><span class="meta">2023 · México</span><span class="go"><svg class="ico"><use href="#arrow"/></svg></span></div>
         </a>
       </div>
+      <div class="cta-row"><a class="pill ghost" href="./index.html#portfolio">All projects <span class="ring"><svg class="ico"><use href="#arrow"/></svg></span></a></div>
     </div>
-  </nav>
+  </section>
 </main>
 
-<footer class="footer">
+<footer class="footer compact">
   <div class="wrap">
-    <span>© 2026 Jordan Collao, made in Perú</span>
-    <nav aria-label="Elsewhere">
-      <a href="https://wa.me/51960280858">WhatsApp</a>
-      <a href="https://www.linkedin.com/in/jordancollao/">LinkedIn</a>
-      <a href="https://iconscout.com/contributors/jlossst">IconScout</a>
-      <a href="mailto:jmotionux@gmail.com">Email</a>
-    </nav>
+    <p class="word big">Make it <em>move.</em></p>
+    <div class="fcols">
+      <div><h4>Work</h4><a href="./case-tastemakers.html">TasteMakers</a><a href="./case-progresol.html">Progresol Plus</a><a href="./case-vitamin.html">Vitamin DS</a><a href="./index.html#portfolio">All projects</a></div>
+      <div><h4>Lab</h4><a href="./lab-motion-tokens.html">Motion Tokens</a><a href="./lab-image-compressor.html">Image Compressor</a><a href="./lab-audio-extractor.html">Audio Extractor</a></div>
+      <div><h4>Follow</h4><a href="https://www.linkedin.com/in/jordancollao/" target="_blank" rel="noopener">LinkedIn</a><a href="https://iconscout.com/contributors/jlossst" target="_blank" rel="noopener">IconScout</a><a href="https://github.com/JordanCollao" target="_blank" rel="noopener">GitHub</a></div>
+      <div><h4>Hello</h4><a href="mailto:jmotionux@gmail.com">jmotionux@gmail.com</a><a href="https://wa.me/51960280858" target="_blank" rel="noopener">WhatsApp</a></div>
+    </div>
+    <div class="legal mono"><span>© 2026 Jordan Collao</span><span>Made in Lima, Perú</span><span>Portfolio / Vol 04</span></div>
   </div>
 </footer>
 
-<script src="./assets/js/case.js" defer></script>
+<script src="./assets/js/site.js?v=2026100702" defer></script>
 </body>
 </html>
